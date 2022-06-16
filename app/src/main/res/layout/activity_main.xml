@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <include layout="@layout/navbar"/>
+
     <ImageView
         android:id="@+id/mainBanner"
         android:layout_width="413dp"
