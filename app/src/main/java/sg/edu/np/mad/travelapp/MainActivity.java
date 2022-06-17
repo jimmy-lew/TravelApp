@@ -1,9 +1,12 @@
 package sg.edu.np.mad.travelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +17,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //CardView favOutCardView = findViewById(R.id.favOutCardView);
+        //CardView favInCardView = findViewById(R.id.favInCardView);
+        //ImageView favIcon = findViewById(R.id.favIcon);
+        CardView homeOutCardView = findViewById(R.id.homeOutCardView);
+        CardView homeInCardView = findViewById(R.id.homeInCardView);
+        ImageView homeIcon = findViewById(R.id.homeIcon);
+        //CardView nearbyOutCardView = findViewById(R.id.nearbyOutCardView);
+        //CardView nearbyInCardView = findViewById(R.id.nearbyInCardView);
+        //ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
+
+        //TODO: Need add drop shadow for navbar
+        homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
+        homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
+        homeIcon.setImageResource(R.drawable.home_active);
+        //TODO: Not sure how to remove drop shadow for inactive
+
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -23,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //navbarUpdate(currentNav);
     }
 
 
@@ -48,4 +69,5 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
+
 }
