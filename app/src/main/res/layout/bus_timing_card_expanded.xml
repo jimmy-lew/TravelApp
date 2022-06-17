@@ -21,7 +21,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="311dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/locationTextView"
@@ -60,42 +60,61 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/busTimingRecyclerView"
-                android:layout_width="378dp"
-                android:layout_height="171dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="68dp"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="64dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/isFavouriteImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="332dp"
-                android:layout_marginTop="216dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/busTimingRefresh"
-                app:srcCompat="@drawable/favorite" />
 
             <ImageView
                 android:id="@+id/isLateImageView"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="19dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="9dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view"
                 app:srcCompat="@drawable/late" />
 
             <ImageView
                 android:id="@+id/isRainingImageView"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginBottom="19dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="9dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/isLateImageView"
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/raining" />
+
+            <ImageView
+                android:id="@+id/isFavouriteImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="9dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:srcCompat="@drawable/favorite" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="350dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/busTimingRecyclerView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
