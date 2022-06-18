@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemViewHolder> {
 
-    private Bus bus;
+    private ArrayList<Bus> busList;
 
-    public BusTimingItemAdapter(Bus bus){
-        this.bus = bus;
+    public BusTimingItemAdapter(ArrayList<Bus> busList){
+        this.busList = busList;
     }
 
     @NonNull
@@ -32,7 +33,8 @@ public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemView
 
     @Override
     public void onBindViewHolder(@NonNull BusTimingItemViewHolder holder, int position) {
-        holder.busTime.setText(bus.getTimings().get(position));
+        Bus bus = busList.get(position);
+        holder.busTime.setText(bus.getTiming());
 
         //TODO: Implement different bus type icons
     }

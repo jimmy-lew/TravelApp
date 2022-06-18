@@ -9,6 +9,8 @@ public class BusStop {
     public Double Longitude;
     public Double Latitude;
 
+    public ArrayList<Service> ServiceList;
+
     // ---- Getters & Setters ----
     public int getBusStopCode() {
         return BusStopCode;
@@ -50,12 +52,18 @@ public class BusStop {
         Latitude = latitude;
     }
 
-    public BusStop(int busStopCode, String roadName, String description, Double longitude, Double latitude) {
+    public ArrayList<Service> getServiceList() { return ServiceList; }
+
+    public void setServiceList(ArrayList<Service> serviceList) { ServiceList = serviceList; }
+
+    public BusStop(int busStopCode, String roadName, String description, Double longitude, Double latitude, ArrayList<Service> serviceList) {
         BusStopCode = busStopCode;
         RoadName = roadName;
         Description = description;
         Longitude = longitude;
         Latitude = latitude;
+
+        ServiceList = serviceList;
     }
 
     // --- Function to get nearby bus stops (Based on current GPS Position & Radius Range) ---

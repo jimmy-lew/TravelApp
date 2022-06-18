@@ -2,10 +2,10 @@ package sg.edu.np.mad.travelapp;
 
 import java.util.ArrayList;
 
-public class Bus {
+public class Bus extends Service{
     // Documentation : https://datamall.lta.gov.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf#page=12&zoom=100,92,134
 
-    public int ServiceNo;
+
 
     public String Type;         // Wheelchair accessible?
     public String BusType;
@@ -14,17 +14,9 @@ public class Bus {
     public double Latitude;
     public double Longitude;
 
-    public ArrayList<Integer> Timings;
+    public int Timing;
 
     // ---- Getters & Setters ----
-    public int getServiceNo() {
-        return ServiceNo;
-    }
-
-    public void setServiceNo(int serviceNo) {
-        ServiceNo = serviceNo;
-    }
-
     public String getType() {
         return Type;
     }
@@ -65,23 +57,23 @@ public class Bus {
         Longitude = longitude;
     }
 
-    public ArrayList<Integer> getTimings() {
-        return Timings;
+    public int getTiming() {
+        return Timing;
     }
 
-    public void setTimings(ArrayList<Integer> timings) {
-        Timings = timings;
+    public void setTiming(int timing) {
+        Timing = timing;
     }
 
     // --- Constructors ---
-    public Bus(int serviceNo, String type, String busType, String load, double latitude, double longitude, ArrayList<Integer> timings) {
-        ServiceNo = serviceNo;
+    public Bus(int serviceNo, String type, String busType, String load, double latitude, double longitude, int timing) {
+        super(serviceNo);
         Type = type;
         BusType = busType;
         Load = load;
         Latitude = latitude;
         Longitude = longitude;
-        Timings = timings;
+        Timing = timing;
     }
 
 }
