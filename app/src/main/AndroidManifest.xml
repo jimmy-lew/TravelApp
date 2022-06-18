@@ -13,6 +13,9 @@
             android:name=".ViewBusStops"
             android:exported="false" />
         <activity
+            android:name=".BusTimingCardActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
