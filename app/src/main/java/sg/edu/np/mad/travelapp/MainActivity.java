@@ -3,6 +3,7 @@ package sg.edu.np.mad.travelapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -25,13 +26,21 @@ public class MainActivity extends AppCompatActivity {
         ImageView homeIcon = findViewById(R.id.homeIcon);
         //CardView nearbyOutCardView = findViewById(R.id.nearbyOutCardView);
         //CardView nearbyInCardView = findViewById(R.id.nearbyInCardView);
-        //ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
+        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
 
         //TODO: Need add drop shadow for navbar
         homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeIcon.setImageResource(R.drawable.home_active);
         //TODO: Not sure how to remove drop shadow for inactive
+
+        nearbyIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
+                startActivity(ViewBusStops);
+            }
+        });
 
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
