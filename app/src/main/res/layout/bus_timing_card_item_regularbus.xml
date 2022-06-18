@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/regularBusImageView"
+        android:id="@+id/busImageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -24,5 +24,5 @@
         android:fontFamily="@font/poppins_bold"
         android:text="5 mins"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regularBusImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/busImageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

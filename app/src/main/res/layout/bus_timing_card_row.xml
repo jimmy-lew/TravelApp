@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/busTimingRowRecyclerView"
         android:layout_width="327dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
