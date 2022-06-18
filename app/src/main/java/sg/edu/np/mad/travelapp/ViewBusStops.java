@@ -47,10 +47,10 @@ public class ViewBusStops extends AppCompatActivity {
         Service service3 = new Service("307A", busList);
         serviceList.add(service3);
 
-        BusStop busStop = new BusStop(111111, "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
+        BusStop busStop = new BusStop("111111", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
         busStopList.add(busStop);
 
-        BusStop busStop2 = new BusStop(111111, "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
+        BusStop busStop2 = new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
         busStopList.add(busStop2);
 
         return busStopList;

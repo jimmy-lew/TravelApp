@@ -3,7 +3,7 @@ package sg.edu.np.mad.travelapp;
 import java.util.ArrayList;
 
 public class BusStop {
-    public int BusStopCode;
+    public String BusStopCode;
     public String RoadName;
     public String Description;
     public Double Longitude;
@@ -15,11 +15,11 @@ public class BusStop {
     public ArrayList<Service> ServiceList;
 
     // ---- Getters & Setters ----
-    public int getBusStopCode() {
+    public String getBusStopCode() {
         return BusStopCode;
     }
 
-    public void setBusStopCode(int busStopCode) {
+    public void setBusStopCode(String busStopCode) {
         BusStopCode = busStopCode;
     }
 
@@ -75,7 +75,7 @@ public class BusStop {
 
     public void setServiceList(ArrayList<Service> serviceList) { ServiceList = serviceList; }
 
-    public BusStop(int busStopCode, String roadName, String description, Double longitude, Double latitude, ArrayList<Service> serviceList) {
+    public BusStop(String busStopCode, String roadName, String description, Double longitude, Double latitude, ArrayList<Service> serviceList) {
         BusStopCode = busStopCode;
         RoadName = roadName;
         Description = description;
@@ -85,9 +85,10 @@ public class BusStop {
         ServiceList = serviceList;
     }
 
+
     // --- Function to get nearby bus stops (Based on current GPS Position & Radius Range) ---
     public ArrayList<BusStop> GetBusStops(double Longitude, double Latitude, ArrayList<BusStop> busStops, double Range) {
-        ArrayList<BusStop> nearStops = new ArrayList<BusStop>();
+        ArrayList<BusStop> nearStops = new ArrayList<>();
         for (BusStop b: busStops) {
             if(b.getLongitude() > Longitude - Range
                     &&
