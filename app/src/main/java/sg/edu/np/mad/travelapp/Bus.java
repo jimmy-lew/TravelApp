@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Bus extends Service{
     // Documentation : https://datamall.lta.gov.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf#page=12&zoom=100,92,134
 
-
-
     public String Type;         // Wheelchair accessible?
     public String BusType;
     public String Load;         // How crowded the bus is | (SEA(for Seats Available) ▪ SDA (for Standing Available)▪ LSD (for Limited Standing)

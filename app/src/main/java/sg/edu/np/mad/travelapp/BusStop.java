@@ -9,6 +9,9 @@ public class BusStop {
     public Double Longitude;
     public Double Latitude;
 
+    public boolean hasLateBus;
+    public boolean isRaining;
+
     public ArrayList<Service> ServiceList;
 
     // ---- Getters & Setters ----
@@ -50,6 +53,22 @@ public class BusStop {
 
     public void setLatitude(Double latitude) {
         Latitude = latitude;
+    }
+
+    public boolean isHasLateBus() {
+        return hasLateBus;
+    }
+
+    public void setHasLateBus(boolean hasLateBus) {
+        this.hasLateBus = hasLateBus;
+    }
+
+    public boolean isRaining() {
+        return isRaining;
+    }
+
+    public void setRaining(boolean raining) {
+        isRaining = raining;
     }
 
     public ArrayList<Service> getServiceList() { return ServiceList; }
