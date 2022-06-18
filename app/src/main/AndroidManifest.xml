@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
         <activity
+            android:name=".ViewBusStops"
+            android:exported="false" />
+        <activity
             android:name=".BusTimingCardActivity"
             android:exported="true" />
         <activity
