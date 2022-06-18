@@ -24,12 +24,10 @@ public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
 
     RecyclerView busRecycler;
 
-    OnRefreshHandler onRefreshHandler;
+//    OnRefreshHandler onRefreshHandler;
 
     public BusTimingCardViewHolder(@NonNull View itemView) {
         super(itemView);
-
-        rootView = (CardView) itemView;
 
         stopNameTextView = itemView.findViewById(R.id.locationTextView);
         stopIDTextView = itemView.findViewById(R.id.addressTextView);
@@ -41,22 +39,22 @@ public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
 
         busRecycler = itemView.findViewById(R.id.busTimingRecyclerView);
 
-        refreshImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onRefreshHandler != null) {
-                    onRefreshHandler.onRefresh();
-                }
-            }
-        });
+//        refreshImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (onRefreshHandler != null) {
+//                    onRefreshHandler.onRefresh();
+//                }
+//            }
+//        });
     }
 
-    public BusTimingCardViewHolder setRefreshHandler(OnRefreshHandler onRefreshHandler){
-        this.onRefreshHandler = onRefreshHandler;
-        return this;
-    }
-
-    public interface OnRefreshHandler {
-        void onRefresh();
-    }
+//    public BusTimingCardViewHolder setRefreshHandler(OnRefreshHandler onRefreshHandler){
+//        this.onRefreshHandler = onRefreshHandler;
+//        return this;
+//    }
+//
+//    public interface OnRefreshHandler {
+//        void onRefresh();
+//    }
 }
