@@ -23,7 +23,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/favouriteImgView"
+                android:id="@+id/favouriteImageView"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="72dp"

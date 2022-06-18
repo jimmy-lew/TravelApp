@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 
+
 public class BusTimingCardActivity extends AppCompatActivity {
     CardView cardView;
     Group hiddenGroup;
-    ImageView favouriteImgView;
+    ImageView favouriteImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +22,17 @@ public class BusTimingCardActivity extends AppCompatActivity {
         setContentView(R.layout.bus_timing_card);
         cardView = findViewById(R.id.busTimingCardView);
         hiddenGroup = findViewById(R.id.card_group);
-        favouriteImgView = findViewById(R.id.favouriteImgView);
+        favouriteImageView = findViewById(R.id.favouriteImageView);
 
         cardView.setOnClickListener(view -> {
             if (hiddenGroup.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                 hiddenGroup.setVisibility(View.GONE);
-                favouriteImgView.setVisibility(View.VISIBLE);
+                favouriteImageView.setVisibility(View.VISIBLE);
             } else {
                 TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                 hiddenGroup.setVisibility(View.VISIBLE);
-                favouriteImgView.setVisibility(View.GONE);
+                favouriteImageView.setVisibility(View.GONE);
             }
         });
 
