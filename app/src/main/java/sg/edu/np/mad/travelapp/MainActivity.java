@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -21,7 +20,6 @@ import java.util.Date;
 import java.util.jar.JarException;
 import java.util.Calendar;
 
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -31,6 +29,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private View decorView;
+    Weather weather = new Weather();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         homeIcon.setImageResource(R.drawable.home_active);
         //TODO: Not sure how to remove drop shadow for inactive
 
+        weather.checkWeatherStatus("10", "10");
         nearbyIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         // --- Get Bus Stops (BusStop API) ---
         BusStops("01319");
 
@@ -79,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         //navbarUpdate(currentNav);
     }
+
 
 
     // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----
