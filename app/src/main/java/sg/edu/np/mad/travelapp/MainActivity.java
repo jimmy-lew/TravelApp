@@ -15,9 +15,11 @@ import org.json.JSONException;
 import java.io.IOException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.jar.JarException;
+import java.util.Calendar;
 
 
 import okhttp3.Call;
@@ -192,6 +194,34 @@ public class MainActivity extends AppCompatActivity {
                                 double lat = Double.valueOf(latitude);
                                 double lon = Double.valueOf(longitude);
                                 Log.v(TAG, "busStopsResponse: " + "NextBus: " + NextBus);
+
+                                // ETA Calculator
+                                String[] etaSplit = eta.split("T");
+                                // 2017-04-29T07:20:24+08:00 > 2017-04-29, 07:20:24+08:00
+                                eta = etaSplit[1].substring(0, etaSplit[1].length() - 10);
+                                // 07:20:24+08:00 > 07:20
+                                Log.v(TAG, "busStopsResponse: " + "ETA: " + eta);
+
+                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                                try {
+                                    Date now = new Date();
+                                    String currentTime = sdf.format(now);
+                                    Date d1 = sdf.parse(currentTime);
+                                    Date d2 = sdf.parse(eta);
+
+                                    long elapsed = d2.getTime() - d1.getTime();
+
+                                    if(((elapsed/(1000*60)) % 60) < 2){
+                                        eta = "Arr";
+                                    }
+                                    else{
+                                        eta = ((elapsed/(1000*60)) % 60) + " min";
+                                    }
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
 
                                 Bus bus = new Bus(serviceNo,feature,busType,load,lat,lon,eta);
                                 busList.add(bus);
