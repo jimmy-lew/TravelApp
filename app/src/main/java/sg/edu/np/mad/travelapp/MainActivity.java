@@ -1,16 +1,17 @@
 package sg.edu.np.mad.travelapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 public class MainActivity extends AppCompatActivity {
 
     private View decorView;
+    Weather weather = new Weather();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         homeIcon.setImageResource(R.drawable.home_active);
         //TODO: Not sure how to remove drop shadow for inactive
 
+        weather.checkWeatherStatus("10", "10");
+
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -42,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //navbarUpdate(currentNav);
     }
+
 
 
     // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----
