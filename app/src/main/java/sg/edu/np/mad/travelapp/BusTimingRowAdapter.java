@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowViewHolder> {
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    private BusStop busStop;
+    private ArrayList<Service> serviceList;
 
-    public BusTimingRowAdapter(BusStop busStop){
-        this.busStop = busStop;
+    public BusTimingRowAdapter(ArrayList<Service> serviceList){
+        this.serviceList = serviceList;
     }
 
     @NonNull
@@ -34,7 +34,7 @@ public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowViewHo
 
     @Override
     public void onBindViewHolder(@NonNull BusTimingRowViewHolder holder, int position) {
-        Service service = busStop.ServiceList.get(position);
+        Service service = serviceList.get(position);
 
         holder.busNumber.setText(service.ServiceNo);
 
@@ -54,6 +54,6 @@ public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowViewHo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return serviceList.size();
     }
 }

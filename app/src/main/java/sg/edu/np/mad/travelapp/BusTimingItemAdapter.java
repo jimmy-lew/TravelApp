@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemViewHolder> {
@@ -23,7 +22,7 @@ public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemView
     public BusTimingItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.bus_timing_card_item_regularbus,
+                R.layout.bus_timing_card_item,
                 parent,
                 false
         );
@@ -41,6 +40,6 @@ public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemView
 
     @Override
     public int getItemCount() {
-        return 0;
+        return busList.size();
     }
 }
