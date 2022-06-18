@@ -1,5 +1,7 @@
 package sg.edu.np.mad.travelapp;
 
+import java.util.ArrayList;
+
 public class Bus {
     // Documentation : https://datamall.lta.gov.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf#page=12&zoom=100,92,134
 
@@ -12,6 +14,7 @@ public class Bus {
     public double Latitude;
     public double Longitude;
 
+    public ArrayList<Integer> Timings;
 
     // ---- Getters & Setters ----
     public int getServiceNo() {
@@ -62,14 +65,23 @@ public class Bus {
         Longitude = longitude;
     }
 
+    public ArrayList<Integer> getTimings() {
+        return Timings;
+    }
+
+    public void setTimings(ArrayList<Integer> timings) {
+        Timings = timings;
+    }
+
     // --- Constructors ---
-    public Bus(int serviceNo, String type, String busType, String load, double latitude, double longitude) {
+    public Bus(int serviceNo, String type, String busType, String load, double latitude, double longitude, ArrayList<Integer> timings) {
         ServiceNo = serviceNo;
         Type = type;
         BusType = busType;
         Load = load;
         Latitude = latitude;
         Longitude = longitude;
+        Timings = timings;
     }
 
 }
