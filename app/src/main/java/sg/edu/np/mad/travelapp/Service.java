@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 public class Service {
 
-    public int ServiceNo;
+    public String ServiceNo;
     public ArrayList<Bus> busList;
+
+    public Service(String serviceNo) {
+        ServiceNo = serviceNo;
+    }
 
     public ArrayList<Bus> getBusList() {
         return busList;
@@ -15,16 +19,17 @@ public class Service {
         this.busList = busList;
     }
 
-    public int getServiceNo() {
+    public String getServiceNo() {
         return ServiceNo;
     }
 
-    public void setServiceNo(int serviceNo) {
+    public void setServiceNo(String serviceNo) {
         ServiceNo = serviceNo;
     }
 
-    public Service(int serviceNo){
+    public Service(String serviceNo, ArrayList<Bus> busList){
         ServiceNo = serviceNo;
+        this.busList = busList;
     }
 
 }

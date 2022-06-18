@@ -12,7 +12,7 @@ public class Bus extends Service{
     public double Latitude;
     public double Longitude;
 
-    public int Timing;
+    public String Timing;
 
     // ---- Getters & Setters ----
     public String getType() {
@@ -55,16 +55,16 @@ public class Bus extends Service{
         Longitude = longitude;
     }
 
-    public int getTiming() {
+    public String getTiming() {
         return Timing;
     }
 
-    public void setTiming(int timing) {
+    public void setTiming(String timing) {
         Timing = timing;
     }
 
     // --- Constructors ---
-    public Bus(int serviceNo, String type, String busType, String load, double latitude, double longitude, int timing) {
+    public Bus(String serviceNo, String type, String busType, String load, double latitude, double longitude, String timing) {
         super(serviceNo);
         Type = type;
         BusType = busType;
@@ -73,5 +73,4 @@ public class Bus extends Service{
         Longitude = longitude;
         Timing = timing;
     }
-
 }
