@@ -12,7 +12,9 @@ public class User {
         this.ID = ID;
     }
 
-    // Constructor
+    // Constructor;
+    public User(){ }
+
     public User(String ID) {
         this.ID = ID;
     }
