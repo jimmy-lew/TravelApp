@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ViewBusStops">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/navbar" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="56dp"
@@ -20,7 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.cardview.widget.CardView
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -29,7 +24,6 @@
             app:cardCornerRadius="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <ImageView
                 android:id="@+id/mainProfilePic"
@@ -40,7 +34,8 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="360dp"
+        android:id="@+id/busStopRecycler"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/include"
@@ -49,5 +44,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
         app:layout_constraintVertical_bias="0.0" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/navbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
