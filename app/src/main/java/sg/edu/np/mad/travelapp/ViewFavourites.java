@@ -1,11 +1,19 @@
 package sg.edu.np.mad.travelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+
+import sg.edu.np.mad.travelapp.data.model.Bus;
+import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.Service;
 
 public class ViewFavourites extends AppCompatActivity {
     private final String TAG = "ViewFavouritespActivity";
@@ -16,11 +24,18 @@ public class ViewFavourites extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_favourites);
 
+        RecyclerView favouritesRecycler = findViewById(R.id.favouritesRecycler);
+
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
         ImageView favIcon = findViewById(R.id.favIcon);
 
         favIcon.setImageResource(R.drawable.favorite);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(getFavouritesList());
+        favouritesRecycler.setLayoutManager(layoutManager);
+        favouritesRecycler.setAdapter(busTimingCardAdapter);
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,5 +83,35 @@ public class ViewFavourites extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+    }
+
+    private ArrayList<BusStop> getFavouritesList() {
+        ArrayList<BusStop> busStopList = new ArrayList<>();
+        ArrayList<Service> serviceList = new ArrayList<>();
+        ArrayList<Bus> busList = new ArrayList<>();
+
+        Bus bus1 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "Arr");
+        busList.add(bus1);
+        Bus bus2 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "2 mins");
+        busList.add(bus2);
+        Bus bus3 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "12 mins");
+        busList.add(bus3);
+
+        Service service1 = new Service("307", busList);
+        serviceList.add(service1);
+
+        Service service2 = new Service("84", busList);
+        serviceList.add(service2);
+
+        Service service3 = new Service("307A", busList);
+        serviceList.add(service3);
+
+        BusStop busStop = new BusStop("111111", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
+        busStopList.add(busStop);
+
+        BusStop busStop2 = new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
+        busStopList.add(busStop2);
+
+        return busStopList;
     }
 }
