@@ -1,4 +1,4 @@
-package sg.edu.np.mad.travelapp;
+package sg.edu.np.mad.travelapp.data.model;
 
 public class User {
     public String ID;
