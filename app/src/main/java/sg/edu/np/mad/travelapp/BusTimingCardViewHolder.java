@@ -1,12 +1,15 @@
 package sg.edu.np.mad.travelapp;
 
 import android.media.Image;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
@@ -14,13 +17,10 @@ import org.w3c.dom.Text;
 public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
 
     CardView rootView;
-    TextView stopNameTextView;
-    TextView stopIDTextView;
 
-    ImageView lateImageView;
-    ImageView weatherImageView;
-    ImageView favouriteImageView;
-    ImageView refreshImageView;
+    TextView stopNameTextView, stopIDTextView;
+    ImageView lateImageView, weatherImageView, favouriteImageView1, favouriteImageView2, refreshImageView;
+    Group hiddenGroup;
 
     RecyclerView busRecycler;
 
@@ -34,9 +34,12 @@ public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
 
         lateImageView = itemView.findViewById(R.id.isLateImageView);
         weatherImageView = itemView.findViewById(R.id.isRainingImageView);
-        favouriteImageView = itemView.findViewById(R.id.isFavouriteImageView);
+        favouriteImageView1 = itemView.findViewById(R.id.isFavouriteImageView);
+        favouriteImageView2 = itemView.findViewById(R.id.favouriteImgView);
         refreshImageView = itemView.findViewById(R.id.busTimingRefresh);
 
+        rootView = itemView.findViewById(R.id.busTimingCardView);
+        hiddenGroup = itemView.findViewById(R.id.card_group);
         busRecycler = itemView.findViewById(R.id.busTimingRecyclerView);
 
 //        refreshImageView.setOnClickListener(new View.OnClickListener() {

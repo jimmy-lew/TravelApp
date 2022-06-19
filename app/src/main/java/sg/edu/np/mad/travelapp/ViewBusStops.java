@@ -11,6 +11,10 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import sg.edu.np.mad.travelapp.data.model.Bus;
+import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.Service;
+
 public class ViewBusStops extends AppCompatActivity {
 
     private final String TAG = "ViewBusStopActivity";
@@ -27,7 +31,6 @@ public class ViewBusStops extends AppCompatActivity {
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
         ImageView favIcon = findViewById(R.id.favIcon);
 
-        //Update nearbyIcon to active
         nearbyIcon.setImageResource(R.drawable.nearby_active);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -35,7 +38,6 @@ public class ViewBusStops extends AppCompatActivity {
         busStopRecycler.setLayoutManager(layoutManager);
         busStopRecycler.setAdapter(busTimingCardAdapter);
 
-        //Intent to MainActivity page
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +46,6 @@ public class ViewBusStops extends AppCompatActivity {
             }
         });
 
-        //Intent to ViewFavourites page
         favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +53,6 @@ public class ViewBusStops extends AppCompatActivity {
                 startActivity(ViewFavourites);
             }
         });
-
 
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
@@ -65,9 +65,6 @@ public class ViewBusStops extends AppCompatActivity {
         });
     }
 
-    // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----
-    // Documentation : https://developer.android.com/reference/android/app/Activity >> OnWindowFocusChanged ----
-    // Called when the activity gains or loses window focus, called true if focused.
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -78,7 +75,7 @@ public class ViewBusStops extends AppCompatActivity {
         }
     }
 
-    public int hideSystemBars(){
+    public int hideSystemBars() {
         // Use Bitwise Operators to combine the flags
         return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -109,10 +106,10 @@ public class ViewBusStops extends AppCompatActivity {
         Service service3 = new Service("307A", busList);
         serviceList.add(service3);
 
-        BusStop busStop = new BusStop(111111, "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
+        BusStop busStop = new BusStop("111111", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
         busStopList.add(busStop);
 
-        BusStop busStop2 = new BusStop(111111, "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
+        BusStop busStop2 = new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
         busStopList.add(busStop2);
 
         return busStopList;

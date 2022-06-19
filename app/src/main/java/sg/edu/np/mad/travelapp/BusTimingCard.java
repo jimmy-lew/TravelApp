@@ -2,6 +2,8 @@ package sg.edu.np.mad.travelapp;
 
 import java.util.ArrayList;
 
+import sg.edu.np.mad.travelapp.data.model.Bus;
+
 public class BusTimingCard {
     String stopName;
     String stopID;
