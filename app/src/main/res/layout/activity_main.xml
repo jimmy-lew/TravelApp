@@ -35,7 +35,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
-            android:background="#C83B3B"
             app:cardCornerRadius="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
