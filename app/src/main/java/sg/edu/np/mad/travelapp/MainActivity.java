@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         homeIcon.setImageResource(R.drawable.home_active);
         //TODO: Not sure how to remove drop shadow for inactive
 
-        weather.checkWeatherStatus("10", "10");
+        // weather.checkWeatherStatus("10", "10");
         nearbyIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

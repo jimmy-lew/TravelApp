@@ -1,18 +1,25 @@
 package sg.edu.np.mad.travelapp;
 
+import android.provider.ContactsContract;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.User;
 
 public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardViewHolder> {
 
@@ -39,7 +46,30 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     @Override
     public void onBindViewHolder(@NonNull BusTimingCardViewHolder holder, int position) {
         BusStop busStop = busStopList.get(position);
+        TextView busStopName = holder.stopNameTextView;
+        TextView busStopID = holder.stopIDTextView;
+        ImageView favouriteImageView = holder.favouriteImageView2;
 
+        // Create User object and favouritesList list
+        User user = new User();
+        ArrayList<String> favouritesList = new ArrayList<>();
+
+        // Add objects to favouritesList
+        favouritesList.add(busStop.RoadName);
+
+        // Connect to database
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference reff = db.getReference();
+
+
+        favouriteImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setUserID("2");
+                user.setFavouritesList(favouritesList);
+                reff.child("users").push().setValue(user);
+            }
+        });
         holder.rootView.setOnClickListener(view -> {
             if (holder.hiddenGroup.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(holder.rootView, new AutoTransition());
