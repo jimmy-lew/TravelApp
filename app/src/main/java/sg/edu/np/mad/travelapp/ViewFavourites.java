@@ -16,7 +16,7 @@ import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
 
 public class ViewFavourites extends AppCompatActivity {
-    private final String TAG = "ViewFavouritespActivity";
+    private final String TAG = "ViewFavouritesActivity";
     private View decorView;
 
     @Override

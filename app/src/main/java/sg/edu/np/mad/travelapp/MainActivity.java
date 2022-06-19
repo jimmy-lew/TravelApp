@@ -3,11 +3,9 @@ package sg.edu.np.mad.travelapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,22 +14,7 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.io.IOException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 import sg.edu.np.mad.travelapp.data.api.WeatherApi;
-import sg.edu.np.mad.travelapp.data.model.Bus;
-import sg.edu.np.mad.travelapp.data.repository.BusRepository;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,14 +26,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //CardView favOutCardView = findViewById(R.id.favOutCardView);
-        //CardView favInCardView = findViewById(R.id.favInCardView);
-        ImageView favIcon = findViewById(R.id.favIcon);
         CardView homeOutCardView = findViewById(R.id.homeOutCardView);
         CardView homeInCardView = findViewById(R.id.homeInCardView);
+
+        ImageView favIcon = findViewById(R.id.favIcon);
         ImageView homeIcon = findViewById(R.id.homeIcon);
-        //CardView nearbyOutCardView = findViewById(R.id.nearbyOutCardView);
-        //CardView nearbyInCardView = findViewById(R.id.nearbyInCardView);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
 
         //TODO: Need add drop shadow for navbar
@@ -96,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        BusRepository.get_instance().getServiceList("15201");
-
-        //navbarUpdate(currentNav);
     }
 
     // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----
