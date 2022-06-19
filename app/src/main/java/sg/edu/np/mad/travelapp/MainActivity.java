@@ -28,6 +28,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
 import sg.edu.np.mad.travelapp.data.api.WeatherApi;
 import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.repository.BusRepository;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         //CardView favOutCardView = findViewById(R.id.favOutCardView);
         //CardView favInCardView = findViewById(R.id.favInCardView);
-        //ImageView favIcon = findViewById(R.id.favIcon);
+        ImageView favIcon = findViewById(R.id.favIcon);
         CardView homeOutCardView = findViewById(R.id.homeOutCardView);
         CardView homeInCardView = findViewById(R.id.homeInCardView);
         ImageView homeIcon = findViewById(R.id.homeIcon);
@@ -62,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
                 startActivity(ViewBusStops);
+            }
+        });
+
+        favIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
+                startActivity(ViewFavourites);
             }
         });
 

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,8 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp"
         android:usesCleartextTraffic="true">
-        <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default-->
-
+        <activity
+            android:name=".ViewFavourites"
+            android:exported="false" />
+        <activity
+            android:name=".ViewBusStops"
+            android:exported="false" />
+        <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default -->
         <activity
             android:name=".ViewBusStops"
             android:exported="false" />
