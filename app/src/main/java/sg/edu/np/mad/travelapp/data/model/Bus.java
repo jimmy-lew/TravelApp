@@ -1,6 +1,4 @@
-package sg.edu.np.mad.travelapp;
-
-import java.util.ArrayList;
+package sg.edu.np.mad.travelapp.data.model;
 
 public class Bus extends Service{
     // Documentation : https://datamall.lta.gov.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf#page=12&zoom=100,92,134

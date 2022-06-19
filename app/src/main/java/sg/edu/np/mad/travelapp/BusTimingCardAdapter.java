@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import sg.edu.np.mad.travelapp.data.model.BusStop;
+
 public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardViewHolder> {
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();

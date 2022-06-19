@@ -17,14 +17,13 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.jar.JarException;
-import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import sg.edu.np.mad.travelapp.data.model.Bus;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -74,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         BusStops("01319");
 
         // --- Get Busses Arrival at Bus Stop (Bus Arrival API) ---
-        BusArrival("01319");
+        ArrayList<Bus> busList = BusArrival("01319");
+
 
         //navbarUpdate(currentNav);
     }
@@ -144,12 +144,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void BusArrival(String query){
+    public ArrayList<Bus> BusArrival(String query){
+        ArrayList<Bus> busList = new ArrayList<>();
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=" + query)
                 .header("AccountKey", "RdoZ93saQ32Ts1JcHbFegg==")
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -161,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     try {
-                        ArrayList<Bus> busList = new ArrayList<>();
                         JSONObject busStopsResponse = new JSONObject(response.body().string());
 
                         // --- Extract Bus Info | IF THERE ARE STILL BUS SERVICES (NO BUSES PAST 12, sad D: )----
@@ -170,12 +171,7 @@ public class MainActivity extends AppCompatActivity {
                             for(int i=0; i < 3; i++)
                             {
                                 String NextBus;
-                                if (i == 0){
-                                    NextBus = "NextBus";
-                                }
-                                else{
-                                    NextBus = "NextBus" + (i+1);
-                                }
+                                NextBus = i == 0 ? "NextBus" : String.format("NextBus%s", (i+1));
 
                                 String feature = String.valueOf(busStopsResponse.getJSONArray("Services").getJSONObject(0).getJSONObject(NextBus).get("Feature"));
                                 String busType = String.valueOf(busStopsResponse.getJSONArray("Services").getJSONObject(0).getJSONObject(NextBus).get("Type"));
@@ -193,14 +189,12 @@ public class MainActivity extends AppCompatActivity {
                                 // Convert Latitude and Longitude to Double
                                 double lat = Double.valueOf(latitude);
                                 double lon = Double.valueOf(longitude);
-                                Log.v(TAG, "busStopsResponse: " + "NextBus: " + NextBus);
 
                                 // ETA Calculator
-                                String[] etaSplit = eta.split("T");
+                                String etaSplit = eta.split("T")[1];
                                 // 2017-04-29T07:20:24+08:00 > 2017-04-29, 07:20:24+08:00
-                                eta = etaSplit[1].substring(0, etaSplit[1].length() - 10);
+                                eta = etaSplit.substring(0, etaSplit.length() - 9);
                                 // 07:20:24+08:00 > 07:20
-                                Log.v(TAG, "busStopsResponse: " + "ETA: " + eta);
 
                                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                                 try {
@@ -208,21 +202,16 @@ public class MainActivity extends AppCompatActivity {
                                     String currentTime = sdf.format(now);
                                     Date d1 = sdf.parse(currentTime);
                                     Date d2 = sdf.parse(eta);
-
                                     long elapsed = d2.getTime() - d1.getTime();
+                                    long timeInMinutes = ((elapsed/(1000*60)) % 60);
 
-                                    if(((elapsed/(1000*60)) % 60) < 2){
-                                        eta = "Arr";
-                                    }
-                                    else{
-                                        eta = ((elapsed/(1000*60)) % 60) + " min";
-                                    }
+                                    eta = timeInMinutes < 2 ? "Arr" : String.format("%s mins", timeInMinutes);
                                 }
                                 catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
-
+                                Log.v(TAG, "busStopsResponse: " + "ETA: " + eta);
                                 Bus bus = new Bus(serviceNo,feature,busType,load,lat,lon,eta);
                                 busList.add(bus);
                             }
@@ -238,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        return busList;
     }
 
 }

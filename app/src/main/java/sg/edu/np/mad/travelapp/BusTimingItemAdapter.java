@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import sg.edu.np.mad.travelapp.data.model.Bus;
+
 public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemViewHolder> {
 
     private ArrayList<Bus> busList;
