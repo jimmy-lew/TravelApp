@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -25,10 +27,32 @@ public class ViewBusStops extends AppCompatActivity {
 
         RecyclerView busStopRecycler = findViewById(R.id.busStopRecycler);
 
+        ImageView homeIcon = findViewById(R.id.homeIcon);
+        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
+        ImageView favIcon = findViewById(R.id.favIcon);
+
+        nearbyIcon.setImageResource(R.drawable.nearby_active);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(getBusStopList());
         busStopRecycler.setLayoutManager(layoutManager);
         busStopRecycler.setAdapter(busTimingCardAdapter);
+
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(MainActivity);
+            }
+        });
+
+        favIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
+                startActivity(ViewFavourites);
+            }
+        });
 
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
