@@ -46,28 +46,36 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     @Override
     public void onBindViewHolder(@NonNull BusTimingCardViewHolder holder, int position) {
         BusStop busStop = busStopList.get(position);
-        TextView busStopName = holder.stopNameTextView;
-        TextView busStopID = holder.stopIDTextView;
-        ImageView favouriteImageView = holder.favouriteImageView2;
+
 
         // Create User object and favouritesList list
         User user = new User();
         ArrayList<String> favouritesList = new ArrayList<>();
 
-        // Add objects to favouritesList
-        favouritesList.add(busStop.RoadName);
-
         // Connect to database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference reff = db.getReference();
 
-
-        favouriteImageView.setOnClickListener(new View.OnClickListener() {
+        // Sends userid and favourite stop codes when favourite img is clicked
+        holder.favouriteImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setUserID("2");
+                // user already favourited it
+                if (favouritesList.contains(busStop.BusStopCode)) {
+                    holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
+                    favouritesList.remove(busStop.BusStopCode);
+                    user.setUserID("1");
+                    user.setFavouritesList(favouritesList);
+                }
+                // user has not favourited it
+                else {
+                    holder.favouriteImageView2.setImageResource(R.drawable.favorite);
+                    favouritesList.add(busStop.BusStopCode);
+                    user.setUserID("2");
+                    user.setFavouritesList(favouritesList);
+                }
                 user.setFavouritesList(favouritesList);
-                reff.child("users").push().setValue(user);
+                reff.child("users").setValue(user);
             }
         });
         holder.rootView.setOnClickListener(view -> {
