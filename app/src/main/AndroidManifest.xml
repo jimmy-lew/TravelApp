@@ -22,9 +22,6 @@
             android:exported="false" />
         <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default -->
         <activity
-            android:name=".ViewBusStops"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

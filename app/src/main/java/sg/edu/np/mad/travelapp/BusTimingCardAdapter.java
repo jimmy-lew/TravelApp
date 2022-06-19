@@ -2,6 +2,7 @@ package sg.edu.np.mad.travelapp;
 
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,17 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     public void onBindViewHolder(@NonNull BusTimingCardViewHolder holder, int position) {
         BusStop busStop = busStopList.get(position);
 
+
+        String debug = String.format("Name: %s \nCode: %s\nServiceList: ", busStop.getBusStopName(), busStop.getBusStopCode());
+        for (int i = 0; i < busStop.getServiceList().size(); i++){
+            debug = String.format("%s %s", debug, busStop.getServiceList().get(i).ServiceNo);
+        }
+
+        Log.v("CardAdapter", debug);
+
+        holder.stopNameTextView.setText(busStop.getBusStopName());
+        holder.stopIDTextView.setText(busStop.getBusStopCode());
+
         holder.rootView.setOnClickListener(view -> {
             if (holder.hiddenGroup.getVisibility() == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(holder.rootView, new AutoTransition());
@@ -58,7 +70,7 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
                 false
         );
 
-        layoutManager.setInitialPrefetchItemCount(busStopList.size());
+        layoutManager.setInitialPrefetchItemCount(busStop.getServiceList().size());
 
         BusTimingRowAdapter busTimingRowAdapter = new BusTimingRowAdapter(busStop.getServiceList());
         holder.busRecycler.setLayoutManager(layoutManager);

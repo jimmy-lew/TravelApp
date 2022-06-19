@@ -9,15 +9,15 @@
         android:id="@+id/busTimingRowRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="86dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/incomingBusNumber"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/incomingBusNumber"
-        android:layout_width="86dp"
+        android:layout_width="72dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginLeft="8dp"
         android:fontFamily="@font/poppins_bold"
         android:text="302A"
         android:textAlignment="center"

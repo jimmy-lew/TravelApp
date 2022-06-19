@@ -1,6 +1,7 @@
 package sg.edu.np.mad.travelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         CardView homeOutCardView = findViewById(R.id.homeOutCardView);
         CardView homeInCardView = findViewById(R.id.homeInCardView);
@@ -63,18 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        new WeatherApi().getWeatherConditions("10", "10");
-
-        Location location = new Location("");
-        location.setLatitude(1.3918577281406086);
-        location.setLongitude(103.75166620390048);
-
-        try {
-            BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
     }
 
