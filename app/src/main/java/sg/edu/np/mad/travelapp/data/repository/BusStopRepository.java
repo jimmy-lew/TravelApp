@@ -28,9 +28,10 @@ import sg.edu.np.mad.travelapp.data.model.BusStop;
 public class BusStopRepository {
 
     private static BusStopRepository _instance = null;
-    private ArrayList<BusStop> busStopList = new ArrayList<>();
+    public ArrayList<BusStop> busStopList = new ArrayList<>();
     private JSONArray busStopJson;
     private final OkHttpClient client = new OkHttpClient();
+    public boolean isResponseFulfilled = false;
 
     private final String TAG = "BusStopRepo";
 
@@ -42,19 +43,18 @@ public class BusStopRepository {
         return _instance == null ? _instance = new BusStopRepository(context) : _instance;
     }
 
-    public void findNearbyBusStops(Location location) throws JSONException {
+    public ArrayList<BusStop> findNearbyBusStops(Location location) throws JSONException {
         Request request = new Request.Builder()
                 .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=bus+stop&location=" + location.getLatitude() +"%2C" + location.getLongitude() + "&radius=1500&type=bus_station&key=AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+        @Override
+        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+        }
 
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+        @Override
+        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
 
                     ArrayList<BusStop> newBusStopList = new ArrayList<>();
@@ -71,10 +71,13 @@ public class BusStopRepository {
                             String lat =  String.valueOf(latlng.get("lat"));
                             String lng = String.valueOf(latlng.get("lng"));
 
-                            Log.v(TAG, stopName);
+//                            Log.v(TAG, stopName);
 
                             newBusStopList.add(getBusStopFromName(new BusStop(stopName, Double.valueOf(lat), Double.valueOf(lng))));
                         }
+
+                        busStopList = newBusStopList;
+                        isResponseFulfilled = true;
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -82,6 +85,8 @@ public class BusStopRepository {
                 }
             }
         });
+
+        return busStopList;
     }
 
     private BusStop getBusStopFromName(BusStop busStop) throws JSONException {
@@ -89,14 +94,15 @@ public class BusStopRepository {
             JSONObject busStopObject = busStopJson.getJSONObject(i);
             String busStopName = (String) busStopObject.get("name");
 
-            Log.v(TAG, String.format("CachedStop: %s | GivenStop: %s | Match: %s", busStopName, busStop.getBusStopName(),busStopName.matches(busStop.getBusStopName())));
+//            Log.v(TAG, String.format("CachedStop: %s | GivenStop: %s | Match: %s", busStopName, busStop.getBusStopName(),busStopName.matches(busStop.getBusStopName())));
 
             if (busStopName.matches(busStop.getBusStopName())){
-                Log.v("Matching Stop", busStop.getBusStopName());
                 busStop.setBusStopCode((String) busStopObject.get("number"));
                 busStop.setServiceList(BusRepository.get_instance().getServiceList(busStop.getBusStopCode()));
             }
         }
+
+//        Log.v("Matching Stop", String.format("%s | Code: %s", busStop.getBusStopName(), busStop.getBusStopCode()));
 
         return busStop;
     }

@@ -1,25 +1,43 @@
 package sg.edu.np.mad.travelapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
+import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
-public class ViewBusStops extends AppCompatActivity {
+public class ViewBusStops extends AppCompatActivity implements LocationListener {
 
     private final String TAG = "ViewBusStopActivity";
     private View decorView;
+    private ArrayList<BusStop> data = new ArrayList<>();
 
+    private LocationManager locationManager;
+
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +51,38 @@ public class ViewBusStops extends AppCompatActivity {
 
         nearbyIcon.setImageResource(R.drawable.nearby_active);
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+//        Location location = new Location("");
+//        location.setLatitude(1.3918577281406086);
+//        location.setLongitude(103.75166620390048);
+//        data = getBusStopList();
+
+        try {
+            int i = 0;
+
+            while(i < 15){
+                data = BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location);
+                if(BusStopRepository.get_instance(getApplicationContext()).isResponseFulfilled){
+                    break;
+                }
+                else{
+                    TimeUnit.SECONDS.sleep(1);
+                    ++i;
+                    if(i == 15){
+                    }
+                }
+            }
+
+        } catch (JSONException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(getBusStopList());
+        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(data);
         busStopRecycler.setLayoutManager(layoutManager);
         busStopRecycler.setAdapter(busTimingCardAdapter);
 
@@ -90,28 +138,40 @@ public class ViewBusStops extends AppCompatActivity {
         ArrayList<Service> serviceList = new ArrayList<>();
         ArrayList<Bus> busList = new ArrayList<>();
 
-        Bus bus1 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "Arr");
-        busList.add(bus1);
-        Bus bus2 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "2 mins");
-        busList.add(bus2);
-        Bus bus3 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "12 mins");
-        busList.add(bus3);
+        busList.add(new Bus("307", "WAB", "SB", "SDA", 1, 1, "Arr"));
+        busList.add(new Bus("307", "WAB", "SB", "SDA", 1, 1, "2 mins"));
 
-        Service service1 = new Service("307", busList);
-        serviceList.add(service1);
+        serviceList.add(new Service("307", busList));
+        serviceList.add(new Service("84", busList));
 
-        Service service2 = new Service("84", busList);
-        serviceList.add(service2);
-
-        Service service3 = new Service("307A", busList);
-        serviceList.add(service3);
-
-        BusStop busStop = new BusStop("111111", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
+        BusStop busStop = new BusStop("11100", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
+        busStop.setBusStopName("1");
         busStopList.add(busStop);
 
+        serviceList = new ArrayList<>();
+        serviceList.add(new Service("307A", busList));
+
         BusStop busStop2 = new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
+        busStop2.setBusStopName("2");
         busStopList.add(busStop2);
+        busStopList.add(new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList));
 
         return busStopList;
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        if (location != null) {
+            Log.v("Location Changed", location.getLatitude() + " and " + location.getLongitude());
+            locationManager.removeUpdates(this);
+        }
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
     }
 }

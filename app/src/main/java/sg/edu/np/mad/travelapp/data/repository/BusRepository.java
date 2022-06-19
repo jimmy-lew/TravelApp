@@ -60,23 +60,22 @@ public class BusRepository {
                 if (response.isSuccessful()) {
                     try {
                         JSONObject busStopsResponse = new JSONObject(response.body().string());
+                        JSONArray services = busStopsResponse.getJSONArray("Services");
+                        ArrayList<Bus> newBusList = new ArrayList<>();
+                        ArrayList<Service> newServiceList = new ArrayList<>();
 
                         // --- Extract Bus Info | IF THERE ARE STILL BUS SERVICES (NO BUSES PAST 12, sad D: )----
-                        if(Integer.valueOf(busStopsResponse.getJSONArray("Services").length()) > 0){
-                            ArrayList<Service> newServiceList = new ArrayList<>();
-                            JSONArray services = busStopsResponse.getJSONArray("Services");
-
+                        if(services.length() > 0){
                             for(int i = 0; i < services.length(); i++){
                                 String serviceNo = (String) services.getJSONObject(i).get("ServiceNo");
+                                newServiceList = new ArrayList<>();
                                 JSONObject serviceObject = services.getJSONObject(i);
-                                ArrayList<Bus> newBusList = new ArrayList<>();
 
-                                for(int j = 0; j < 3; j++)
-                                {
+                                for(int j = 0; j < 3; j++){
 
+                                    newBusList = new ArrayList<>();
                                     String NextBus;
                                     NextBus = j == 0 ? "NextBus" : String.format("NextBus%s", (j+1));
-
                                     String feature = (String) serviceObject.getJSONObject(NextBus).get("Feature");
                                     String busType = (String) serviceObject.getJSONObject(NextBus).get("Type");
                                     String load = (String) serviceObject.getJSONObject(NextBus).get("Load");
@@ -116,19 +115,18 @@ public class BusRepository {
                                             e.printStackTrace();
                                         }
 
-                                        Log.v(TAG, String.format("%s | ETA: %s", busStopCode, eta));
+                                        Log.v(TAG, String.format("%s | ServiceNo: %s", busStopCode, serviceNo));
 
                                         Bus bus = new Bus(serviceNo,feature,busType,load,lat,lon,eta);
                                         newBusList.add(bus);
                                     }
                                 }
-
                                 newServiceList.add(new Service(serviceNo, newBusList));
                             }
-
                             serviceList = newServiceList;
                         }
                         else{
+
                         }
                     } catch (JSONException e) {
                         // ERROR
