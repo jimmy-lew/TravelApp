@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import sg.edu.np.mad.travelapp.data.model.Bus;
+
 public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemViewHolder> {
 
     private ArrayList<Bus> busList;
@@ -33,7 +35,7 @@ public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemView
     @Override
     public void onBindViewHolder(@NonNull BusTimingItemViewHolder holder, int position) {
         Bus bus = busList.get(position);
-        holder.busTime.setText(bus.getTiming());
+        holder.busTime.setText(bus.getEstimatedArrival());
 
         //TODO: Implement different bus type icons
     }
