@@ -64,16 +64,15 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
                 if (favouritesList.contains(busStop.BusStopCode)) {
                     holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
                     favouritesList.remove(busStop.BusStopCode);
-                    user.setUserID("1");
                     user.setFavouritesList(favouritesList);
                 }
                 // user has not favourited it
                 else {
                     holder.favouriteImageView2.setImageResource(R.drawable.favorite);
                     favouritesList.add(busStop.BusStopCode);
-                    user.setUserID("2");
                     user.setFavouritesList(favouritesList);
                 }
+                user.setUserID("1");
                 user.setFavouritesList(favouritesList);
                 reff.child("users").setValue(user);
             }

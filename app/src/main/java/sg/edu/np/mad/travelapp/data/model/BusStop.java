@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class BusStop {
     public String BusStopCode;
+    public String BusStopName;
     public String RoadName;
     public String Description;
     public Double Longitude;
@@ -75,6 +76,14 @@ public class BusStop {
 
     public void setServiceList(ArrayList<Service> serviceList) { ServiceList = serviceList; }
 
+    public String getBusStopName() {
+        return BusStopName;
+    }
+
+    public void setBusStopName(String busStopName) {
+        BusStopName = busStopName;
+    }
+
     public BusStop(String busStopCode, String roadName, String description, Double longitude, Double latitude, ArrayList<Service> serviceList) {
         BusStopCode = busStopCode;
         RoadName = roadName;
@@ -85,6 +94,11 @@ public class BusStop {
         ServiceList = serviceList;
     }
 
+    public BusStop(String busStopName, Double latitude, Double longitude){
+        BusStopName = busStopName;
+        Latitude = latitude;
+        Longitude = longitude;
+    }
 
     // --- Function to get nearby bus stops (Based on current GPS Position & Radius Range) ---
     public ArrayList<BusStop> GetBusStops(double Longitude, double Latitude, ArrayList<BusStop> busStops, double Range) {

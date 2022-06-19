@@ -7,7 +7,7 @@ public class User {
     private String UserID;
     private ArrayList<String> FavouritesList;
 
-    // Constructor;
+    // Constructor
     public User(){ }
 
     public User(String userID, ArrayList<String> favouritesList) {

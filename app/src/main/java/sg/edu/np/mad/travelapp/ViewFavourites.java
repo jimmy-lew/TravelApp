@@ -15,28 +15,27 @@ import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
 
-public class ViewBusStops extends AppCompatActivity {
-
-    private final String TAG = "ViewBusStopActivity";
+public class ViewFavourites extends AppCompatActivity {
+    private final String TAG = "ViewFavouritesActivity";
     private View decorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_bus_stops);
+        setContentView(R.layout.activity_view_favourites);
 
-        RecyclerView busStopRecycler = findViewById(R.id.favouritesRecycler);
+        RecyclerView favouritesRecycler = findViewById(R.id.favouritesRecycler);
 
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
         ImageView favIcon = findViewById(R.id.favIcon);
 
-        nearbyIcon.setImageResource(R.drawable.nearby_active);
+        favIcon.setImageResource(R.drawable.favorite);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(getBusStopList());
-        busStopRecycler.setLayoutManager(layoutManager);
-        busStopRecycler.setAdapter(busTimingCardAdapter);
+        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(getFavouritesList());
+        favouritesRecycler.setLayoutManager(layoutManager);
+        favouritesRecycler.setAdapter(busTimingCardAdapter);
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,11 +45,11 @@ public class ViewBusStops extends AppCompatActivity {
             }
         });
 
-        favIcon.setOnClickListener(new View.OnClickListener() {
+        nearbyIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-                startActivity(ViewFavourites);
+                Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
+                startActivity(ViewBusStops);
             }
         });
 
@@ -75,7 +74,7 @@ public class ViewBusStops extends AppCompatActivity {
         }
     }
 
-    public int hideSystemBars() {
+    public int hideSystemBars(){
         // Use Bitwise Operators to combine the flags
         return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -85,7 +84,7 @@ public class ViewBusStops extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
 
-    private ArrayList<BusStop> getBusStopList() {
+    private ArrayList<BusStop> getFavouritesList() {
         ArrayList<BusStop> busStopList = new ArrayList<>();
         ArrayList<Service> serviceList = new ArrayList<>();
         ArrayList<Bus> busList = new ArrayList<>();
