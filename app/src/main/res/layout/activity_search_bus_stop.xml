@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewBusStops">
+    tools:context=".SearchBusStop">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:layout_marginBottom="96dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/nearbyBusRecycler"
+            android:id="@+id/searchedBusRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
