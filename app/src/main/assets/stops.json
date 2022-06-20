@@ -77,9 +77,6 @@
     "number": "10141",
     "name": "Blk 18"
 }, {
-    "number": "10149",
-    "name": "Blk 1"
-}, {
     "number": "10151",
     "name": "Ctrl Green Condo"
 }, {
@@ -244,9 +241,6 @@
 }, {
     "number": "10459",
     "name": "Blk 72"
-}, {
-    "number": "10461",
-    "name": "Aft Margaret Dr"
 }, {
     "number": "10469",
     "name": "Bef Margaret Dr"
@@ -512,15 +506,6 @@
     "number": "11449",
     "name": "Blk 37B"
 }, {
-    "number": "11451",
-    "name": "Blk 72"
-}, {
-    "number": "11459",
-    "name": "Blk 50"
-}, {
-    "number": "11469",
-    "name": "Queensway Sec Sch"
-}, {
     "number": "11471",
     "name": "Opp The Fisherman Ch"
 }, {
@@ -562,9 +547,6 @@
 }, {
     "number": "11551",
     "name": "Tiong Ghee Tp"
-}, {
-    "number": "11561",
-    "name": "Blk 166"
 }, {
     "number": "11579",
     "name": "Blk 158"
@@ -608,12 +590,6 @@
     "number": "12069",
     "name": "Opp Blk 109A"
 }, {
-    "number": "12071",
-    "name": "Blk 116"
-}, {
-    "number": "12079",
-    "name": "Opp Blk 116"
-}, {
     "number": "12081",
     "name": "Maju Camp"
 }, {
@@ -640,9 +616,6 @@
 }, {
     "number": "12121",
     "name": "Blk 7"
-}, {
-    "number": "12129",
-    "name": "Blk 3"
 }, {
     "number": "12131",
     "name": "Aft Grove Ave"
@@ -746,9 +719,6 @@
     "number": "13119",
     "name": "Opp Great World City"
 }, {
-    "number": "13121",
-    "name": "Opp Great World City"
-}, {
     "number": "13139",
     "name": "The Trillium"
 }, {
@@ -808,9 +778,6 @@
 }, {
     "number": "14039",
     "name": "Opp St. Theresa's Convent"
-}, {
-    "number": "14041",
-    "name": "Blk 54"
 }, {
     "number": "14049",
     "name": "Opp Blk 55"
@@ -914,9 +881,6 @@
     "number": "14241",
     "name": "Opp Blk 1"
 }, {
-    "number": "14249",
-    "name": "Blk 1"
-}, {
     "number": "14259",
     "name": "Blk 11"
 }, {
@@ -962,17 +926,11 @@
     "number": "14351",
     "name": "Aft Blk 48"
 }, {
-    "number": "14359",
-    "name": "Blk 50"
-}, {
     "number": "14369",
     "name": "The Interlace"
 }, {
     "number": "14379",
     "name": "Blk 40"
-}, {
-    "number": "14381",
-    "name": "Blk 109"
 }, {
     "number": "14389",
     "name": "Opp Blk 109"
@@ -1235,12 +1193,6 @@
     "number": "16219",
     "name": "Opp Wharves Bldg"
 }, {
-    "number": "16221",
-    "name": "Opp Haw Par Villa Stn"
-}, {
-    "number": "16229",
-    "name": "Haw Par Villa Stn"
-}, {
     "number": "16231",
     "name": "Wholesale Ctr"
 }, {
@@ -1439,20 +1391,11 @@
     "number": "17339",
     "name": "Blk 518"
 }, {
-    "number": "17351",
-    "name": "Aft Clementi Rd"
-}, {
-    "number": "17359",
-    "name": "Bef Clementi Rd"
-}, {
     "number": "17361",
     "name": "Opp West Coast Link"
 }, {
     "number": "17369",
     "name": "Aft West Coast Link"
-}, {
-    "number": "17371",
-    "name": "Blk 201"
 }, {
     "number": "17379",
     "name": "Blk 304"
@@ -1489,9 +1432,6 @@
 }, {
     "number": "18061",
     "name": "Blk 71"
-}, {
-    "number": "18069",
-    "name": "Opp Blk 71"
 }, {
     "number": "18071",
     "name": "NUH"
@@ -1565,12 +1505,6 @@
     "number": "18211",
     "name": "Infinite Studios"
 }, {
-    "number": "18221",
-    "name": "NUH"
-}, {
-    "number": "18239",
-    "name": "Opp NUH"
-}, {
     "number": "18241",
     "name": "Opp Dnv Gl Technology Ctr"
 }, {
@@ -1585,12 +1519,6 @@
 }, {
     "number": "18269",
     "name": "Bef Reuters"
-}, {
-    "number": "18271",
-    "name": "Blk 85"
-}, {
-    "number": "18279",
-    "name": "Opp Blk 85"
 }, {
     "number": "18281",
     "name": "The Rutherford"
@@ -1624,9 +1552,6 @@
 }, {
     "number": "19011",
     "name": "Blk 19A CP"
-}, {
-    "number": "19019",
-    "name": "Blk 27"
 }, {
     "number": "19021",
     "name": "SP SMA"
@@ -1763,17 +1688,8 @@
     "number": "20191",
     "name": "Blk 407"
 }, {
-    "number": "20199",
-    "name": "Blk 410"
-}, {
     "number": "20201",
     "name": "Teban Gdn PO"
-}, {
-    "number": "20209",
-    "name": "Bef Jurong Town Hall Rd"
-}, {
-    "number": "20211",
-    "name": "Blk 41"
 }, {
     "number": "20219",
     "name": "Opp Blk 41"
@@ -1786,9 +1702,6 @@
 }, {
     "number": "20241",
     "name": "Opp Blk 54"
-}, {
-    "number": "20249",
-    "name": "Blk 54"
 }, {
     "number": "20251",
     "name": "Bef Teban Gdns Rd"
@@ -1886,9 +1799,6 @@
     "number": "21129",
     "name": "Opp SPC Svc Stn"
 }, {
-    "number": "21131",
-    "name": "Bef Jurong Port Rd"
-}, {
     "number": "21139",
     "name": "Aft Jurong Port Rd"
 }, {
@@ -1919,9 +1829,6 @@
     "number": "21181",
     "name": "Opp Blk 161"
 }, {
-    "number": "21189",
-    "name": "Blk 161"
-}, {
     "number": "21191",
     "name": "Opp Blk 178"
 }, {
@@ -1942,9 +1849,6 @@
 }, {
     "number": "21229",
     "name": "Opp S'Pore A'Space Mfg"
-}, {
-    "number": "21231",
-    "name": "Blk 203"
 }, {
     "number": "21239",
     "name": "Opp Blk 203"
@@ -1972,12 +1876,6 @@
 }, {
     "number": "21279",
     "name": "Assyakirin Mque"
-}, {
-    "number": "21291",
-    "name": "Aft Jln Buroh"
-}, {
-    "number": "21299",
-    "name": "Bef Jln Buroh"
 }, {
     "number": "21301",
     "name": "Opp Jln Pesawat"
@@ -2090,9 +1988,6 @@
     "number": "21489",
     "name": "Opp Grundfos"
 }, {
-    "number": "21491",
-    "name": "Bef Boon Lay Way"
-}, {
     "number": "21499",
     "name": "Bef Jln Tukang"
 }, {
@@ -2132,9 +2027,6 @@
     "number": "21559",
     "name": "CISCO Recall"
 }, {
-    "number": "21561",
-    "name": "Blk 158"
-}, {
     "number": "21569",
     "name": "Opp Blk 158"
 }, {
@@ -2171,9 +2063,6 @@
     "number": "21621",
     "name": "Blk 354"
 }, {
-    "number": "21629",
-    "name": "Blk 334"
-}, {
     "number": "21631",
     "name": "Blk 115/Opp Japanese Gdn"
 }, {
@@ -2201,9 +2090,6 @@
     "number": "21671",
     "name": "Blk 331"
 }, {
-    "number": "21679",
-    "name": "Blk 329"
-}, {
     "number": "21681",
     "name": "Opp Blk 200"
 }, {
@@ -2222,12 +2108,6 @@
     "number": "21719",
     "name": "Opp Blk 529"
 }, {
-    "number": "21751",
-    "name": "Jurong Sec Sch"
-}, {
-    "number": "21759",
-    "name": "Opp Jurong Sec Sch"
-}, {
     "number": "21761",
     "name": "Blk 138B"
 }, {
@@ -2236,9 +2116,6 @@
 }, {
     "number": "21771",
     "name": "Aft Corp Dr"
-}, {
-    "number": "21779",
-    "name": "Aft Yuan Ching Rd"
 }, {
     "number": "22009",
     "name": "Boon Lay Int"
@@ -2279,12 +2156,6 @@
     "number": "22069",
     "name": "Opp Ceva Logistics"
 }, {
-    "number": "22071",
-    "name": "Bef Jurong Pier Rd"
-}, {
-    "number": "22079",
-    "name": "Aft Jurong Pier Rd"
-}, {
     "number": "22081",
     "name": "Opp Natsteel"
 }, {
@@ -2296,12 +2167,6 @@
 }, {
     "number": "22099",
     "name": "Bef Jln Samulun"
-}, {
-    "number": "22141",
-    "name": "Aft Jln Buroh"
-}, {
-    "number": "22149",
-    "name": "Bef Jln Buroh"
 }, {
     "number": "22151",
     "name": "Hitachi"
@@ -2320,9 +2185,6 @@
 }, {
     "number": "22179",
     "name": "Secura S'Pore"
-}, {
-    "number": "22181",
-    "name": "S'pore Post"
 }, {
     "number": "22189",
     "name": "Pioneer Junction"
@@ -2401,12 +2263,6 @@
 }, {
     "number": "22369",
     "name": "Blk 704"
-}, {
-    "number": "22391",
-    "name": "Bef Jln Buroh"
-}, {
-    "number": "22399",
-    "name": "Aft Jln Buroh"
 }, {
     "number": "22401",
     "name": "Aft Shipyard Rd"
@@ -2552,12 +2408,6 @@
     "number": "23059",
     "name": "Aft Kian Teck Rd"
 }, {
-    "number": "23061",
-    "name": "Aft Kian Teck Rd"
-}, {
-    "number": "23069",
-    "name": "Bef Kian Teck Rd"
-}, {
     "number": "23071",
     "name": "Opp SAFTI Military Inst"
 }, {
@@ -2612,23 +2462,11 @@
     "number": "23159",
     "name": "Aft Fifth Lok Yang Rd"
 }, {
-    "number": "23161",
-    "name": "Aft Kian Teck Rd"
-}, {
-    "number": "23169",
-    "name": "Bef Kian Teck Rd"
-}, {
     "number": "23171",
     "name": "SKK (S) Pte Ltd"
 }, {
     "number": "23179",
     "name": "Aft Second Lok Yang Rd"
-}, {
-    "number": "23181",
-    "name": "Aft Kian Teck Rd"
-}, {
-    "number": "23189",
-    "name": "Bef First Lok Yang Rd"
 }, {
     "number": "23191",
     "name": "Opp S'Pore Trspt Pte Ltd"
@@ -2666,12 +2504,6 @@
     "number": "23249",
     "name": "Bef Benoi Rd"
 }, {
-    "number": "23251",
-    "name": "Aft Shipyard Rd"
-}, {
-    "number": "23259",
-    "name": "Bef Shipyard Rd"
-}, {
     "number": "23261",
     "name": "Opp Exxon Mobil"
 }, {
@@ -2699,9 +2531,6 @@
     "number": "23331",
     "name": "Opp JP Nelson"
 }, {
-    "number": "23341",
-    "name": "Aft Pioneer Rd"
-}, {
     "number": "23349",
     "name": "Bef Pioneer Rd"
 }, {
@@ -2710,12 +2539,6 @@
 }, {
     "number": "23359",
     "name": "Opp Gul Ave"
-}, {
-    "number": "23361",
-    "name": "Opp Keppel Logistics"
-}, {
-    "number": "23369",
-    "name": "Keppel Logistics"
 }, {
     "number": "23371",
     "name": "Bef Joo Koon Int"
@@ -2747,20 +2570,11 @@
     "number": "23449",
     "name": "Aft Benoi Pl"
 }, {
-    "number": "23451",
-    "name": "Jurong Shipyard"
-}, {
     "number": "23461",
     "name": "Tanoto Shipyard"
 }, {
     "number": "23469",
     "name": "Opp Tanoto Shipyard"
-}, {
-    "number": "23471",
-    "name": "Aft Benoi Rd"
-}, {
-    "number": "23479",
-    "name": "Bef Benoi Rd"
 }, {
     "number": "23481",
     "name": "Molex"
@@ -2773,9 +2587,6 @@
 }, {
     "number": "23499",
     "name": "Joo Koon Stn Exit A"
-}, {
-    "number": "23501",
-    "name": "Aft Pioneer Rd Nth"
 }, {
     "number": "23509",
     "name": "Hoe Keng Motor"
@@ -2803,9 +2614,6 @@
 }, {
     "number": "24049",
     "name": "Pasir Laba Camp"
-}, {
-    "number": "24089",
-    "name": "Aft Gul Ave"
 }, {
     "number": "24129",
     "name": "Opp Yeow San Pte Ltd"
@@ -2858,9 +2666,6 @@
     "number": "24289",
     "name": "Opp Keppel T&T"
 }, {
-    "number": "24299",
-    "name": "Aft Gul Way"
-}, {
     "number": "24301",
     "name": "SNL Logistics Pte Ltd"
 }, {
@@ -2872,9 +2677,6 @@
 }, {
     "number": "24341",
     "name": "Opp Keppel Shipyard"
-}, {
-    "number": "24349",
-    "name": "Keppel Shipyard"
 }, {
     "number": "24351",
     "name": "Opp S'pore Takada Ind"
@@ -2948,12 +2750,6 @@
     "number": "24539",
     "name": "Dundee Marine"
 }, {
-    "number": "24541",
-    "name": "Opp Keppel Shipyard"
-}, {
-    "number": "24549",
-    "name": "Keppel Shipyard"
-}, {
     "number": "24559",
     "name": "HQ 6 Div"
 }, {
@@ -2983,12 +2779,6 @@
 }, {
     "number": "24629",
     "name": "Opp Ocean Tanker"
-}, {
-    "number": "24631",
-    "name": "Bef Benoi Rd"
-}, {
-    "number": "24639",
-    "name": "Aft Benoi Rd"
 }, {
     "number": "24641",
     "name": "W Atelier"
@@ -3092,12 +2882,6 @@
     "number": "25199",
     "name": "Bestofire and Thermal"
 }, {
-    "number": "25201",
-    "name": "Aft Tuas Rd"
-}, {
-    "number": "25209",
-    "name": "Bef Tuas Rd"
-}, {
     "number": "25219",
     "name": "Aft Tuas Ave 2"
 }, {
@@ -3155,20 +2939,8 @@
     "number": "25371",
     "name": "Aft Tuas Ave 4"
 }, {
-    "number": "25379",
-    "name": "Aft Tuas Ave 6"
-}, {
     "number": "25381",
     "name": "WYN2000 Logistics Ctr"
-}, {
-    "number": "25389",
-    "name": "Aft Tuas Ave 8"
-}, {
-    "number": "25391",
-    "name": "Bef Pioneer Rd"
-}, {
-    "number": "25399",
-    "name": "Aft Pioneer Rd"
 }, {
     "number": "25411",
     "name": "Bef Tuas Ter"
@@ -3188,12 +2960,6 @@
     "number": "25439",
     "name": "Opp Super Continental"
 }, {
-    "number": "25441",
-    "name": "Bef Pioneer Rd"
-}, {
-    "number": "25449",
-    "name": "Aft Pioneer Rd"
-}, {
     "number": "25451",
     "name": "Aft Tuas West St"
 }, {
@@ -3211,12 +2977,6 @@
 }, {
     "number": "25479",
     "name": "S'pore Epson Ind"
-}, {
-    "number": "25491",
-    "name": "Opp Super Continental"
-}, {
-    "number": "25499",
-    "name": "Super Continental"
 }, {
     "number": "25501",
     "name": "Kee Wee Hup Kee"
@@ -3299,12 +3059,6 @@
     "number": "25671",
     "name": "Bef Offshore Marine Ctr"
 }, {
-    "number": "25681",
-    "name": "Bef Tuas West Ave"
-}, {
-    "number": "25689",
-    "name": "Aft Tuas West Ave"
-}, {
     "number": "25691",
     "name": "Aft Tuas West Rd Stn"
 }, {
@@ -3356,9 +3110,6 @@
     "number": "26011",
     "name": "Bef Tuas Ave 11"
 }, {
-    "number": "26019",
-    "name": "Progress Galvanizing"
-}, {
     "number": "26021",
     "name": "Bef Tuas Ave 13"
 }, {
@@ -3370,9 +3121,6 @@
 }, {
     "number": "26039",
     "name": "Asia Polyurethane"
-}, {
-    "number": "26041",
-    "name": "Hiap Seng Engrg Ltd"
 }, {
     "number": "26049",
     "name": "Damen Shipyard"
@@ -3404,17 +3152,8 @@
     "number": "26091",
     "name": "Rotary Engrg"
 }, {
-    "number": "26099",
-    "name": "Bef Tuas Ave 13"
-}, {
     "number": "26101",
     "name": "BASF Sth East Asia"
-}, {
-    "number": "26109",
-    "name": "Bef Tuas Ave 11"
-}, {
-    "number": "26111",
-    "name": "Tru-Marine"
 }, {
     "number": "26121",
     "name": "Bef Tuas Amenity Ctr"
@@ -3452,20 +3191,11 @@
     "number": "26249",
     "name": "Bef Tuas Sth Ave 2"
 }, {
-    "number": "26251",
-    "name": "Bef Tuas Sth Ave 2"
-}, {
-    "number": "26259",
-    "name": "Aft Tuas Sth Ave 2"
-}, {
     "number": "26261",
     "name": "Aft Tuas Sth Ave 4"
 }, {
     "number": "26269",
     "name": "Bef Tuas Sth Ave 4"
-}, {
-    "number": "26279",
-    "name": "Aft Tuas Sth Ave 4"
 }, {
     "number": "26289",
     "name": "Aft Tuas Sth St 2"
@@ -3509,17 +3239,8 @@
     "number": "26431",
     "name": "Aft Tuas Sth Ave 9"
 }, {
-    "number": "26441",
-    "name": "Bef Tuas Sth Ave 7"
-}, {
-    "number": "26451",
-    "name": "Bef Tuas Sth Ave 5"
-}, {
     "number": "26461",
     "name": "Aft Tuas Sth Ave 8"
-}, {
-    "number": "27011",
-    "name": "Blk 55"
 }, {
     "number": "27021",
     "name": "Hall 15"
@@ -3532,12 +3253,6 @@
 }, {
     "number": "27051",
     "name": "NIE Lib"
-}, {
-    "number": "27061",
-    "name": "Opp Blk 41"
-}, {
-    "number": "27069",
-    "name": "Blk 41"
 }, {
     "number": "27071",
     "name": "Nanyang Crescent Hall"
@@ -3632,9 +3347,6 @@
     "number": "27301",
     "name": "Blk 978"
 }, {
-    "number": "27309",
-    "name": "Blk 705"
-}, {
     "number": "27311",
     "name": "Hall 2"
 }, {
@@ -3694,9 +3406,6 @@
 }, {
     "number": "27419",
     "name": "Blk 827"
-}, {
-    "number": "27421",
-    "name": "Blk 701"
 }, {
     "number": "27429",
     "name": "Blk 711"
@@ -3791,15 +3500,6 @@
     "number": "28061",
     "name": "J Gateway"
 }, {
-    "number": "28069",
-    "name": "Blk 203"
-}, {
-    "number": "28071",
-    "name": "Blk 105"
-}, {
-    "number": "28079",
-    "name": "Blk 210"
-}, {
     "number": "28081",
     "name": "Blk 112"
 }, {
@@ -3860,15 +3560,6 @@
     "number": "28261",
     "name": "Aft S'pore Science Ctr"
 }, {
-    "number": "28269",
-    "name": "Blk 118"
-}, {
-    "number": "28271",
-    "name": "Opp Blk 114"
-}, {
-    "number": "28279",
-    "name": "Blk 114"
-}, {
     "number": "28281",
     "name": "Opp Blk 227"
 }, {
@@ -3886,12 +3577,6 @@
 }, {
     "number": "28309",
     "name": "Intl Business Pk"
-}, {
-    "number": "28311",
-    "name": "Blk 209"
-}, {
-    "number": "28319",
-    "name": "Blk 207"
 }, {
     "number": "28321",
     "name": "Blk 239"
@@ -4097,9 +3782,6 @@
     "number": "29019",
     "name": "Sanmina-SCI"
 }, {
-    "number": "29021",
-    "name": "Aft Jln Buroh"
-}, {
     "number": "29029",
     "name": "Bef Penjuru Cl"
 }, {
@@ -4231,9 +3913,6 @@
 }, {
     "number": "31011",
     "name": "Aft Nanyang Ave"
-}, {
-    "number": "31019",
-    "name": "Bef Nanyang Ave"
 }, {
     "number": "31021",
     "name": "Jln Bahar Power Stn"
@@ -4430,17 +4109,11 @@
     "number": "34049",
     "name": "Aft Lim Chu Kang Lane 8"
 }, {
-    "number": "34051",
-    "name": "Aft Lim Chu Kang Lane 8"
-}, {
     "number": "34059",
     "name": "Yishun Dairy Farm"
 }, {
     "number": "34101",
     "name": "Aft Old Lim Chu Kang Rd"
-}, {
-    "number": "34109",
-    "name": "Aft Lim Chu Kang Rd"
 }, {
     "number": "40011",
     "name": "Little India Stn Exit A"
@@ -4541,9 +4214,6 @@
     "number": "40219",
     "name": "Bef Met YMCA"
 }, {
-    "number": "40221",
-    "name": "Opp Stevens Stn"
-}, {
     "number": "40229",
     "name": "Aft Stevens Stn"
 }, {
@@ -4567,12 +4237,6 @@
 }, {
     "number": "40269",
     "name": "LP 57"
-}, {
-    "number": "40271",
-    "name": "Opp KK Women & Child Hosp"
-}, {
-    "number": "40279",
-    "name": "Kk Women & Children Hosp"
 }, {
     "number": "40301",
     "name": "Blk 451A"
@@ -4694,9 +4358,6 @@
     "number": "41159",
     "name": "Aft Lornie Wk"
 }, {
-    "number": "41161",
-    "name": "Aft Kheam Hock Rd"
-}, {
     "number": "41169",
     "name": "Bef Kheam Hock Rd"
 }, {
@@ -4777,9 +4438,6 @@
 }, {
     "number": "42159",
     "name": "Opp Beauty World Stn"
-}, {
-    "number": "42161",
-    "name": "Blk 18"
 }, {
     "number": "42169",
     "name": "Opp Blk 19"
@@ -4943,9 +4601,6 @@
     "number": "43169",
     "name": "Blk 254"
 }, {
-    "number": "43171",
-    "name": "Blk 229"
-}, {
     "number": "43179",
     "name": "Blk 231"
 }, {
@@ -5018,12 +4673,6 @@
     "number": "43291",
     "name": "Aft Jln Remaja"
 }, {
-    "number": "43301",
-    "name": "Opp Hillbrooks"
-}, {
-    "number": "43309",
-    "name": "Hillbrooks"
-}, {
     "number": "43311",
     "name": "Midview Bldg"
 }, {
@@ -5060,12 +4709,6 @@
     "number": "43369",
     "name": "Blk 183"
 }, {
-    "number": "43371",
-    "name": "Blk 109"
-}, {
-    "number": "43379",
-    "name": "Blk 185"
-}, {
     "number": "43381",
     "name": "Blk 102"
 }, {
@@ -5074,9 +4717,6 @@
 }, {
     "number": "43391",
     "name": "Bt Batok CC"
-}, {
-    "number": "43399",
-    "name": "Opp Blk 120"
 }, {
     "number": "43401",
     "name": "Bt Batok Polyclinic"
@@ -5123,9 +4763,6 @@
     "number": "43469",
     "name": "Bef Bt Batok West Ave 5"
 }, {
-    "number": "43471",
-    "name": "Blk 306"
-}, {
     "number": "43479",
     "name": "Opp Blk 305"
 }, {
@@ -5134,9 +4771,6 @@
 }, {
     "number": "43489",
     "name": "Opp Blk 315"
-}, {
-    "number": "43491",
-    "name": "Blk 331"
 }, {
     "number": "43499",
     "name": "Blk 419"
@@ -5159,12 +4793,6 @@
     "number": "43529",
     "name": "Opp Bt Batok Driving Ctr"
 }, {
-    "number": "43531",
-    "name": "Blk 140"
-}, {
-    "number": "43539",
-    "name": "Opp Blk 140"
-}, {
     "number": "43541",
     "name": "Blk 510"
 }, {
@@ -5182,9 +4810,6 @@
 }, {
     "number": "43579",
     "name": "Bt Gombak Stn"
-}, {
-    "number": "43581",
-    "name": "Blk 347"
 }, {
     "number": "43589",
     "name": "Opp Blk 347"
@@ -5234,9 +4859,6 @@
     "number": "43671",
     "name": "Opp Dunearn Sec Sch"
 }, {
-    "number": "43679",
-    "name": "Blk 402"
-}, {
     "number": "43681",
     "name": "Bt Batok Hme for the Aged"
 }, {
@@ -5263,12 +4885,6 @@
 }, {
     "number": "43739",
     "name": "Blk 217"
-}, {
-    "number": "43741",
-    "name": "Bt View Sec Sch"
-}, {
-    "number": "43749",
-    "name": "Opp Bt View Sec Sch"
 }, {
     "number": "43751",
     "name": "Opp Blk 443D"
@@ -5311,9 +4927,6 @@
 }, {
     "number": "43829",
     "name": "Symphony Hts"
-}, {
-    "number": "43831",
-    "name": "Blk 334"
 }, {
     "number": "43839",
     "name": "Opp Blk 336"
@@ -5396,9 +5009,6 @@
     "number": "44109",
     "name": "Opp Hong San Terr"
 }, {
-    "number": "44111",
-    "name": "Opp Blk 203"
-}, {
     "number": "44119",
     "name": "Blk 204"
 }, {
@@ -5425,18 +5035,6 @@
 }, {
     "number": "44159",
     "name": "Bt Batok Fire Stn"
-}, {
-    "number": "44161",
-    "name": "Aft Bt Batok West Ave 5"
-}, {
-    "number": "44169",
-    "name": "Bef Bt Batok West Ave 5"
-}, {
-    "number": "44171",
-    "name": "Bef Bt Batok West Ave 5"
-}, {
-    "number": "44179",
-    "name": "Aft Bt Batok West Ave 5"
 }, {
     "number": "44181",
     "name": "Blk 802B"
@@ -5483,9 +5081,6 @@
     "number": "44251",
     "name": "Bt Panjang Stn/Blk 604"
 }, {
-    "number": "44259",
-    "name": "Blk 183"
-}, {
     "number": "44261",
     "name": "Blk 270"
 }, {
@@ -5494,12 +5089,6 @@
 }, {
     "number": "44271",
     "name": "Bet Blks 13/14"
-}, {
-    "number": "44279",
-    "name": "Blk 157"
-}, {
-    "number": "44281",
-    "name": "Blk 8"
 }, {
     "number": "44289",
     "name": "Blk 6"
@@ -5521,9 +5110,6 @@
 }, {
     "number": "44329",
     "name": "Bangkit Stn"
-}, {
-    "number": "44331",
-    "name": "Blk 239"
 }, {
     "number": "44339",
     "name": "Blk 442D"
@@ -5567,15 +5153,6 @@
     "number": "44411",
     "name": "Blk 108"
 }, {
-    "number": "44421",
-    "name": "Blk 25"
-}, {
-    "number": "44439",
-    "name": "Blk 9"
-}, {
-    "number": "44441",
-    "name": "Blk 239"
-}, {
     "number": "44449",
     "name": "Opp Blks 237/239"
 }, {
@@ -5585,20 +5162,11 @@
     "number": "44459",
     "name": "Opp South View Stn"
 }, {
-    "number": "44461",
-    "name": "Blk 352"
-}, {
     "number": "44469",
     "name": "Blk 414"
 }, {
     "number": "44471",
     "name": "Blk 234"
-}, {
-    "number": "44479",
-    "name": "Blk 206"
-}, {
-    "number": "44481",
-    "name": "Blk 223"
 }, {
     "number": "44489",
     "name": "Blk 220"
@@ -5609,23 +5177,14 @@
     "number": "44499",
     "name": "Blk 429A CP"
 }, {
-    "number": "44501",
-    "name": "Blk 426"
-}, {
     "number": "44509",
     "name": "Blk 442"
 }, {
     "number": "44511",
     "name": "Blk 289"
 }, {
-    "number": "44519",
-    "name": "Blk 402"
-}, {
     "number": "44521",
     "name": "Blk 280"
-}, {
-    "number": "44529",
-    "name": "Blk 410"
 }, {
     "number": "44531",
     "name": "Opp Choa Chu Kang Stn"
@@ -5672,20 +5231,11 @@
     "number": "44601",
     "name": "Blk 413"
 }, {
-    "number": "44609",
-    "name": "Blk 408"
-}, {
     "number": "44611",
     "name": "Blk 516"
 }, {
-    "number": "44619",
-    "name": "Blk 506"
-}, {
     "number": "44621",
     "name": "Opp Concord Pr Sch"
-}, {
-    "number": "44629",
-    "name": "Blk 457"
 }, {
     "number": "44631",
     "name": "Opp Bt Panjang Plaza"
@@ -5708,9 +5258,6 @@
     "number": "44661",
     "name": "Blk 532"
 }, {
-    "number": "44669",
-    "name": "Opp Blk 532"
-}, {
     "number": "44671",
     "name": "Bet Blks 502/503"
 }, {
@@ -5722,9 +5269,6 @@
 }, {
     "number": "44691",
     "name": "Blk 485"
-}, {
-    "number": "44699",
-    "name": "Blk 457"
 }, {
     "number": "44701",
     "name": "Blk 548B"
@@ -5752,12 +5296,6 @@
 }, {
     "number": "44791",
     "name": "West View Pr Sch"
-}, {
-    "number": "44799",
-    "name": "Blk 610"
-}, {
-    "number": "44801",
-    "name": "Opp Blk 628"
 }, {
     "number": "44809",
     "name": "Blk 628"
@@ -5825,16 +5363,10 @@
     "number": "44989",
     "name": "Gali Batu Ter"
 }, {
-    "number": "44999",
-    "name": "Bef Yew Tee Flyover"
-}, {
     "number": "45009",
     "name": "Bt Panjang Int"
 }, {
     "number": "45011",
-    "name": "Aft Yew Tee Flyover"
-}, {
-    "number": "45019",
     "name": "Aft Yew Tee Flyover"
 }, {
     "number": "45021",
@@ -5924,9 +5456,6 @@
     "number": "45171",
     "name": "Sri Arasakesari Sivan Tp"
 }, {
-    "number": "45179",
-    "name": "Sri Arasakesari Sivan Tp"
-}, {
     "number": "45181",
     "name": "Opp Mandai CD Trg Village"
 }, {
@@ -5948,12 +5477,6 @@
     "number": "45211",
     "name": "Bef BKE"
 }, {
-    "number": "45221",
-    "name": "Aft W'Lands Rd"
-}, {
-    "number": "45229",
-    "name": "Bef W'Lands Rd"
-}, {
     "number": "45231",
     "name": "Blk 432"
 }, {
@@ -5971,9 +5494,6 @@
 }, {
     "number": "45259",
     "name": "Blk 523"
-}, {
-    "number": "45261",
-    "name": "Blk 551"
 }, {
     "number": "45269",
     "name": "Blk 544"
@@ -6044,9 +5564,6 @@
     "number": "45389",
     "name": "Blk 619"
 }, {
-    "number": "45391",
-    "name": "Blk 657"
-}, {
     "number": "45399",
     "name": "Regent Gr Condo"
 }, {
@@ -6113,9 +5630,6 @@
     "number": "46008",
     "name": "Woodlands Int"
 }, {
-    "number": "46009",
-    "name": "Woodlands Int"
-}, {
     "number": "46011",
     "name": "Bef W'Lands Ctr Rd"
 }, {
@@ -6140,9 +5654,6 @@
     "number": "46049",
     "name": "Globalfoundries"
 }, {
-    "number": "46051",
-    "name": "Bef BKE"
-}, {
     "number": "46059",
     "name": "Globalfoundries/Aft Bke"
 }, {
@@ -6155,16 +5666,10 @@
     "number": "46079",
     "name": "Opp Blk 137"
 }, {
-    "number": "46088",
-    "name": "Blk 25"
-}, {
     "number": "46091",
     "name": "Bef Bke"
 }, {
     "number": "46101",
-    "name": "W'Lands Checkpt"
-}, {
-    "number": "46109",
     "name": "W'Lands Checkpt"
 }, {
     "number": "46111",
@@ -6188,14 +5693,8 @@
     "number": "46141",
     "name": "Blk 32"
 }, {
-    "number": "46149",
-    "name": "Blk 203"
-}, {
     "number": "46151",
     "name": "Blk 212"
-}, {
-    "number": "46159",
-    "name": "Blk 206"
 }, {
     "number": "46161",
     "name": "GES S'pore"
@@ -6203,34 +5702,16 @@
     "number": "46169",
     "name": "Si Ling Sec Sch"
 }, {
-    "number": "46171",
-    "name": "Opp Blk 19"
-}, {
-    "number": "46179",
-    "name": "Blk 18"
-}, {
     "number": "46181",
     "name": "Opp Blk 12"
 }, {
     "number": "46189",
     "name": "Blk 12"
 }, {
-    "number": "46191",
-    "name": "Opp Blk 120"
-}, {
     "number": "46199",
     "name": "Blk 120"
 }, {
-    "number": "46201",
-    "name": "Blk 10"
-}, {
-    "number": "46209",
-    "name": "Blk 2"
-}, {
     "number": "46211",
-    "name": "Johor Bahru Checkpt"
-}, {
-    "number": "46219",
     "name": "Johor Bahru Checkpt"
 }, {
     "number": "46221",
@@ -6245,9 +5726,6 @@
     "number": "46241",
     "name": "Opp Blk 15"
 }, {
-    "number": "46249",
-    "name": "Blk 15"
-}, {
     "number": "46251",
     "name": "Riverside Sec Sch"
 }, {
@@ -6259,9 +5737,6 @@
 }, {
     "number": "46271",
     "name": "Opp Blk 802"
-}, {
-    "number": "46279",
-    "name": "Blk 803"
 }, {
     "number": "46281",
     "name": "Blk 825"
@@ -6280,9 +5755,6 @@
 }, {
     "number": "46309",
     "name": "Opp Progen Bldg"
-}, {
-    "number": "46311",
-    "name": "Blk 18"
 }, {
     "number": "46319",
     "name": "Opp Blk 18"
@@ -6310,15 +5782,6 @@
 }, {
     "number": "46359",
     "name": "Aft Blk 336"
-}, {
-    "number": "46361",
-    "name": "Blk 425"
-}, {
-    "number": "46369",
-    "name": "Blk 413"
-}, {
-    "number": "46371",
-    "name": "Blk 406"
 }, {
     "number": "46379",
     "name": "Blk 409"
@@ -6353,9 +5816,6 @@
     "number": "46429",
     "name": "Blk 856"
 }, {
-    "number": "46431",
-    "name": "Blk 840"
-}, {
     "number": "46439",
     "name": "Blk 880"
 }, {
@@ -6389,9 +5849,6 @@
     "number": "46489",
     "name": "Aft Gambas Ave"
 }, {
-    "number": "46491",
-    "name": "Blk 402"
-}, {
     "number": "46499",
     "name": "Opp Blk 402"
 }, {
@@ -6403,9 +5860,6 @@
 }, {
     "number": "46511",
     "name": "Marsiling Pr Sch"
-}, {
-    "number": "46519",
-    "name": "Opp Blk 144"
 }, {
     "number": "46521",
     "name": "Marsiling Stn"
@@ -6422,20 +5876,11 @@
     "number": "46541",
     "name": "Marsiling Mall"
 }, {
-    "number": "46549",
-    "name": "Blk 347"
-}, {
     "number": "46551",
     "name": "Blk 101"
 }, {
     "number": "46559",
     "name": "Opp Blk 101"
-}, {
-    "number": "46561",
-    "name": "Opp Blk 178"
-}, {
-    "number": "46569",
-    "name": "Blk 178"
 }, {
     "number": "46571",
     "name": "Opp Blk 154"
@@ -6446,20 +5891,11 @@
     "number": "46581",
     "name": "Opp Blk 146"
 }, {
-    "number": "46589",
-    "name": "Blk 146"
-}, {
-    "number": "46591",
-    "name": "Blk 303"
-}, {
     "number": "46611",
     "name": "Fuchun Sec Sch"
 }, {
     "number": "46619",
     "name": "Opp Fuchun Sec Sch"
-}, {
-    "number": "46621",
-    "name": "Blk 335"
 }, {
     "number": "46629",
     "name": "The Woodgrove"
@@ -6472,9 +5908,6 @@
 }, {
     "number": "46641",
     "name": "Blk 894C"
-}, {
-    "number": "46649",
-    "name": "Blk 515"
 }, {
     "number": "46651",
     "name": "Blk 550"
@@ -6499,9 +5932,6 @@
 }, {
     "number": "46689",
     "name": "Blk 609"
-}, {
-    "number": "46691",
-    "name": "Opp 888 Plaza"
 }, {
     "number": "46699",
     "name": "888 Plaza"
@@ -6535,9 +5965,6 @@
 }, {
     "number": "46761",
     "name": "Blk 706"
-}, {
-    "number": "46769",
-    "name": "Blk 666"
 }, {
     "number": "46771",
     "name": "Opp Admiralty Stn"
@@ -6587,9 +6014,6 @@
     "number": "46869",
     "name": "Blk 628A"
 }, {
-    "number": "46871",
-    "name": "Blk 644"
-}, {
     "number": "46879",
     "name": "Blk 637"
 }, {
@@ -6598,9 +6022,6 @@
 }, {
     "number": "46891",
     "name": "Jordon Food Ind"
-}, {
-    "number": "46901",
-    "name": "Blk 15"
 }, {
     "number": "46911",
     "name": "Opp Blk 20"
@@ -6616,12 +6037,6 @@
 }, {
     "number": "46951",
     "name": "Blk 536A"
-}, {
-    "number": "46961",
-    "name": "Blk 547"
-}, {
-    "number": "46969",
-    "name": "Blk 532"
 }, {
     "number": "46971",
     "name": "Woodgrove Pr Sch"
@@ -6728,9 +6143,6 @@
     "number": "47169",
     "name": "Chuan Lim Constrn"
 }, {
-    "number": "47179",
-    "name": "Comfortdelgro Engrg"
-}, {
     "number": "47189",
     "name": "K.U.S. Holdings"
 }, {
@@ -6764,9 +6176,6 @@
     "number": "47539",
     "name": "Opp Woodgrove Sec Sch"
 }, {
-    "number": "47541",
-    "name": "Blk 639"
-}, {
     "number": "47549",
     "name": "Opp Blk 639"
 }, {
@@ -6797,9 +6206,6 @@
     "number": "47591",
     "name": "Bef Admiralty Stn/Blk 680"
 }, {
-    "number": "47599",
-    "name": "Blk 683A"
-}, {
     "number": "47601",
     "name": "Blk 793"
 }, {
@@ -6811,12 +6217,6 @@
 }, {
     "number": "47619",
     "name": "Opp Woodsvale Condo"
-}, {
-    "number": "47621",
-    "name": "Aft Gambas Ave"
-}, {
-    "number": "47629",
-    "name": "Seagate"
 }, {
     "number": "47641",
     "name": "Blk 681A"
@@ -6835,9 +6235,6 @@
 }, {
     "number": "47671",
     "name": "Opp Admiralty Sec Sch"
-}, {
-    "number": "47681",
-    "name": "Woodsvale Condo"
 }, {
     "number": "47711",
     "name": "JB Sentral Bus Ter"
@@ -6926,12 +6323,6 @@
     "number": "48109",
     "name": "Opp Meng Suan Rd"
 }, {
-    "number": "48111",
-    "name": "Aft Mandai Rd"
-}, {
-    "number": "48119",
-    "name": "Bef Mandai Rd"
-}, {
     "number": "48131",
     "name": "S'Pore Zoo"
 }, {
@@ -7004,9 +6395,6 @@
     "number": "49111",
     "name": "Aft Jln Lam Huat"
 }, {
-    "number": "49119",
-    "name": "Blk 2"
-}, {
     "number": "49121",
     "name": "Aft SMRT Buses Kranji Depot"
 }, {
@@ -7034,9 +6422,6 @@
     "number": "49171",
     "name": "Opp Shingda Constrn"
 }, {
-    "number": "49179",
-    "name": "Aft Kranji Cres"
-}, {
     "number": "49181",
     "name": "Dapolite Ind"
 }, {
@@ -7060,9 +6445,6 @@
 }, {
     "number": "49239",
     "name": "Opp Nyee Phoe Group"
-}, {
-    "number": "49249",
-    "name": "Aft Neo Tiew Rd"
 }, {
     "number": "50011",
     "name": "Opp Parish Of Christ Ch"
@@ -7259,9 +6641,6 @@
     "number": "51101",
     "name": "Bef Thomson Flyover"
 }, {
-    "number": "51109",
-    "name": "Opp Old Police Academy"
-}, {
     "number": "51111",
     "name": "Opp Andrew Rd"
 }, {
@@ -7295,14 +6674,8 @@
     "number": "52039",
     "name": "Aft Muhajirin Mque"
 }, {
-    "number": "52049",
-    "name": "Blk 19"
-}, {
     "number": "52051",
     "name": "Blk 147"
-}, {
-    "number": "52059",
-    "name": "Blk 219"
 }, {
     "number": "52061",
     "name": "BCA Academy"
@@ -7328,14 +6701,8 @@
     "number": "52109",
     "name": "Bet Blks 33/34"
 }, {
-    "number": "52119",
-    "name": "Opp Blk 65"
-}, {
     "number": "52129",
     "name": "Blk 29"
-}, {
-    "number": "52131",
-    "name": "Blk 163"
 }, {
     "number": "52139",
     "name": "Oleander Twrs"
@@ -7346,17 +6713,11 @@
     "number": "52149",
     "name": "Blk 139A"
 }, {
-    "number": "52151",
-    "name": "Blk 131"
-}, {
     "number": "52159",
     "name": "Blk 128"
 }, {
     "number": "52161",
     "name": "Braddell Stn/Blk 111"
-}, {
-    "number": "52169",
-    "name": "Blk 117"
 }, {
     "number": "52171",
     "name": "Braddell Stn/Blk 107"
@@ -7370,14 +6731,8 @@
     "number": "52189",
     "name": "Toa Payoh Stn"
 }, {
-    "number": "52191",
-    "name": "Blk 138B"
-}, {
     "number": "52199",
     "name": "Blk 84B"
-}, {
-    "number": "52201",
-    "name": "Blk 121"
 }, {
     "number": "52209",
     "name": "Blk 101C CP"
@@ -7412,15 +6767,6 @@
     "number": "52259",
     "name": "Opp Chung Hwa Free Clinic"
 }, {
-    "number": "52261",
-    "name": "Opp Blk 73"
-}, {
-    "number": "52269",
-    "name": "Blk 73"
-}, {
-    "number": "52271",
-    "name": "Jackson Sq"
-}, {
     "number": "52279",
     "name": "Blk 56"
 }, {
@@ -7430,23 +6776,8 @@
     "number": "52289",
     "name": "Blk 34"
 }, {
-    "number": "52291",
-    "name": "Blk 59"
-}, {
-    "number": "52299",
-    "name": "Blk 50"
-}, {
-    "number": "52301",
-    "name": "Blk 35"
-}, {
     "number": "52309",
     "name": "Opp Blk 35"
-}, {
-    "number": "52311",
-    "name": "Blk 23"
-}, {
-    "number": "52319",
-    "name": "Blk 25"
 }, {
     "number": "52321",
     "name": "Toa Payoh Stadium"
@@ -7454,26 +6785,11 @@
     "number": "52329",
     "name": "Opp Toa Payoh Stadium"
 }, {
-    "number": "52331",
-    "name": "Blk 27"
-}, {
-    "number": "52339",
-    "name": "Opp Blk 26"
-}, {
     "number": "52341",
     "name": "Pei Chun Public Sch"
 }, {
     "number": "52349",
     "name": "United Medicare Ctr"
-}, {
-    "number": "52351",
-    "name": "Blk 2"
-}, {
-    "number": "52359",
-    "name": "Blk 52"
-}, {
-    "number": "52361",
-    "name": "Blk 1"
 }, {
     "number": "52369",
     "name": "Blk 237"
@@ -7490,18 +6806,6 @@
     "number": "52391",
     "name": "Opp Blk 231"
 }, {
-    "number": "52399",
-    "name": "Blk 231"
-}, {
-    "number": "52401",
-    "name": "Blk 102"
-}, {
-    "number": "52409",
-    "name": "Opp Blk 102"
-}, {
-    "number": "52411",
-    "name": "Blk 105"
-}, {
     "number": "52419",
     "name": "Curtin S'pore"
 }, {
@@ -7511,14 +6815,8 @@
     "number": "52439",
     "name": "Opp Blk 5"
 }, {
-    "number": "52441",
-    "name": "Blk 202"
-}, {
     "number": "52449",
     "name": "Toa Payoh Police Ctr"
-}, {
-    "number": "52451",
-    "name": "Blk 114"
 }, {
     "number": "52479",
     "name": "Opp EASB"
@@ -7613,9 +6911,6 @@
     "number": "53129",
     "name": "Opp Marymount Stn"
 }, {
-    "number": "53131",
-    "name": "Blk 319"
-}, {
     "number": "53139",
     "name": "Marymount View"
 }, {
@@ -7634,20 +6929,11 @@
     "number": "53161",
     "name": "Opp Blk 254"
 }, {
-    "number": "53169",
-    "name": "Blk 254"
-}, {
-    "number": "53171",
-    "name": "Blk 23"
-}, {
     "number": "53179",
     "name": "Sin Ming Plaza"
 }, {
     "number": "53181",
     "name": "Amtech Bldg"
-}, {
-    "number": "53189",
-    "name": "Blk 25"
 }, {
     "number": "53191",
     "name": "Blk 7 Ind Est"
@@ -7670,20 +6956,11 @@
     "number": "53221",
     "name": "Blk 115"
 }, {
-    "number": "53229",
-    "name": "Blk 501"
-}, {
     "number": "53231",
     "name": "Bishan Stn"
 }, {
     "number": "53239",
     "name": "Opp Bishan Stn"
-}, {
-    "number": "53241",
-    "name": "Opp Blk 217"
-}, {
-    "number": "53249",
-    "name": "Blk 210"
 }, {
     "number": "53251",
     "name": "Blk 125"
@@ -7703,9 +6980,6 @@
     "number": "53279",
     "name": "Kuo Chuan Presby Sch"
 }, {
-    "number": "53281",
-    "name": "Blk 169"
-}, {
     "number": "53289",
     "name": "Zion Bible Presby Ch"
 }, {
@@ -7714,12 +6988,6 @@
 }, {
     "number": "53299",
     "name": "Blk 314"
-}, {
-    "number": "53301",
-    "name": "Raffles Instn"
-}, {
-    "number": "53309",
-    "name": "Opp Raffles Instn"
 }, {
     "number": "53311",
     "name": "Opp Bosch"
@@ -7739,9 +7007,6 @@
     "number": "53339",
     "name": "Opp Bright Hill Tp"
 }, {
-    "number": "53341",
-    "name": "Blk 407"
-}, {
     "number": "53349",
     "name": "Opp Blk 407"
 }, {
@@ -7750,9 +7015,6 @@
 }, {
     "number": "53359",
     "name": "Opp Ai Tong Sch"
-}, {
-    "number": "53361",
-    "name": "Blk 454"
 }, {
     "number": "53369",
     "name": "Opp Blk 454"
@@ -7769,17 +7031,8 @@
     "number": "53389",
     "name": "Opp Bishan Nth Shop Mall"
 }, {
-    "number": "53391",
-    "name": "Opp Blk 203"
-}, {
-    "number": "53399",
-    "name": "Blk 202"
-}, {
     "number": "53401",
     "name": "Guangyang Sec Sch"
-}, {
-    "number": "53409",
-    "name": "Blk 131"
 }, {
     "number": "53419",
     "name": "Opp Guangyang Pr Sch"
@@ -7789,9 +7042,6 @@
 }, {
     "number": "54009",
     "name": "Ang Mo Kio Int"
-}, {
-    "number": "54011",
-    "name": "Blk 207"
 }, {
     "number": "54019",
     "name": "Blk 307A"
@@ -7823,17 +7073,11 @@
     "number": "54071",
     "name": "Blk 310C"
 }, {
-    "number": "54079",
-    "name": "Opp Blk 315"
-}, {
     "number": "54081",
     "name": "Teck Ghee Ct"
 }, {
     "number": "54089",
     "name": "Opp Ang Mo Kio Swim Cplx"
-}, {
-    "number": "54091",
-    "name": "Blk 331"
 }, {
     "number": "54099",
     "name": "Opp Blk 333"
@@ -7850,17 +7094,8 @@
     "number": "54169",
     "name": "Blk 255"
 }, {
-    "number": "54181",
-    "name": "Blk 258"
-}, {
-    "number": "54189",
-    "name": "Blk 110"
-}, {
     "number": "54191",
     "name": "Blk 170"
-}, {
-    "number": "54199",
-    "name": "Blk 163"
 }, {
     "number": "54201",
     "name": "Opp Blk 155"
@@ -7880,20 +7115,11 @@
     "number": "54229",
     "name": "Ang Mo Kio Pr Sch"
 }, {
-    "number": "54231",
-    "name": "Blk 129"
-}, {
-    "number": "54239",
-    "name": "Blk 209"
-}, {
     "number": "54241",
     "name": "Blk 700B"
 }, {
     "number": "54247",
     "name": "Blk 322"
-}, {
-    "number": "54248",
-    "name": "Blk 324"
 }, {
     "number": "54251",
     "name": "Aft Grandeur 8"
@@ -7937,17 +7163,11 @@
     "number": "54319",
     "name": "Opp Christ The King Ch"
 }, {
-    "number": "54321",
-    "name": "Blk 354"
-}, {
     "number": "54329",
     "name": "Blk 420"
 }, {
     "number": "54331",
     "name": "Blk 346"
-}, {
-    "number": "54339",
-    "name": "Blk 422"
 }, {
     "number": "54341",
     "name": "Opp Blk 504"
@@ -7957,9 +7177,6 @@
 }, {
     "number": "54351",
     "name": "Nanyang Poly"
-}, {
-    "number": "54359",
-    "name": "Blk 502"
 }, {
     "number": "54369",
     "name": "Opp Blk 4025"
@@ -8003,15 +7220,6 @@
     "number": "54441",
     "name": "Blk 507"
 }, {
-    "number": "54449",
-    "name": "Opp Blk 507"
-}, {
-    "number": "54451",
-    "name": "Blk 643"
-}, {
-    "number": "54459",
-    "name": "Blk 151"
-}, {
     "number": "54461",
     "name": "Blk 649"
 }, {
@@ -8020,9 +7228,6 @@
 }, {
     "number": "54471",
     "name": "Opp Blk 538"
-}, {
-    "number": "54479",
-    "name": "Blk 538"
 }, {
     "number": "54481",
     "name": "Ite Coll Ctrl"
@@ -8060,12 +7265,6 @@
     "number": "54539",
     "name": "Bishan Pk"
 }, {
-    "number": "54571",
-    "name": "Blk 532"
-}, {
-    "number": "54579",
-    "name": "Blk 540"
-}, {
     "number": "54581",
     "name": "Blk 574"
 }, {
@@ -8084,14 +7283,8 @@
     "number": "54609",
     "name": "Opp Townsville Pr Sch"
 }, {
-    "number": "54611",
-    "name": "Blk 220"
-}, {
     "number": "54619",
     "name": "Opp Blk 220"
-}, {
-    "number": "54621",
-    "name": "Blk 223"
 }, {
     "number": "54629",
     "name": "Opp Blk 223"
@@ -8159,12 +7352,6 @@
     "number": "55109",
     "name": "Serenity Pk"
 }, {
-    "number": "55111",
-    "name": "Blk 180"
-}, {
-    "number": "55119",
-    "name": "Blk 617"
-}, {
     "number": "55121",
     "name": "Opp Blk 604"
 }, {
@@ -8173,15 +7360,6 @@
 }, {
     "number": "55131",
     "name": "Blk 612"
-}, {
-    "number": "55139",
-    "name": "Blk 641"
-}, {
-    "number": "55141",
-    "name": "Opp Blk 622"
-}, {
-    "number": "55149",
-    "name": "Blk 622"
 }, {
     "number": "55151",
     "name": "Ang Mo Kio Comm Hosp"
@@ -8270,9 +7448,6 @@
     "number": "55321",
     "name": "Opp Nanyang Poly"
 }, {
-    "number": "55329",
-    "name": "Nanyang Poly"
-}, {
     "number": "55331",
     "name": "Aft Lentor Gr"
 }, {
@@ -8303,20 +7478,11 @@
     "number": "56011",
     "name": "Bef adana at thomson"
 }, {
-    "number": "56019",
-    "name": "Bef Ang Mo Kio Ave 1"
-}, {
     "number": "56021",
     "name": "Opp Sembawang Hills Fc"
 }, {
     "number": "56029",
     "name": "Bef Sembawang Hills Fc"
-}, {
-    "number": "56031",
-    "name": "Bef Yio Chu Kang Rd"
-}, {
-    "number": "56039",
-    "name": "Aft Yio Chu Kang Rd"
 }, {
     "number": "56041",
     "name": "Opp Meadows @ Peirce"
@@ -8344,9 +7510,6 @@
 }, {
     "number": "56081",
     "name": "Bef SLE"
-}, {
-    "number": "56089",
-    "name": "Aft SLE"
 }, {
     "number": "56091",
     "name": "Bef Springleaf Rd"
@@ -8432,21 +7595,6 @@
     "number": "57081",
     "name": "Opp Blk 713"
 }, {
-    "number": "57089",
-    "name": "Blk 713"
-}, {
-    "number": "57111",
-    "name": "Opp Blk 101"
-}, {
-    "number": "57119",
-    "name": "Blk 101"
-}, {
-    "number": "57121",
-    "name": "Opp Blk 115B"
-}, {
-    "number": "57129",
-    "name": "Blk 114"
-}, {
     "number": "57131",
     "name": "Opp Jln Kemuning"
 }, {
@@ -8518,9 +7666,6 @@
 }, {
     "number": "58101",
     "name": "Blk 311"
-}, {
-    "number": "58109",
-    "name": "Opp Blk 311"
 }, {
     "number": "58111",
     "name": "Blk 351 CP"
@@ -8612,9 +7757,6 @@
     "number": "58269",
     "name": "Opp Visionaire"
 }, {
-    "number": "58271",
-    "name": "Blk 335"
-}, {
     "number": "58279",
     "name": "Opp Blk 336A CP"
 }, {
@@ -8623,9 +7765,6 @@
 }, {
     "number": "58289",
     "name": "Opp Sembawang Sec Sch"
-}, {
-    "number": "58291",
-    "name": "Blk 317"
 }, {
     "number": "58299",
     "name": "Blk 328"
@@ -8660,9 +7799,6 @@
     "number": "58349",
     "name": "Blk 478"
 }, {
-    "number": "58351",
-    "name": "Blk 483"
-}, {
     "number": "58359",
     "name": "Opp Blk 484A CP"
 }, {
@@ -8675,26 +7811,17 @@
     "number": "58371",
     "name": "Bet Blks 325/326"
 }, {
-    "number": "58379",
-    "name": "Opp Blk 325"
-}, {
     "number": "58381",
     "name": "Blk 469B"
 }, {
     "number": "58389",
     "name": "Opp Blk 469B"
 }, {
-    "number": "58391",
-    "name": "Blk 303"
-}, {
     "number": "58399",
     "name": "Opp Blk 303"
 }, {
     "number": "58401",
     "name": "Opp Blk 491"
-}, {
-    "number": "58409",
-    "name": "Blk 491"
 }, {
     "number": "58411",
     "name": "Blk 404A CP"
@@ -8771,9 +7898,6 @@
     "number": "58571",
     "name": "Gambas Ave"
 }, {
-    "number": "58579",
-    "name": "Gambas Ave"
-}, {
     "number": "58991",
     "name": "Blk 767"
 }, {
@@ -8807,12 +7931,6 @@
     "number": "59049",
     "name": "Opp Khatib Stn"
 }, {
-    "number": "59051",
-    "name": "Blk 790"
-}, {
-    "number": "59059",
-    "name": "Blk 608"
-}, {
     "number": "59061",
     "name": "Blk 763"
 }, {
@@ -8828,17 +7946,8 @@
     "number": "59079",
     "name": "Yishun Stn"
 }, {
-    "number": "59081",
-    "name": "Blk 774"
-}, {
     "number": "59089",
     "name": "Opp Blk 774"
-}, {
-    "number": "59091",
-    "name": "Blk 154"
-}, {
-    "number": "59099",
-    "name": "Blk 220"
 }, {
     "number": "59101",
     "name": "Yishun Pr Sch"
@@ -8846,20 +7955,11 @@
     "number": "59109",
     "name": "Opp Yishun Pr Sch"
 }, {
-    "number": "59111",
-    "name": "Blk 701"
-}, {
     "number": "59119",
     "name": "Opp Blk 701A"
 }, {
-    "number": "59121",
-    "name": "Blk 121"
-}, {
     "number": "59129",
     "name": "Opp Blk 121"
-}, {
-    "number": "59131",
-    "name": "Blk 137"
 }, {
     "number": "59139",
     "name": "Aft Chong Pang CC"
@@ -8873,23 +7973,11 @@
     "number": "59159",
     "name": "Opp Yishun Stn Exit B"
 }, {
-    "number": "59161",
-    "name": "Opp Blk 201"
-}, {
     "number": "59169",
     "name": "Bet Blks 201/202"
 }, {
-    "number": "59171",
-    "name": "Blk 309"
-}, {
-    "number": "59179",
-    "name": "Blk 241"
-}, {
     "number": "59181",
     "name": "Opp Blk 245"
-}, {
-    "number": "59189",
-    "name": "Blk 245"
 }, {
     "number": "59191",
     "name": "Opp Northland Sec Sch"
@@ -8900,12 +7988,6 @@
     "number": "59201",
     "name": "Opp Chongfu Pr Sch"
 }, {
-    "number": "59209",
-    "name": "Blk 272"
-}, {
-    "number": "59211",
-    "name": "Blk 289"
-}, {
     "number": "59219",
     "name": "Opp Blk 288"
 }, {
@@ -8915,17 +7997,11 @@
     "number": "59229",
     "name": "Yishun Ind Pk A"
 }, {
-    "number": "59231",
-    "name": "Blk 227"
-}, {
     "number": "59239",
     "name": "Blk 291"
 }, {
     "number": "59241",
     "name": "Blk 236"
-}, {
-    "number": "59249",
-    "name": "Blk 257"
 }, {
     "number": "59251",
     "name": "Opp Darul Makmur Mque"
@@ -8933,14 +8009,8 @@
     "number": "59259",
     "name": "Darul Makmur Mque"
 }, {
-    "number": "59261",
-    "name": "Blk 174"
-}, {
     "number": "59269",
     "name": "Opp Blk 174"
-}, {
-    "number": "59271",
-    "name": "Blk 118"
 }, {
     "number": "59279",
     "name": "Opp Ahmad Ibrahim Sec Sch"
@@ -8950,9 +8020,6 @@
 }, {
     "number": "59289",
     "name": "Blk 676 CP"
-}, {
-    "number": "59291",
-    "name": "Blk 666"
 }, {
     "number": "59299",
     "name": "Blk 671 CP"
@@ -8965,9 +8032,6 @@
 }, {
     "number": "59311",
     "name": "Blk 760"
-}, {
-    "number": "59319",
-    "name": "Blk 729"
 }, {
     "number": "59321",
     "name": "Blk 794"
@@ -8990,12 +8054,6 @@
     "number": "59351",
     "name": "Opp Blk 322"
 }, {
-    "number": "59359",
-    "name": "Blk 322"
-}, {
-    "number": "59361",
-    "name": "Blk 602"
-}, {
     "number": "59369",
     "name": "Blk 647"
 }, {
@@ -9004,9 +8062,6 @@
 }, {
     "number": "59379",
     "name": "Opp Chung Cheng High Sch"
-}, {
-    "number": "59381",
-    "name": "Blk 314"
 }, {
     "number": "59389",
     "name": "Opp Blk 314"
@@ -9026,17 +8081,8 @@
     "number": "59411",
     "name": "Blk 356"
 }, {
-    "number": "59419",
-    "name": "Blk 413"
-}, {
-    "number": "59421",
-    "name": "Blk 624"
-}, {
     "number": "59429",
     "name": "Blk 846"
-}, {
-    "number": "59431",
-    "name": "Blk 630"
 }, {
     "number": "59439",
     "name": "Blk 858"
@@ -9055,9 +8101,6 @@
 }, {
     "number": "59461",
     "name": "Opp Blk 419"
-}, {
-    "number": "59469",
-    "name": "Blk 419"
 }, {
     "number": "59471",
     "name": "Blk 430B"
@@ -9085,15 +8128,6 @@
 }, {
     "number": "59529",
     "name": "Opp Yishun Emerald"
-}, {
-    "number": "59541",
-    "name": "Opp Khatib Camp"
-}, {
-    "number": "59549",
-    "name": "Khatib Camp"
-}, {
-    "number": "59551",
-    "name": "Blk 722"
 }, {
     "number": "59559",
     "name": "Opp Blk 722"
@@ -9152,9 +8186,6 @@
     "number": "59651",
     "name": "Blk 348B"
 }, {
-    "number": "59661",
-    "name": "Blk 932"
-}, {
     "number": "59669",
     "name": "Opp Blk 932"
 }, {
@@ -9169,9 +8200,6 @@
 }, {
     "number": "59719",
     "name": "Opp Blk 672C"
-}, {
-    "number": "59721",
-    "name": "Blk 816"
 }, {
     "number": "59729",
     "name": "Opp Blk 816"
@@ -9196,9 +8224,6 @@
 }, {
     "number": "59761",
     "name": "Blk 504C"
-}, {
-    "number": "59771",
-    "name": "Blk 469B"
 }, {
     "number": "59779",
     "name": "Opp Blks 469A/469B"
@@ -9266,26 +8291,14 @@
     "number": "60121",
     "name": "Boon Keng Stn/Blk 102"
 }, {
-    "number": "60139",
-    "name": "Blk 44"
-}, {
     "number": "60141",
     "name": "Opp Bendemeer Pr Sch"
-}, {
-    "number": "60159",
-    "name": "Blk 54"
 }, {
     "number": "60161",
     "name": "St. Michael's Pl"
 }, {
-    "number": "60179",
-    "name": "MOM Svcs Ctr"
-}, {
     "number": "60181",
     "name": "Aft Moonstone Lane"
-}, {
-    "number": "60191",
-    "name": "Blk 7"
 }, {
     "number": "60199",
     "name": "Boon Keng Stn/Blk 22"
@@ -9305,17 +8318,8 @@
     "number": "60221",
     "name": "Blk 73/Geylang Bahru Stn"
 }, {
-    "number": "60229",
-    "name": "Blk 68"
-}, {
-    "number": "60241",
-    "name": "Blk 1"
-}, {
     "number": "60249",
     "name": "Blk 14"
-}, {
-    "number": "60251",
-    "name": "Blk 15"
 }, {
     "number": "60261",
     "name": "Potong Pasir Stn Exit C"
@@ -9323,14 +8327,8 @@
     "number": "60269",
     "name": "Potong Pasir Stn Exit B"
 }, {
-    "number": "61009",
-    "name": "Blk 122"
-}, {
     "number": "61011",
     "name": "Blk 103"
-}, {
-    "number": "61019",
-    "name": "Opp Blk 101"
 }, {
     "number": "61021",
     "name": "Aft Woodleigh Pk"
@@ -9350,14 +8348,8 @@
     "number": "61049",
     "name": "Aft Bartley Rd"
 }, {
-    "number": "61061",
-    "name": "Blk 148"
-}, {
     "number": "61069",
     "name": "Potong Pasir Stn Exit A"
-}, {
-    "number": "61079",
-    "name": "Blk 121"
 }, {
     "number": "61089",
     "name": "Bet Blks 138/144"
@@ -9365,17 +8357,11 @@
     "number": "61099",
     "name": "Potong Pasir CC"
 }, {
-    "number": "61101",
-    "name": "Blk 120"
-}, {
     "number": "61111",
     "name": "Blk 107A"
 }, {
     "number": "61119",
     "name": "Blk 103B"
-}, {
-    "number": "62011",
-    "name": "Aft Bartley Rd"
 }, {
     "number": "62019",
     "name": "Aft Rochdale Rd"
@@ -9400,9 +8386,6 @@
 }, {
     "number": "62051",
     "name": "Aft Jln Chermat"
-}, {
-    "number": "62059",
-    "name": "Blk 161"
 }, {
     "number": "62061",
     "name": "Aft Upp Paya Lebar Rd"
@@ -9452,9 +8435,6 @@
     "number": "62139",
     "name": "S'Goon Stn Exit A/Blk 413"
 }, {
-    "number": "62141",
-    "name": "Opp Blk 1"
-}, {
     "number": "62149",
     "name": "Forest Woods"
 }, {
@@ -9467,20 +8447,11 @@
     "number": "62161",
     "name": "St.Gabriel's Sec Sch"
 }, {
-    "number": "62169",
-    "name": "Blk 426"
-}, {
-    "number": "62171",
-    "name": "Blk 409"
-}, {
     "number": "62179",
     "name": "Blk 421"
 }, {
     "number": "62189",
     "name": "S'Goon Stn Exit D/Blk 416"
-}, {
-    "number": "62219",
-    "name": "Blk 158"
 }, {
     "number": "62221",
     "name": "Opp The Minton"
@@ -9542,9 +8513,6 @@
     "number": "63061",
     "name": "Opp Blk 25"
 }, {
-    "number": "63069",
-    "name": "Blk 25"
-}, {
     "number": "63071",
     "name": "Opp Blk 248"
 }, {
@@ -9553,15 +8521,6 @@
 }, {
     "number": "63081",
     "name": "Opp Blk 241"
-}, {
-    "number": "63089",
-    "name": "Blk 241"
-}, {
-    "number": "63091",
-    "name": "Opp Blk 106"
-}, {
-    "number": "63099",
-    "name": "Blk 106"
 }, {
     "number": "63101",
     "name": "Opp Blk 169"
@@ -9574,9 +8533,6 @@
 }, {
     "number": "63139",
     "name": "Aft En-Naeem Mque"
-}, {
-    "number": "63141",
-    "name": "Blk 209"
 }, {
     "number": "63149",
     "name": "Serangoon Stadium"
@@ -9635,17 +8591,11 @@
     "number": "63241",
     "name": "Blk 21"
 }, {
-    "number": "63249",
-    "name": "Blk 1"
-}, {
     "number": "63261",
     "name": "Opp Blk 232"
 }, {
     "number": "63269",
     "name": "Blk 232"
-}, {
-    "number": "63271",
-    "name": "Blk 239"
 }, {
     "number": "63279",
     "name": "Opp Yuying Sec Sch"
@@ -9659,17 +8609,11 @@
     "number": "63291",
     "name": "Opp Blk 115"
 }, {
-    "number": "63299",
-    "name": "Blk 115"
-}, {
     "number": "63301",
     "name": "Paya Lebar Girls' Sch"
 }, {
     "number": "63309",
     "name": "Opp Paya Lebar Girls' Sch"
-}, {
-    "number": "63311",
-    "name": "Blk 634"
 }, {
     "number": "63319",
     "name": "Opp Blk 634"
@@ -9689,9 +8633,6 @@
     "number": "63341",
     "name": "Opp Blk 709"
 }, {
-    "number": "63349",
-    "name": "Blk 708"
-}, {
     "number": "63351",
     "name": "Opp Hougang Swim Cplx"
 }, {
@@ -9707,17 +8648,11 @@
     "number": "63371",
     "name": "Blk 679"
 }, {
-    "number": "63379",
-    "name": "Blk 608"
-}, {
     "number": "63381",
     "name": "Xinmin Pr Sch"
 }, {
     "number": "63389",
     "name": "Opp Xinmin Pr Sch"
-}, {
-    "number": "63391",
-    "name": "Blk 639"
 }, {
     "number": "63399",
     "name": "Blk 632"
@@ -9730,9 +8665,6 @@
 }, {
     "number": "64019",
     "name": "Blk 302"
-}, {
-    "number": "64021",
-    "name": "Blk 458"
 }, {
     "number": "64029",
     "name": "Opp Blk 458"
@@ -9751,9 +8683,6 @@
 }, {
     "number": "64051",
     "name": "Blk 465A"
-}, {
-    "number": "64059",
-    "name": "Blk 355"
 }, {
     "number": "64061",
     "name": "Opp Serangoon Sec Sch"
@@ -9788,9 +8717,6 @@
     "number": "64111",
     "name": "Opp Blk 953"
 }, {
-    "number": "64119",
-    "name": "Blk 953"
-}, {
     "number": "64121",
     "name": "Aft Ang Mo Kio Ave 5"
 }, {
@@ -9798,9 +8724,6 @@
     "name": "Blk 988B"
 }, {
     "number": "64131",
-    "name": "Bef KPE"
-}, {
-    "number": "64139",
     "name": "Bef KPE"
 }, {
     "number": "64141",
@@ -9836,9 +8759,6 @@
     "number": "64191",
     "name": "Aft TPE"
 }, {
-    "number": "64199",
-    "name": "Bef TPE"
-}, {
     "number": "64201",
     "name": "Aft Hougang Ave 3"
 }, {
@@ -9857,26 +8777,14 @@
     "number": "64229",
     "name": "Bef Defu Ave 2"
 }, {
-    "number": "64231",
-    "name": "Blk 316"
-}, {
     "number": "64239",
     "name": "Opp Blk 316"
-}, {
-    "number": "64241",
-    "name": "Blk 308"
 }, {
     "number": "64249",
     "name": "Blk 327"
 }, {
-    "number": "64251",
-    "name": "Hougang Sec Sch"
-}, {
     "number": "64259",
     "name": "Blk 925A"
-}, {
-    "number": "64301",
-    "name": "Blk 325"
 }, {
     "number": "64309",
     "name": "Opp Blk 321"
@@ -9887,23 +8795,14 @@
     "number": "64319",
     "name": "Opp Blk 344"
 }, {
-    "number": "64321",
-    "name": "Blk 350"
-}, {
     "number": "64329",
     "name": "Rio Vista"
 }, {
     "number": "64331",
     "name": "Blk 508"
 }, {
-    "number": "64339",
-    "name": "Blk 602"
-}, {
     "number": "64341",
     "name": "Bef Blk 683"
-}, {
-    "number": "64349",
-    "name": "Blk 502"
 }, {
     "number": "64351",
     "name": "Opp Montfort Sch"
@@ -9914,26 +8813,14 @@
     "number": "64361",
     "name": "Blk 535"
 }, {
-    "number": "64369",
-    "name": "Blk 532"
-}, {
     "number": "64371",
     "name": "Opp Punggol CC"
 }, {
     "number": "64379",
     "name": "Punggol CC"
 }, {
-    "number": "64381",
-    "name": "Opp Blk 521"
-}, {
-    "number": "64389",
-    "name": "Blk 522"
-}, {
     "number": "64391",
     "name": "Blk 831"
-}, {
-    "number": "64399",
-    "name": "Blk 512"
 }, {
     "number": "64401",
     "name": "Opp Blk 477A"
@@ -9944,20 +8831,11 @@
     "number": "64411",
     "name": "Blk 670"
 }, {
-    "number": "64419",
-    "name": "Blk 681"
-}, {
-    "number": "64421",
-    "name": "Blk 421"
-}, {
     "number": "64429",
     "name": "Blk 412"
 }, {
     "number": "64431",
     "name": "Blk 568"
-}, {
-    "number": "64439",
-    "name": "Blk 537"
 }, {
     "number": "64441",
     "name": "Hougang G. Shop Mall"
@@ -9995,14 +8873,8 @@
     "number": "64519",
     "name": "Blk 943"
 }, {
-    "number": "64521",
-    "name": "Blk 834"
-}, {
     "number": "64529",
     "name": "Hougang Polyclinic"
-}, {
-    "number": "64541",
-    "name": "Hougang Ctrl Int"
 }, {
     "number": "64549",
     "name": "Opp Hougang Ctrl Int"
@@ -10012,9 +8884,6 @@
 }, {
     "number": "64559",
     "name": "Blk 830A"
-}, {
-    "number": "64561",
-    "name": "Blk 574"
 }, {
     "number": "64571",
     "name": "Blk 438"
@@ -10037,9 +8906,6 @@
     "number": "64621",
     "name": "Blk 565"
 }, {
-    "number": "64629",
-    "name": "Opp Blk 565"
-}, {
     "number": "65009",
     "name": "Punggol Temp Int"
 }, {
@@ -10052,17 +8918,8 @@
     "number": "65021",
     "name": "Opp Blk 110"
 }, {
-    "number": "65029",
-    "name": "Blk 111"
-}, {
     "number": "65031",
     "name": "Blk 227D"
-}, {
-    "number": "65039",
-    "name": "Blk 124"
-}, {
-    "number": "65041",
-    "name": "Blk 231"
 }, {
     "number": "65049",
     "name": "Blk 126A"
@@ -10090,9 +8947,6 @@
 }, {
     "number": "65091",
     "name": "Blk 301A"
-}, {
-    "number": "65099",
-    "name": "Blk 604A"
 }, {
     "number": "65139",
     "name": "Punggol Rd End"
@@ -10136,17 +8990,11 @@
     "number": "65201",
     "name": "Opp Blk 201A"
 }, {
-    "number": "65209",
-    "name": "Aft Punggol Rd"
-}, {
     "number": "65219",
     "name": "Aft Punggol Ctrl"
 }, {
     "number": "65221",
     "name": "Blk 303D"
-}, {
-    "number": "65229",
-    "name": "Blk 298"
 }, {
     "number": "65231",
     "name": "Riviera Stn Exit B"
@@ -10157,23 +9005,14 @@
     "number": "65241",
     "name": "Blk 196C"
 }, {
-    "number": "65249",
-    "name": "Blk 178"
-}, {
     "number": "65251",
     "name": "Punggol Stn"
 }, {
     "number": "65259",
     "name": "Punggol Stn/Int"
 }, {
-    "number": "65261",
-    "name": "Blk 649"
-}, {
     "number": "65269",
     "name": "Blk 162B"
-}, {
-    "number": "65271",
-    "name": "Opp Blk 188"
 }, {
     "number": "65279",
     "name": "Bet Blks 187/188"
@@ -10235,9 +9074,6 @@
     "number": "65391",
     "name": "Blk 672A"
 }, {
-    "number": "65399",
-    "name": "Blk 670A"
-}, {
     "number": "65401",
     "name": "Opp Blk 264A"
 }, {
@@ -10255,9 +9091,6 @@
 }, {
     "number": "65431",
     "name": "Twin Waterfalls"
-}, {
-    "number": "65439",
-    "name": "Aft TPE"
 }, {
     "number": "65441",
     "name": "Opp Blk 315B"
@@ -10382,9 +9215,6 @@
     "number": "66011",
     "name": "Aft Braddell Rd"
 }, {
-    "number": "66019",
-    "name": "Bef Braddell Rd"
-}, {
     "number": "66021",
     "name": "New Tech Pk"
 }, {
@@ -10433,12 +9263,6 @@
     "number": "66099",
     "name": "Opp Golden Hill Est"
 }, {
-    "number": "66101",
-    "name": "Blk 516"
-}, {
-    "number": "66109",
-    "name": "Blk 151"
-}, {
     "number": "66111",
     "name": "Opp Grace Wk"
 }, {
@@ -10456,12 +9280,6 @@
 }, {
     "number": "66139",
     "name": "Opp Trinity Meth Ch"
-}, {
-    "number": "66141",
-    "name": "Bef Yio Chu Kang Rd"
-}, {
-    "number": "66149",
-    "name": "Aft Yio Chu Kang Rd"
 }, {
     "number": "66151",
     "name": "Opp Penshurst Pl"
@@ -10508,26 +9326,14 @@
     "number": "66301",
     "name": "Blk 152"
 }, {
-    "number": "66309",
-    "name": "Blk 112"
-}, {
     "number": "66311",
     "name": "Blk 141A"
 }, {
     "number": "66319",
     "name": "Bet Blks 142/148"
 }, {
-    "number": "66321",
-    "name": "Opp Blk 127"
-}, {
     "number": "66329",
     "name": "Blk 126"
-}, {
-    "number": "66331",
-    "name": "Blk 554"
-}, {
-    "number": "66339",
-    "name": "Blk 101"
 }, {
     "number": "66341",
     "name": "Daikin S'pore"
@@ -10541,17 +9347,11 @@
     "number": "66359",
     "name": "S'Goon Stn Exit C/Blk 201"
 }, {
-    "number": "66361",
-    "name": "Blk 319"
-}, {
     "number": "66369",
     "name": "Blk 238"
 }, {
     "number": "66371",
     "name": "Blk 261"
-}, {
-    "number": "66379",
-    "name": "Blk 206"
 }, {
     "number": "66381",
     "name": "Opp S'Goon Stn Exit F"
@@ -10577,12 +9377,6 @@
     "number": "66419",
     "name": "Blk 330"
 }, {
-    "number": "66421",
-    "name": "Blk 537"
-}, {
-    "number": "66429",
-    "name": "Blk 530"
-}, {
     "number": "66431",
     "name": "Opp Blk 506A"
 }, {
@@ -10597,12 +9391,6 @@
 }, {
     "number": "66461",
     "name": "Bef Seagate"
-}, {
-    "number": "66471",
-    "name": "Bef Yio Chu Kang Rd"
-}, {
-    "number": "66479",
-    "name": "Aft Yio Chu Kang Rd"
 }, {
     "number": "66481",
     "name": "Opp Blk 968"
@@ -10622,20 +9410,11 @@
     "number": "66511",
     "name": "Yio Chu Kang Amenity Ctr"
 }, {
-    "number": "66519",
-    "name": "Opp Seagate"
-}, {
     "number": "66521",
     "name": "Ban Teck Han Bldg"
 }, {
-    "number": "66529",
-    "name": "Blk 538"
-}, {
     "number": "66531",
     "name": "Opp Blk 531"
-}, {
-    "number": "66539",
-    "name": "Blk 531"
 }, {
     "number": "66541",
     "name": "Blk 980C"
@@ -10712,9 +9491,6 @@
     "number": "67079",
     "name": "Ch Of St. Vincent De Paul"
 }, {
-    "number": "67081",
-    "name": "Aft Yio Chu Kang Rd"
-}, {
     "number": "67089",
     "name": "Bef Fernvale Lane"
 }, {
@@ -10727,14 +9503,8 @@
     "number": "67111",
     "name": "Chij St. Joseph'S Convent"
 }, {
-    "number": "67119",
-    "name": "Blk 128"
-}, {
     "number": "67121",
     "name": "Blk 142A"
-}, {
-    "number": "67129",
-    "name": "Blk 137"
 }, {
     "number": "67131",
     "name": "Bakau Stn/Blk 122F"
@@ -10751,23 +9521,11 @@
     "number": "67159",
     "name": "Kangkar Stn Exit A"
 }, {
-    "number": "67161",
-    "name": "Opp Blk 101"
-}, {
-    "number": "67169",
-    "name": "Blk 101"
-}, {
     "number": "67171",
     "name": "Blk 225A"
 }, {
     "number": "67179",
     "name": "Opp Blk 225A"
-}, {
-    "number": "67181",
-    "name": "Blk 240"
-}, {
-    "number": "67189",
-    "name": "Opp Blk 241"
 }, {
     "number": "67191",
     "name": "Blk 223D"
@@ -10777,9 +9535,6 @@
 }, {
     "number": "67201",
     "name": "Blk 206A"
-}, {
-    "number": "67209",
-    "name": "Blk 203"
 }, {
     "number": "67211",
     "name": "Ranggung Stn Exit A"
@@ -10912,12 +9667,6 @@
 }, {
     "number": "67429",
     "name": "Cheng Lim Stn Exit A"
-}, {
-    "number": "67431",
-    "name": "Opp Blk 291A"
-}, {
-    "number": "67439",
-    "name": "Blk 291A"
 }, {
     "number": "67441",
     "name": "Sengkang Community Hub"
@@ -11063,12 +9812,6 @@
     "number": "67719",
     "name": "Opp Sengkang Fire Stn"
 }, {
-    "number": "67721",
-    "name": "Aft Punggol Rd"
-}, {
-    "number": "67729",
-    "name": "Bef Punggol Rd"
-}, {
     "number": "67731",
     "name": "Bef Sengkang East Dr"
 }, {
@@ -11087,9 +9830,6 @@
     "number": "67769",
     "name": "Blk 326D"
 }, {
-    "number": "68011",
-    "name": "Bef Jln Kayu"
-}, {
     "number": "68019",
     "name": "Aft Jln Kayu"
 }, {
@@ -11107,12 +9847,6 @@
 }, {
     "number": "68049",
     "name": "Opp Jln Tari Lilin"
-}, {
-    "number": "68051",
-    "name": "Bef TPE"
-}, {
-    "number": "68059",
-    "name": "Aft TPE"
 }, {
     "number": "68061",
     "name": "Sing-China Bldg"
@@ -11189,12 +9923,6 @@
     "number": "68239",
     "name": "Seletar Airport"
 }, {
-    "number": "70011",
-    "name": "Opp Blk 125"
-}, {
-    "number": "70019",
-    "name": "Blk 125"
-}, {
     "number": "70021",
     "name": "Opp Canossa Convent Pr"
 }, {
@@ -11216,17 +9944,11 @@
     "number": "70051",
     "name": "Aft Joo Seng Rd"
 }, {
-    "number": "70059",
-    "name": "Blk 7"
-}, {
     "number": "70061",
     "name": "Bef Bidadari Pk Dr"
 }, {
     "number": "70069",
     "name": "Aft Bidadari Pk Dr"
-}, {
-    "number": "70071",
-    "name": "Cycle & Carriage"
 }, {
     "number": "70079",
     "name": "Aft Regent Motors"
@@ -11284,9 +10006,6 @@
 }, {
     "number": "70181",
     "name": "Blk 36"
-}, {
-    "number": "70191",
-    "name": "Opp Blk 66"
 }, {
     "number": "70201",
     "name": "Opp MacPherson Stn Exit D"
@@ -11417,23 +10136,11 @@
     "number": "71089",
     "name": "Opp Eunos Technolink"
 }, {
-    "number": "71091",
-    "name": "Blk 637"
-}, {
-    "number": "71099",
-    "name": "Blk 311"
-}, {
     "number": "71101",
     "name": "Blk 318"
 }, {
     "number": "71109",
     "name": "Maha Bodhi Sch"
-}, {
-    "number": "71111",
-    "name": "Blk 343"
-}, {
-    "number": "71119",
-    "name": "Opp Blk 343"
 }, {
     "number": "71121",
     "name": "Ubi Stn Exit B"
@@ -11443,9 +10150,6 @@
 }, {
     "number": "71131",
     "name": "Automobile Megamart"
-}, {
-    "number": "71139",
-    "name": "Blk 302"
 }, {
     "number": "71141",
     "name": "Blk 3023"
@@ -11510,17 +10214,11 @@
     "number": "71339",
     "name": " Opp Kaki Bt Autohub"
 }, {
-    "number": "72011",
-    "name": "Blk 322"
-}, {
     "number": "72019",
     "name": "Eunos Mansions"
 }, {
     "number": "72021",
     "name": "Blk 646"
-}, {
-    "number": "72029",
-    "name": "Opp Blk 646"
 }, {
     "number": "72031",
     "name": "Bef Kaki Bt Stn Exit B"
@@ -11539,18 +10237,6 @@
 }, {
     "number": "72059",
     "name": "Opp Kaki Bt Ind Est"
-}, {
-    "number": "72061",
-    "name": "Blk 122"
-}, {
-    "number": "72069",
-    "name": "Blk 121"
-}, {
-    "number": "72071",
-    "name": "Blk 133"
-}, {
-    "number": "72079",
-    "name": "Blk 609"
 }, {
     "number": "72131",
     "name": "Opp Tech View"
@@ -11654,17 +10340,8 @@
     "number": "75079",
     "name": "Blk 819"
 }, {
-    "number": "75081",
-    "name": "Blk 831"
-}, {
-    "number": "75089",
-    "name": "Blk 827"
-}, {
     "number": "75099",
     "name": "Blk 897"
-}, {
-    "number": "75101",
-    "name": "Blk 880"
 }, {
     "number": "75109",
     "name": "Blk 888"
@@ -11683,9 +10360,6 @@
 }, {
     "number": "75139",
     "name": "Blk 863"
-}, {
-    "number": "75141",
-    "name": "Blk 730"
 }, {
     "number": "75149",
     "name": "Blk 867A"
@@ -11789,9 +10463,6 @@
     "number": "75359",
     "name": "Ikea Tampines"
 }, {
-    "number": "75361",
-    "name": "Bef Tampines Ind Ave 5"
-}, {
     "number": "75369",
     "name": "Bef Tampines Lk"
 }, {
@@ -11816,9 +10487,6 @@
     "number": "75411",
     "name": "Bef Tampines Fire Stn"
 }, {
-    "number": "75419",
-    "name": "Aft Tampines Ave 5"
-}, {
     "number": "75461",
     "name": "Reebonz Bldg"
 }, {
@@ -11842,12 +10510,6 @@
 }, {
     "number": "75499",
     "name": "Opp Blk 614"
-}, {
-    "number": "75501",
-    "name": "Blk 604A"
-}, {
-    "number": "75509",
-    "name": "Opp Blk 604A"
 }, {
     "number": "75511",
     "name": "Blk 610C"
@@ -11876,14 +10538,8 @@
     "number": "76061",
     "name": "Blk 938"
 }, {
-    "number": "76069",
-    "name": "Blk 147"
-}, {
     "number": "76071",
     "name": "Blk 141"
-}, {
-    "number": "76079",
-    "name": "Blk 101"
 }, {
     "number": "76081",
     "name": "Opp The Holy Trinity Ch"
@@ -11891,17 +10547,11 @@
     "number": "76089",
     "name": "The Holy Trinity Ch"
 }, {
-    "number": "76091",
-    "name": "Blk 206"
-}, {
     "number": "76099",
     "name": "Blk 285"
 }, {
     "number": "76101",
     "name": "Tampines East CC"
-}, {
-    "number": "76109",
-    "name": "Blk 302"
 }, {
     "number": "76111",
     "name": "Blk 945"
@@ -11927,23 +10577,8 @@
     "number": "76149",
     "name": "Opp Tampines Stn/Int"
 }, {
-    "number": "76151",
-    "name": "Blk 237"
-}, {
     "number": "76159",
     "name": "Opp Blk 237"
-}, {
-    "number": "76161",
-    "name": "Opp Blk 248"
-}, {
-    "number": "76169",
-    "name": "Blk 248"
-}, {
-    "number": "76171",
-    "name": "Blk 266"
-}, {
-    "number": "76179",
-    "name": "Opp Blk 266"
 }, {
     "number": "76181",
     "name": "Blk 216"
@@ -11954,14 +10589,8 @@
     "number": "76191",
     "name": "Blk 401"
 }, {
-    "number": "76199",
-    "name": "Blk 503"
-}, {
     "number": "76201",
     "name": "Blk 423"
-}, {
-    "number": "76209",
-    "name": "Blk 233"
 }, {
     "number": "76211",
     "name": "Blk 449"
@@ -11996,9 +10625,6 @@
     "number": "76261",
     "name": "Blk 489B"
 }, {
-    "number": "76269",
-    "name": "Opp Blk 489A"
-}, {
     "number": "76271",
     "name": "Dunman Sec Sch"
 }, {
@@ -12014,26 +10640,11 @@
     "number": "76291",
     "name": "Angsana Pr Sch"
 }, {
-    "number": "76301",
-    "name": "Blk 283"
-}, {
-    "number": "76311",
-    "name": "Blk 460"
-}, {
     "number": "76319",
     "name": "Tampines East Stn Exit D"
 }, {
-    "number": "76329",
-    "name": "Blk 125"
-}, {
     "number": "76339",
     "name": "Opp Tampines Changkat Cc"
-}, {
-    "number": "76341",
-    "name": "Blk 464"
-}, {
-    "number": "76349",
-    "name": "Dunman Sec Sch"
 }, {
     "number": "76351",
     "name": "Blk 484"
@@ -12065,14 +10676,8 @@
     "number": "76411",
     "name": "Ngee Ann Sec Sch"
 }, {
-    "number": "76419",
-    "name": "Blk 307A"
-}, {
     "number": "76421",
     "name": "Opp Blk 331"
-}, {
-    "number": "76429",
-    "name": "Blk 331"
 }, {
     "number": "76431",
     "name": " Blk 333"
@@ -12082,12 +10687,6 @@
 }, {
     "number": "76441",
     "name": "Opp Blk 345"
-}, {
-    "number": "76449",
-    "name": "Blk 343"
-}, {
-    "number": "76451",
-    "name": "Blk 324"
 }, {
     "number": "76459",
     "name": "Blk 323"
@@ -12128,12 +10727,6 @@
     "number": "77009",
     "name": "Pasir Ris Int"
 }, {
-    "number": "77011",
-    "name": "Opp Blk 515"
-}, {
-    "number": "77019",
-    "name": "Blk 515"
-}, {
     "number": "77021",
     "name": "Opp Blk 571"
 }, {
@@ -12151,12 +10744,6 @@
 }, {
     "number": "77049",
     "name": "Pasir Ris Town Pk"
-}, {
-    "number": "77051",
-    "name": "Blk 115"
-}, {
-    "number": "77059",
-    "name": "Blk 425"
 }, {
     "number": "77061",
     "name": "Ris Grandeur"
@@ -12197,17 +10784,8 @@
     "number": "77129",
     "name": "Pasir Ris Pk"
 }, {
-    "number": "77131",
-    "name": "Blk 502"
-}, {
     "number": "77139",
     "name": "Blk 582"
-}, {
-    "number": "77141",
-    "name": "Blk 519"
-}, {
-    "number": "77161",
-    "name": "Blk 741"
 }, {
     "number": "77169",
     "name": "Opp Blk 742"
@@ -12242,32 +10820,14 @@
     "number": "77219",
     "name": "Opp Blk 626"
 }, {
-    "number": "77221",
-    "name": "Blk 651"
-}, {
     "number": "77231",
     "name": "Tampines Meridian Jc"
-}, {
-    "number": "77239",
-    "name": "Blk 643"
 }, {
     "number": "77241",
     "name": "Opp Blk 640"
 }, {
     "number": "77249",
     "name": "Blk 640"
-}, {
-    "number": "77251",
-    "name": "Blk 713"
-}, {
-    "number": "77259",
-    "name": "Opp Blk 713"
-}, {
-    "number": "77261",
-    "name": "Blk 717"
-}, {
-    "number": "77269",
-    "name": "Opp Blk 717"
 }, {
     "number": "77271",
     "name": "Aft Pasir Ris St 72"
@@ -12305,9 +10865,6 @@
     "number": "77331",
     "name": "Blk 747A"
 }, {
-    "number": "77339",
-    "name": "Aft TPE"
-}, {
     "number": "77341",
     "name": "Opp Blk 569"
 }, {
@@ -12317,20 +10874,8 @@
     "number": "77351",
     "name": "Blk 562"
 }, {
-    "number": "77359",
-    "name": "Blk 564"
-}, {
-    "number": "77361",
-    "name": "Blk 555"
-}, {
     "number": "77369",
     "name": "Opp Blk 555"
-}, {
-    "number": "77371",
-    "name": "Aft Pasir Ris Dr 3"
-}, {
-    "number": "77379",
-    "name": "Bef Pasir Ris Dr 3"
 }, {
     "number": "77381",
     "name": "Blk 524B"
@@ -12338,20 +10883,8 @@
     "number": "77389",
     "name": "Opp Blk 525B"
 }, {
-    "number": "78049",
-    "name": "Blk 612"
-}, {
     "number": "78051",
     "name": "Blk 197"
-}, {
-    "number": "78059",
-    "name": "Blk 210"
-}, {
-    "number": "78061",
-    "name": "Blk 104"
-}, {
-    "number": "78069",
-    "name": "Blk 442"
 }, {
     "number": "78071",
     "name": "Blk 446"
@@ -12362,17 +10895,11 @@
     "number": "78081",
     "name": "Blk 467"
 }, {
-    "number": "78089",
-    "name": "Blk 405"
-}, {
     "number": "78091",
     "name": "Opp Downtown East"
 }, {
     "number": "78099",
     "name": "Aft Loyang Gdns"
-}, {
-    "number": "78101",
-    "name": "Opp Downtown East"
 }, {
     "number": "78109",
     "name": "Downtown East"
@@ -12401,20 +10928,8 @@
     "number": "78149",
     "name": "Opp Greenview Sec Sch"
 }, {
-    "number": "78151",
-    "name": "Blk 230"
-}, {
     "number": "78159",
     "name": "Opp Blk 230"
-}, {
-    "number": "78161",
-    "name": "Blk 216"
-}, {
-    "number": "78169",
-    "name": "Opp Blk 216"
-}, {
-    "number": "78171",
-    "name": "Blk 108"
 }, {
     "number": "78179",
     "name": "Opp Blk 108"
@@ -12431,23 +10946,11 @@
     "number": "78199",
     "name": "Opp White Sands Pri Sch"
 }, {
-    "number": "78201",
-    "name": "Opp Blk 242"
-}, {
-    "number": "78209",
-    "name": "Blk 242"
-}, {
-    "number": "78211",
-    "name": "Blk 204"
-}, {
     "number": "78219",
     "name": "Opp Blk 204"
 }, {
     "number": "78221",
     "name": "Blk 231A CP"
-}, {
-    "number": "78229",
-    "name": "Blk 485"
 }, {
     "number": "78231",
     "name": "Opp Blk 482"
@@ -12563,9 +11066,6 @@
     "number": "80229",
     "name": "Blk 45"
 }, {
-    "number": "80231",
-    "name": "Opp Blk 53"
-}, {
     "number": "80239",
     "name": "Bef Blk 53"
 }, {
@@ -12590,9 +11090,6 @@
     "number": "80289",
     "name": "Sims Pl Ter"
 }, {
-    "number": "80291",
-    "name": "Blk 82"
-}, {
     "number": "80299",
     "name": "Opp Blk 82"
 }, {
@@ -12614,9 +11111,6 @@
     "number": "81029",
     "name": "Aft Lor 28 Geylang"
 }, {
-    "number": "81031",
-    "name": "Blk 134"
-}, {
     "number": "81049",
     "name": "Aft Lor 34 Geylang"
 }, {
@@ -12634,9 +11128,6 @@
 }, {
     "number": "81091",
     "name": "Sims Urban Oasis"
-}, {
-    "number": "81099",
-    "name": "Blk 102"
 }, {
     "number": "81101",
     "name": "CISCO Ctr"
@@ -12680,9 +11171,6 @@
     "number": "81171",
     "name": "Blk 39"
 }, {
-    "number": "81179",
-    "name": "Blk 22"
-}, {
     "number": "81181",
     "name": "Dakota Stn Exit A/Blk 99"
 }, {
@@ -12724,12 +11212,6 @@
 }, {
     "number": "82029",
     "name": "Blk 14 Mkt/FC"
-}, {
-    "number": "82032",
-    "name": "Blk 416"
-}, {
-    "number": "82033",
-    "name": "Blk 414"
 }, {
     "number": "82049",
     "name": "Joo Chiat Cplx"
@@ -12941,12 +11423,6 @@
     "number": "83281",
     "name": "Bef Tosca St"
 }, {
-    "number": "83291",
-    "name": "Aft Joo Chiat Pl"
-}, {
-    "number": "83299",
-    "name": "Aft Lor G Telok Kurau"
-}, {
     "number": "83301",
     "name": "Aft East Coast Rd"
 }, {
@@ -12959,17 +11435,11 @@
     "number": "83319",
     "name": "Aft Lor J Telok Kurau"
 }, {
-    "number": "83321",
-    "name": "Kembangan Stn"
-}, {
     "number": "83329",
     "name": "Opp Kembangan Stn"
 }, {
     "number": "83331",
     "name": "Kg Kembangan CC"
-}, {
-    "number": "83341",
-    "name": "Blk 102"
 }, {
     "number": "83351",
     "name": "Grosvenor View"
@@ -12992,9 +11462,6 @@
     "number": "84019",
     "name": "Opp Chai Chee Ind Pk"
 }, {
-    "number": "84021",
-    "name": "Blk 32"
-}, {
     "number": "84029",
     "name": "Opp Blk 32"
 }, {
@@ -13007,23 +11474,11 @@
     "number": "84041",
     "name": "Blk 221A"
 }, {
-    "number": "84049",
-    "name": "Blk 27"
-}, {
     "number": "84051",
     "name": "Bedok Sports Cplx"
 }, {
-    "number": "84059",
-    "name": "Blk 65"
-}, {
     "number": "84061",
     "name": "The Tanamera Condo"
-}, {
-    "number": "84069",
-    "name": "Blk 55"
-}, {
-    "number": "84071",
-    "name": "Blk 71"
 }, {
     "number": "84079",
     "name": "Siglap Cc/Opp Blk 71"
@@ -13031,14 +11486,8 @@
     "number": "84081",
     "name": "Opp Blk 40"
 }, {
-    "number": "84089",
-    "name": "Blk 40"
-}, {
     "number": "84101",
     "name": "Opp Blk 49"
-}, {
-    "number": "84109",
-    "name": "Blk 50"
 }, {
     "number": "84111",
     "name": "Temasek JC"
@@ -13070,9 +11519,6 @@
     "number": "84159",
     "name": "Opp Casafina/Temasek JC"
 }, {
-    "number": "84161",
-    "name": "Blk 3"
-}, {
     "number": "84169",
     "name": "Opp Blk 3"
 }, {
@@ -13088,29 +11534,8 @@
     "number": "84209",
     "name": "Bedok Resvr Stn Exit B"
 }, {
-    "number": "84211",
-    "name": "Blk 403"
-}, {
-    "number": "84219",
-    "name": "Bet Blks 139/140"
-}, {
-    "number": "84221",
-    "name": "Blk 109"
-}, {
-    "number": "84229",
-    "name": "Blk 111"
-}, {
-    "number": "84231",
-    "name": "Blk 85"
-}, {
-    "number": "84239",
-    "name": "Opp Blk 85"
-}, {
     "number": "84241",
     "name": "Blk 81"
-}, {
-    "number": "84249",
-    "name": "Blk 124"
 }, {
     "number": "84251",
     "name": "Blk 99"
@@ -13130,20 +11555,8 @@
     "number": "84279",
     "name": "Aft Bedok Nth St 5"
 }, {
-    "number": "84281",
-    "name": "Blk 180"
-}, {
-    "number": "84289",
-    "name": "Opp Blk 180"
-}, {
     "number": "84299",
     "name": "Bedok Nth Depot"
-}, {
-    "number": "84301",
-    "name": "Blk 41"
-}, {
-    "number": "84309",
-    "name": "Blk 423"
 }, {
     "number": "84311",
     "name": "Blk 521"
@@ -13151,17 +11564,8 @@
     "number": "84319",
     "name": "Blk 428"
 }, {
-    "number": "84321",
-    "name": "Blk 516"
-}, {
-    "number": "84329",
-    "name": "Blk 414"
-}, {
     "number": "84331",
     "name": "Opp Blk 416"
-}, {
-    "number": "84339",
-    "name": "Blk 416"
 }, {
     "number": "84341",
     "name": "Opp Fengshan Pr Sch"
@@ -13175,41 +11579,11 @@
     "number": "84359",
     "name": "Opp Bedok Ctrl PO"
 }, {
-    "number": "84361",
-    "name": "Blk 547"
-}, {
-    "number": "84369",
-    "name": "Blk 45"
-}, {
-    "number": "84371",
-    "name": "Blk 546"
-}, {
     "number": "84379",
     "name": "Opp Blk 546"
 }, {
-    "number": "84381",
-    "name": "Blk 544"
-}, {
     "number": "84391",
     "name": "Blk 534"
-}, {
-    "number": "84401",
-    "name": "Opp Blk 550"
-}, {
-    "number": "84409",
-    "name": "Blk 550"
-}, {
-    "number": "84411",
-    "name": "Blk 526"
-}, {
-    "number": "84419",
-    "name": "Blk 512"
-}, {
-    "number": "84421",
-    "name": "Blk 510"
-}, {
-    "number": "84429",
-    "name": "Blk 515"
 }, {
     "number": "84431",
     "name": "Blk 3014"
@@ -13226,17 +11600,8 @@
     "number": "84459",
     "name": "Bet Blks 705/706"
 }, {
-    "number": "84461",
-    "name": "Opp Blk 701"
-}, {
     "number": "84469",
     "name": "Blk 703"
-}, {
-    "number": "84471",
-    "name": "Blk 745"
-}, {
-    "number": "84479",
-    "name": "Blk 713"
 }, {
     "number": "84481",
     "name": "Aft Bedok Ind Pk C"
@@ -13247,26 +11612,11 @@
     "number": "84491",
     "name": "Blk 629"
 }, {
-    "number": "84499",
-    "name": "Blk 140"
-}, {
     "number": "84501",
     "name": "Christ Ch"
 }, {
-    "number": "84511",
-    "name": "Blk 608"
-}, {
-    "number": "84521",
-    "name": "Blk 506"
-}, {
-    "number": "84529",
-    "name": "Blk 109"
-}, {
     "number": "84539",
     "name": "Bedok Nth Stn Exit B"
-}, {
-    "number": "84541",
-    "name": "Blk 42"
 }, {
     "number": "84549",
     "name": "Opp Blk 42"
@@ -13279,12 +11629,6 @@
 }, {
     "number": "84561",
     "name": "Blk 53"
-}, {
-    "number": "84569",
-    "name": "Opp Blk 53"
-}, {
-    "number": "84571",
-    "name": "Opp Blk 55"
 }, {
     "number": "84579",
     "name": "Aft Chai Chee St"
@@ -13316,9 +11660,6 @@
     "number": "84621",
     "name": "Opp Blk 716"
 }, {
-    "number": "84629",
-    "name": "Blk 716"
-}, {
     "number": "84631",
     "name": "Opp Waterfront Waves"
 }, {
@@ -13331,26 +11672,11 @@
     "number": "84649",
     "name": "Opp Blk 24"
 }, {
-    "number": "84661",
-    "name": "Blk 172"
-}, {
-    "number": "84669",
-    "name": "Blk 73"
-}, {
     "number": "84671",
     "name": "Aft Blk 156"
 }, {
     "number": "84679",
     "name": "Opp Blk 156"
-}, {
-    "number": "84681",
-    "name": "Blk 163"
-}, {
-    "number": "84691",
-    "name": "Blk 171"
-}, {
-    "number": "84701",
-    "name": "Blk 151"
 }, {
     "number": "84709",
     "name": "Opp Blk 150"
@@ -13595,18 +11921,6 @@
     "number": "92219",
     "name": "Opp CHIJ Katong Convent"
 }, {
-    "number": "92221",
-    "name": "Blk 19"
-}, {
-    "number": "92229",
-    "name": "Blk 53"
-}, {
-    "number": "92231",
-    "name": "Blk 34"
-}, {
-    "number": "92239",
-    "name": "Blk 45"
-}, {
     "number": "92241",
     "name": "Amber Gdns"
 }, {
@@ -13850,9 +12164,6 @@
     "number": "95131",
     "name": "Police Pass Off"
 }, {
-    "number": "95139",
-    "name": "Police Pass Off"
-}, {
     "number": "95141",
     "name": "Aft Cargo Bldg D"
 }, {
@@ -13970,38 +12281,20 @@
     "number": "96131",
     "name": "Blk 130"
 }, {
-    "number": "96139",
-    "name": "Blk 148"
-}, {
     "number": "96141",
     "name": "Blk 120/Opp Simei Stn"
 }, {
     "number": "96149",
     "name": "Simei Stn"
 }, {
-    "number": "96151",
-    "name": "Blk 106"
-}, {
-    "number": "96159",
-    "name": "Blk 254"
-}, {
     "number": "96161",
     "name": "Opp Simei Stn"
-}, {
-    "number": "96169",
-    "name": "Simei Stn"
 }, {
     "number": "96171",
     "name": "Bet Blks 227/228"
 }, {
     "number": "96179",
     "name": "Modena Condo/Opp Blk 228"
-}, {
-    "number": "96181",
-    "name": "Blk 151"
-}, {
-    "number": "96189",
-    "name": "Blk 166"
 }, {
     "number": "96191",
     "name": "Blk 224"
@@ -14042,12 +12335,6 @@
     "number": "96259",
     "name": "Aft Changi General Hosp"
 }, {
-    "number": "96261",
-    "name": "Blk 233"
-}, {
-    "number": "96269",
-    "name": "Blk 146"
-}, {
     "number": "96271",
     "name": "Opp Global Logistics Ctr"
 }, {
@@ -14056,12 +12343,6 @@
 }, {
     "number": "96289",
     "name": "Changi General Hosp"
-}, {
-    "number": "96291",
-    "name": "Blk 223"
-}, {
-    "number": "96299",
-    "name": "Simei Green Condo"
 }, {
     "number": "96301",
     "name": "Expo Stn Exit B"
@@ -14077,9 +12358,6 @@
 }, {
     "number": "96321",
     "name": "DBS Asia Hub"
-}, {
-    "number": "96329",
-    "name": "DHL"
 }, {
     "number": "96331",
     "name": "Premier"
@@ -14258,9 +12536,6 @@
     "number": "98029",
     "name": "Opp Blk 275"
 }, {
-    "number": "98031",
-    "name": "Aft Pasir Ris Dr 3"
-}, {
     "number": "98039",
     "name": "Bef New Loyang Link"
 }, {
@@ -14309,9 +12584,6 @@
     "number": "98111",
     "name": "Blk 256/Opp Loyang Pt"
 }, {
-    "number": "98119",
-    "name": "Loyang Pt"
-}, {
     "number": "98121",
     "name": "Krislite Bldg"
 }, {
@@ -14341,9 +12613,6 @@
 }, {
     "number": "98181",
     "name": "Opp Loyang Way 6"
-}, {
-    "number": "98199",
-    "name": "Aft Loyang Way"
 }, {
     "number": "98209",
     "name": "Encompass Digital Media"
@@ -14411,12 +12680,6 @@
     "number": "99079",
     "name": "Opp Old Pier Rd"
 }, {
-    "number": "99081",
-    "name": "Aft Cranwell Rd"
-}, {
-    "number": "99089",
-    "name": "Bef Cranwell Rd"
-}, {
     "number": "99091",
     "name": "Bef Turnhouse Rd"
 }, {
@@ -14437,9 +12700,6 @@
 }, {
     "number": "99129",
     "name": "Changi Village Hotel"
-}, {
-    "number": "99131",
-    "name": "Blk 4"
 }, {
     "number": "99139",
     "name": "Blk 5"
@@ -14495,12 +12755,6 @@
     "number": "01139",
     "name": "Parkview Sq"
 }, {
-    "number": "01211",
-    "name": "Opp Blk 461"
-}, {
-    "number": "01219",
-    "name": "Blk 461"
-}, {
     "number": "01229",
     "name": "Bef Sultan Mque"
 }, {
@@ -14516,17 +12770,11 @@
     "number": "01319",
     "name": "Lavender Stn Exit A/ICA"
 }, {
-    "number": "01329",
-    "name": "Blk 8"
-}, {
     "number": "01339",
     "name": "Bef Crawford Bridge"
 }, {
     "number": "01341",
     "name": "Southbank"
-}, {
-    "number": "01349",
-    "name": "Opp Blk 4"
 }, {
     "number": "01411",
     "name": "Opp St. John HQ"
@@ -14846,14 +13094,8 @@
     "number": "05189",
     "name": "Opp Sri Mariamman Tp"
 }, {
-    "number": "05199",
-    "name": "Opp Hong Lim Cplx"
-}, {
     "number": "05239",
     "name": "Bef The Pinnacle@Duxton"
-}, {
-    "number": "05241",
-    "name": "Opp Blk 333"
 }, {
     "number": "05259",
     "name": "Aft Kreta Ayer Rd"
@@ -14891,9 +13133,6 @@
     "number": "05629",
     "name": "Opp Southpoint"
 }, {
-    "number": "05631",
-    "name": "Blk 16"
-}, {
     "number": "05641",
     "name": "Bef Cantonment Rd"
 }, {
@@ -14909,17 +13148,8 @@
     "number": "06029",
     "name": "Outram Pk Stn"
 }, {
-    "number": "06031",
-    "name": "Opp Blk 13"
-}, {
-    "number": "06039",
-    "name": "Blk 8"
-}, {
     "number": "06049",
     "name": "Bef Outram Flyover"
-}, {
-    "number": "06051",
-    "name": "Blk 55"
 }, {
     "number": "06069",
     "name": "Aft Furama RiverFront"
@@ -14947,9 +13177,6 @@
 }, {
     "number": "06159",
     "name": "Opp Hotel Miramar"
-}, {
-    "number": "06161",
-    "name": "Blk 2"
 }, {
     "number": "06169",
     "name": "River Pl Condo"
