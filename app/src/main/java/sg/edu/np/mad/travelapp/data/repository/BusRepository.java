@@ -18,6 +18,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import sg.edu.np.mad.travelapp.data.model.Bus;
+import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
 
 public class BusRepository {
@@ -26,6 +27,7 @@ public class BusRepository {
     private ArrayList<Bus> busList = new ArrayList<>();
     private ArrayList<Service> serviceList = new ArrayList<>();
     private final OkHttpClient client = new OkHttpClient();
+    public boolean isResponseFulfilled;
 
     private final String TAG = "BusRepo";
 
@@ -39,10 +41,13 @@ public class BusRepository {
 
     public ArrayList<Service> getServiceList(String busStopCode){
         populateBusList(busStopCode);
+
         return serviceList;
     }
 
     private void populateBusList(String busStopCode){
+        isResponseFulfilled = false;
+
         Request request = new Request.Builder()
                 .url("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=" + busStopCode)
                 .header("AccountKey", "RdoZ93saQ32Ts1JcHbFegg==")
@@ -68,12 +73,8 @@ public class BusRepository {
                         if(services.length() > 0){
                             for(int i = 0; i < services.length(); i++){
                                 String serviceNo = (String) services.getJSONObject(i).get("ServiceNo");
-                                newServiceList = new ArrayList<>();
                                 JSONObject serviceObject = services.getJSONObject(i);
-
                                 for(int j = 0; j < 3; j++){
-
-                                    newBusList = new ArrayList<>();
                                     String NextBus;
                                     NextBus = j == 0 ? "NextBus" : String.format("NextBus%s", (j+1));
                                     String feature = (String) serviceObject.getJSONObject(NextBus).get("Feature");
@@ -115,15 +116,22 @@ public class BusRepository {
                                             e.printStackTrace();
                                         }
 
-                                        Log.v(TAG, String.format("%s | ServiceNo: %s", busStopCode, serviceNo));
+//                                        Log.v(TAG, String.format("%s | ServiceNo: %s", busStopCode, serviceNo));
 
                                         Bus bus = new Bus(serviceNo,feature,busType,load,lat,lon,eta);
                                         newBusList.add(bus);
                                     }
                                 }
                                 newServiceList.add(new Service(serviceNo, newBusList));
+                                newBusList = new ArrayList<>();
                             }
                             serviceList = newServiceList;
+                            String debug = String.format("Code: %s\nServiceList: ", busStopCode);
+                            for (Service service : serviceList){
+                                debug = String.format("%s %s", debug, service.ServiceNo);
+                            }
+                            Log.v("VB Activity", debug);
+                            isResponseFulfilled = true;
                         }
                         else{
 
@@ -134,7 +142,6 @@ public class BusRepository {
                 }
             }
         });
-
 
     }
 
