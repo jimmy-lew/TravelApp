@@ -77,6 +77,14 @@ public class BusStopRepository implements Repository {
         });
     }
 
+    public void findBusStopFromQuery(String stopName, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
+        ArrayList<BusStop> busStopList = new ArrayList<>();
+        getBusStopFromName(new BusStop(stopName), busStop -> {
+            busStopList.add(busStop);
+            onComplete.execute(busStopList);
+        });
+    }
+
     private void getBusStopFromName(BusStop busStop, final OnComplete<BusStop> onComplete) throws JSONException {
         for (int i = 0; i < busStopJson.length(); i++){
             JSONObject busStopObject = busStopJson.getJSONObject(i);
