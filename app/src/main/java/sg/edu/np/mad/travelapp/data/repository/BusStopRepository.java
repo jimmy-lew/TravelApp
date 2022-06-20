@@ -89,7 +89,7 @@ public class BusStopRepository {
             JSONObject busStopObject = busStopJson.getJSONObject(i);
             String busStopName = (String) busStopObject.get("name");
 
-            Log.v(TAG, String.format("CachedStop: %s | GivenStop: %s | Match: %s", busStopName, busStop.getBusStopName(),busStopName.matches(busStop.getBusStopName())));
+            //Log.v(TAG, String.format("CachedStop: %s | GivenStop: %s | Match: %s", busStopName, busStop.getBusStopName(),busStopName.matches(busStop.getBusStopName())));
 
             if (busStopName.matches(busStop.getBusStopName())){
                 Log.v("Matching Stop", busStop.getBusStopName());
