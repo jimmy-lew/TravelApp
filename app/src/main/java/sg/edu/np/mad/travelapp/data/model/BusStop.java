@@ -84,37 +84,9 @@ public class BusStop {
         BusStopName = busStopName;
     }
 
-    public BusStop(String busStopCode, String roadName, String description, Double longitude, Double latitude, ArrayList<Service> serviceList) {
-        BusStopCode = busStopCode;
-        RoadName = roadName;
-        Description = description;
-        Longitude = longitude;
-        Latitude = latitude;
-
-        ServiceList = serviceList;
-    }
-
     public BusStop(String busStopName, Double latitude, Double longitude){
         BusStopName = busStopName;
         Latitude = latitude;
         Longitude = longitude;
-    }
-
-    // --- Function to get nearby bus stops (Based on current GPS Position & Radius Range) ---
-    public ArrayList<BusStop> GetBusStops(double Longitude, double Latitude, ArrayList<BusStop> busStops, double Range) {
-        ArrayList<BusStop> nearStops = new ArrayList<>();
-        for (BusStop b: busStops) {
-            if(b.getLongitude() > Longitude - Range
-                    &&
-                    b.getLongitude() < Longitude + Range
-                    &&
-                    b.getLatitude() > Latitude - Range
-                    &&
-                    b.getLatitude() < Latitude + Range
-            ) {
-                nearStops.add(b);
-            }
-        }
-        return nearStops;
     }
 }
