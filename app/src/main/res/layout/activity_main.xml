@@ -50,41 +50,53 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="345dp"
-        android:layout_height="61dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="168dp"
-        android:elevation="8dp"
+        android:elevation="4dp"
         android:foregroundGravity="center"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/mainSearchTextbox"
-            android:layout_width="264dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:background="#FFFFFF"
-            android:ems="10"
-            android:fontFamily="@font/poppins_bold"
-            android:hint="Search Something!"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textColor="@color/black"
-            android:textIsSelectable="false" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp">
 
-        <ImageButton
-            android:id="@+id/mainSearchButton"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="290dp"
-            android:layout_marginTop="10dp"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
+            <EditText
+                android:id="@+id/mainSearchTextbox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:fontFamily="@font/poppins_bold"
+                android:hint="Search Something!"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@color/black"
+                android:textIsSelectable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            app:srcCompat="@drawable/search" />
+            <ImageButton
+                android:id="@+id/mainSearchButton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginRight="12dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/search" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -93,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Nearby"
         android:textColor="@color/black"
@@ -104,57 +116,58 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/nearbyRecyclerView"
-        android:layout_width="382dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="87dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Saved Routes"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="87dp"-->
+<!--        android:fontFamily="@font/poppins_bold"-->
+<!--        android:text="Saved Routes"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/savedRoutesRecyclerView"
-        android:layout_width="382dp"
-        android:layout_height="108dp"
-        android:layout_marginTop="7dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/savedRoutesRecyclerView"-->
+<!--        android:layout_width="382dp"-->
+<!--        android:layout_height="108dp"-->
+<!--        android:layout_marginTop="7dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="132dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Favourite Stops"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="132dp"-->
+<!--        android:fontFamily="@font/poppins_bold"-->
+<!--        android:text="Favourite Stops"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favouriteStopsRecyclerView"
-        android:layout_width="382dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="7dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/favouriteStopsRecyclerView"-->
+<!--        android:layout_width="382dp"-->
+<!--        android:layout_height="128dp"-->
+<!--        android:layout_marginTop="7dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView3" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
