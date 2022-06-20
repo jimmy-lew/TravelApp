@@ -108,17 +108,17 @@
                 app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/raining" />
 
-            <ImageView
-                android:id="@+id/isFavouriteImageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="9dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
-                app:srcCompat="@drawable/favorite_inactive" />
+<!--            <ImageView-->
+<!--                android:id="@+id/isFavouriteImageView"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginRight="16dp"-->
+<!--                android:layout_marginBottom="9dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/view"-->
+<!--                app:srcCompat="@drawable/favorite_inactive" />-->
 
             <View
                 android:id="@+id/view"
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:constraint_referenced_ids="busTimingRecyclerView,isLateImageView,isRainingImageView,busTimingRefresh,isFavouriteImageView, view" />
+                app:constraint_referenced_ids="busTimingRecyclerView,isLateImageView,isRainingImageView,busTimingRefresh, view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
