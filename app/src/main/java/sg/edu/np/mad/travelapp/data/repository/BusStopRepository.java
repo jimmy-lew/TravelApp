@@ -24,14 +24,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.Service;
 
-public class BusStopRepository {
+public class BusStopRepository implements Repository {
 
     private static BusStopRepository _instance = null;
     public ArrayList<BusStop> busStopList = new ArrayList<>();
     private JSONArray busStopJson;
     private final OkHttpClient client = new OkHttpClient();
-    public boolean isResponseFulfilled = false;
 
     private final String TAG = "BusStopRepo";
 
@@ -43,9 +43,9 @@ public class BusStopRepository {
         return _instance == null ? _instance = new BusStopRepository(context) : _instance;
     }
 
-    public ArrayList<BusStop> findNearbyBusStops(Location location) throws JSONException {
+    public void findNearbyBusStops(Location location, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
         Request request = new Request.Builder()
-                .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=bus+stop&location=" + location.getLatitude() +"%2C" + location.getLongitude() + "&radius=1500&type=bus_station&key=AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI")
+                .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=bus+stop&location=" + location.getLatitude() +"%2C" + location.getLongitude() + "&radius=150&type=[transit_station, bus_station]&key=AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -57,57 +57,48 @@ public class BusStopRepository {
         public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
 
-                    ArrayList<BusStop> newBusStopList = new ArrayList<>();
-
                     try {
                         JSONObject placesRes = new JSONObject(response.body().string());
                         JSONArray results = placesRes.getJSONArray("results");
 
-                        for (int i = 0; i < results.length(); i++){
+                        ArrayList<BusStop> busStopList = new ArrayList<>();
+                        for (int i = 0; i < results.length(); i++) {
                             JSONObject location = results.getJSONObject(i);
                             JSONObject latlng = location.getJSONObject("geometry").getJSONObject("location");
 
                             String stopName = (String) location.get("name");
-                            String lat =  String.valueOf(latlng.get("lat"));
+                            String lat = String.valueOf(latlng.get("lat"));
                             String lng = String.valueOf(latlng.get("lng"));
 
-//                            Log.v(TAG, stopName);
-
-                            newBusStopList.add(getBusStopFromName(new BusStop(stopName, Double.valueOf(lat), Double.valueOf(lng))));
+                            getBusStopFromName(new BusStop(stopName, Double.valueOf(lat), Double.valueOf(lng)), busStop -> {
+                                busStopList.add(busStop);
+                                onComplete.execute(busStopList);
+                            });
                         }
-
-                        busStopList = newBusStopList;
-                        isResponseFulfilled = true;
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
-
-        return busStopList;
     }
 
-    private BusStop getBusStopFromName(BusStop busStop) throws JSONException {
+    private void getBusStopFromName(BusStop busStop, final OnComplete<BusStop> onComplete) throws JSONException {
         for (int i = 0; i < busStopJson.length(); i++){
             JSONObject busStopObject = busStopJson.getJSONObject(i);
             String busStopName = (String) busStopObject.get("name");
 
-//            Log.v(TAG, String.format("CachedStop: %s | GivenStop: %s | Match: %s", busStopName, busStop.getBusStopName(),busStopName.matches(busStop.getBusStopName())));
-
             if (busStopName.matches(busStop.getBusStopName())){
                 busStop.setBusStopCode((String) busStopObject.get("number"));
-                busStop.setServiceList(BusRepository.get_instance().getServiceList(busStop.getBusStopCode()));
+                BusRepository.get_instance().populateBusList(busStop.getBusStopCode(), serviceList -> {
+                    busStop.setServiceList(serviceList);
+                    onComplete.execute(busStop);
+                });
             }
         }
-
-//        Log.v("Matching Stop", String.format("%s | Code: %s", busStop.getBusStopName(), busStop.getBusStopCode()));
-
-        return busStop;
     }
 
-    private String readBusStops(Context context){
+    private final String readBusStops(Context context){
         String json = null;
         try {
             InputStream is = context.getAssets().open("stops.json");

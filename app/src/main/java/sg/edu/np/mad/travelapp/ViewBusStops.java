@@ -29,21 +29,20 @@ import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
-public class ViewBusStops extends AppCompatActivity implements LocationListener {
+public class ViewBusStops extends AppCompatActivity{
 
     private final String TAG = "ViewBusStopActivity";
     private View decorView;
     private ArrayList<BusStop> data = new ArrayList<>();
 
-    private LocationManager locationManager;
+    private Location location;
 
-    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_bus_stops);
 
-        RecyclerView busStopRecycler = findViewById(R.id.favouritesRecycler);
+        location = getIntent().getParcelableExtra("location");
 
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
@@ -51,40 +50,17 @@ public class ViewBusStops extends AppCompatActivity implements LocationListener 
 
         nearbyIcon.setImageResource(R.drawable.nearby_active);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
-//        Location location = new Location("");
+//        location = new Location("");
 //        location.setLatitude(1.3918577281406086);
 //        location.setLongitude(103.75166620390048);
-//        data = getBusStopList();
 
         try {
-            int i = 0;
-
-            while(i < 15){
-                data = BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location);
-                if(BusStopRepository.get_instance(getApplicationContext()).isResponseFulfilled){
-                    break;
-                }
-                else{
-                    TimeUnit.SECONDS.sleep(1);
-                    ++i;
-                    if(i == 15){
-                    }
-                }
-            }
-
-        } catch (JSONException | InterruptedException e) {
+            BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
+                this.renderUI(busStopList);
+            });
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(data);
-        busStopRecycler.setLayoutManager(layoutManager);
-        busStopRecycler.setAdapter(busTimingCardAdapter);
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +89,16 @@ public class ViewBusStops extends AppCompatActivity implements LocationListener 
         });
     }
 
+    public void renderUI(ArrayList<BusStop> busStopList){
+        this.runOnUiThread(() -> {
+            RecyclerView busStopRecycler = this.findViewById(R.id.favouritesRecycler);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
+            busStopRecycler.setLayoutManager(layoutManager);
+            busStopRecycler.setAdapter(busTimingCardAdapter);
+        });
+    }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -133,45 +119,4 @@ public class ViewBusStops extends AppCompatActivity implements LocationListener 
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
 
-    private ArrayList<BusStop> getBusStopList() {
-        ArrayList<BusStop> busStopList = new ArrayList<>();
-        ArrayList<Service> serviceList = new ArrayList<>();
-        ArrayList<Bus> busList = new ArrayList<>();
-
-        busList.add(new Bus("307", "WAB", "SB", "SDA", 1, 1, "Arr"));
-        busList.add(new Bus("307", "WAB", "SB", "SDA", 1, 1, "2 mins"));
-
-        serviceList.add(new Service("307", busList));
-        serviceList.add(new Service("84", busList));
-
-        BusStop busStop = new BusStop("11100", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
-        busStop.setBusStopName("1");
-        busStopList.add(busStop);
-
-        serviceList = new ArrayList<>();
-        serviceList.add(new Service("307A", busList));
-
-        BusStop busStop2 = new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
-        busStop2.setBusStopName("2");
-        busStopList.add(busStop2);
-        busStopList.add(new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList));
-
-        return busStopList;
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        if (location != null) {
-            Log.v("Location Changed", location.getLatitude() + " and " + location.getLongitude());
-            locationManager.removeUpdates(this);
-        }
-    }
-
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-    }
 }
