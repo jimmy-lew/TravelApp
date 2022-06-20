@@ -18,31 +18,24 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import sg.edu.np.mad.travelapp.data.model.Bus;
+import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
 
-public class BusRepository {
+public class BusRepository implements Repository{
 
     private static BusRepository _instance = null;
-    private ArrayList<Bus> busList = new ArrayList<>();
     private ArrayList<Service> serviceList = new ArrayList<>();
     private final OkHttpClient client = new OkHttpClient();
 
     private final String TAG = "BusRepo";
 
-    private BusRepository(){
-
-    }
+    private BusRepository(){}
 
     public static synchronized BusRepository get_instance(){
         return _instance == null ? _instance = new BusRepository() : _instance;
     }
 
-    public ArrayList<Service> getServiceList(String busStopCode){
-        populateBusList(busStopCode);
-        return serviceList;
-    }
-
-    private void populateBusList(String busStopCode){
+    public void populateBusList(String busStopCode, final OnComplete<ArrayList<Service>> onComplete){
         Request request = new Request.Builder()
                 .url("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=" + busStopCode)
                 .header("AccountKey", "RdoZ93saQ32Ts1JcHbFegg==")
@@ -60,23 +53,17 @@ public class BusRepository {
                 if (response.isSuccessful()) {
                     try {
                         JSONObject busStopsResponse = new JSONObject(response.body().string());
+                        JSONArray services = busStopsResponse.getJSONArray("Services");
+                        ArrayList<Bus> newBusList = new ArrayList<>();
+                        ArrayList<Service> newServiceList = new ArrayList<>();
 
-                        // --- Extract Bus Info | IF THERE ARE STILL BUS SERVICES (NO BUSES PAST 12, sad D: )----
-                        if(Integer.valueOf(busStopsResponse.getJSONArray("Services").length()) > 0){
-                            ArrayList<Service> newServiceList = new ArrayList<>();
-                            JSONArray services = busStopsResponse.getJSONArray("Services");
-
+                        if(services.length() > 0){
                             for(int i = 0; i < services.length(); i++){
                                 String serviceNo = (String) services.getJSONObject(i).get("ServiceNo");
                                 JSONObject serviceObject = services.getJSONObject(i);
-                                ArrayList<Bus> newBusList = new ArrayList<>();
-
-                                for(int j = 0; j < 3; j++)
-                                {
-
+                                for(int j = 0; j < 3; j++){
                                     String NextBus;
                                     NextBus = j == 0 ? "NextBus" : String.format("NextBus%s", (j+1));
-
                                     String feature = (String) serviceObject.getJSONObject(NextBus).get("Feature");
                                     String busType = (String) serviceObject.getJSONObject(NextBus).get("Type");
                                     String load = (String) serviceObject.getJSONObject(NextBus).get("Load");
@@ -116,28 +103,24 @@ public class BusRepository {
                                             e.printStackTrace();
                                         }
 
-                                        Log.v(TAG, String.format("%s | ETA: %s", busStopCode, eta));
-
                                         Bus bus = new Bus(serviceNo,feature,busType,load,lat,lon,eta);
                                         newBusList.add(bus);
                                     }
                                 }
-
                                 newServiceList.add(new Service(serviceNo, newBusList));
+                                newBusList = new ArrayList<>();
                             }
-
                             serviceList = newServiceList;
+
+                            onComplete.execute(serviceList);
                         }
                         else{
+
                         }
                     } catch (JSONException e) {
-                        // ERROR
                     }
                 }
             }
         });
-
-
     }
-
 }

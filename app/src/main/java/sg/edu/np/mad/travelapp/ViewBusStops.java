@@ -1,31 +1,48 @@
 package sg.edu.np.mad.travelapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
+import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
-public class ViewBusStops extends AppCompatActivity {
+public class ViewBusStops extends AppCompatActivity{
 
     private final String TAG = "ViewBusStopActivity";
     private View decorView;
+    private ArrayList<BusStop> data = new ArrayList<>();
+
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_bus_stops);
 
-        RecyclerView busStopRecycler = findViewById(R.id.favouritesRecycler);
+        location = getIntent().getParcelableExtra("location");
 
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
@@ -33,10 +50,17 @@ public class ViewBusStops extends AppCompatActivity {
 
         nearbyIcon.setImageResource(R.drawable.nearby_active);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(getBusStopList());
-        busStopRecycler.setLayoutManager(layoutManager);
-        busStopRecycler.setAdapter(busTimingCardAdapter);
+//        location = new Location("");
+//        location.setLatitude(1.3918577281406086);
+//        location.setLongitude(103.75166620390048);
+
+        try {
+            BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
+                this.renderUI(busStopList);
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +89,16 @@ public class ViewBusStops extends AppCompatActivity {
         });
     }
 
+    public void renderUI(ArrayList<BusStop> busStopList){
+        this.runOnUiThread(() -> {
+            RecyclerView busStopRecycler = this.findViewById(R.id.favouritesRecycler);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
+            busStopRecycler.setLayoutManager(layoutManager);
+            busStopRecycler.setAdapter(busTimingCardAdapter);
+        });
+    }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -85,33 +119,4 @@ public class ViewBusStops extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
 
-    private ArrayList<BusStop> getBusStopList() {
-        ArrayList<BusStop> busStopList = new ArrayList<>();
-        ArrayList<Service> serviceList = new ArrayList<>();
-        ArrayList<Bus> busList = new ArrayList<>();
-
-        Bus bus1 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "Arr");
-        busList.add(bus1);
-        Bus bus2 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "2 mins");
-        busList.add(bus2);
-        Bus bus3 = new Bus("307", "WAB", "SB", "SDA", 1, 1, "12 mins");
-        busList.add(bus3);
-
-        Service service1 = new Service("307", busList);
-        serviceList.add(service1);
-
-        Service service2 = new Service("84", busList);
-        serviceList.add(service2);
-
-        Service service3 = new Service("307A", busList);
-        serviceList.add(service3);
-
-        BusStop busStop = new BusStop("111111", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
-        busStopList.add(busStop);
-
-        BusStop busStop2 = new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
-        busStopList.add(busStop2);
-
-        return busStopList;
-    }
 }
