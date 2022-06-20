@@ -41,14 +41,6 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     public void onBindViewHolder(@NonNull BusTimingCardViewHolder holder, int position) {
         BusStop busStop = busStopList.get(position);
 
-
-        String debug = String.format("Name: %s \nCode: %s\nServiceList: ", busStop.getBusStopName(), busStop.getBusStopCode());
-        for (int i = 0; i < busStop.getServiceList().size(); i++){
-            debug = String.format("%s %s", debug, busStop.getServiceList().get(i).ServiceNo);
-        }
-
-        Log.v("CardAdapter", debug);
-
         holder.stopNameTextView.setText(busStop.getBusStopName());
         holder.stopIDTextView.setText(busStop.getBusStopCode());
 

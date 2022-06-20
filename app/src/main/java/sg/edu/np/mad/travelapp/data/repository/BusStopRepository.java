@@ -2,7 +2,6 @@ package sg.edu.np.mad.travelapp.data.repository;
 
 import android.content.Context;
 import android.location.Location;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -12,19 +11,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
-import sg.edu.np.mad.travelapp.data.model.Service;
 
 public class BusStopRepository implements Repository {
 

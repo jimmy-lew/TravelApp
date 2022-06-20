@@ -1,32 +1,20 @@
 package sg.edu.np.mad.travelapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
-import sg.edu.np.mad.travelapp.data.model.Service;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
 public class ViewBusStops extends AppCompatActivity{
@@ -51,8 +39,10 @@ public class ViewBusStops extends AppCompatActivity{
         nearbyIcon.setImageResource(R.drawable.nearby_active);
 
 //        location = new Location("");
-//        location.setLatitude(1.3918577281406086);
-//        location.setLongitude(103.75166620390048);
+//        location.setLatitude(1.337164896071449);
+//        location.setLongitude(103.92073207075521);
+
+        // 1.337164896071449, 103.92073207075521
 
         try {
             BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
