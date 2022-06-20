@@ -84,6 +84,10 @@ public class BusStop {
         BusStopName = busStopName;
     }
 
+    public BusStop(String busStopName){
+        BusStopName = busStopName;
+    }
+
     public BusStop(String busStopName, Double latitude, Double longitude){
         BusStopName = busStopName;
         Latitude = latitude;

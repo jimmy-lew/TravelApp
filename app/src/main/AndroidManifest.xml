@@ -15,9 +15,11 @@
         android:theme="@style/Theme.TravelApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SearchBusStop"
+            android:exported="false" />
+        <activity
             android:name=".SignUp"
             android:exported="true" />
-
         <activity
             android:name=".Login"
             android:exported="true" />

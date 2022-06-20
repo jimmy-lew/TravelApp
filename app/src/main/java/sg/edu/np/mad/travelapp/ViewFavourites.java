@@ -1,19 +1,12 @@
 package sg.edu.np.mad.travelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
-import java.util.ArrayList;
-
-import sg.edu.np.mad.travelapp.data.model.Bus;
-import sg.edu.np.mad.travelapp.data.model.BusStop;
-import sg.edu.np.mad.travelapp.data.model.Service;
 
 public class ViewFavourites extends AppCompatActivity {
     private final String TAG = "ViewFavouritesActivity";
@@ -24,7 +17,7 @@ public class ViewFavourites extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_favourites);
 
-        RecyclerView favouritesRecycler = findViewById(R.id.favouritesRecycler);
+        RecyclerView favouritesRecycler = findViewById(R.id.nearbyBusRecycler);
 
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);

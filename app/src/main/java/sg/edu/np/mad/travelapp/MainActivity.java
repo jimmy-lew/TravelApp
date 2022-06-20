@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,14 +17,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import sg.edu.np.mad.travelapp.data.api.WeatherApi;
+import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
@@ -45,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         ImageView favIcon = findViewById(R.id.favIcon);
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
+
+        ImageButton searchButton = findViewById(R.id.mainSearchButton);
+        EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
 
         //TODO: Need add drop shadow for navbar
         homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
@@ -72,30 +79,37 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             e.printStackTrace();
         }
 
-        nearbyIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-                ViewBusStops.putExtra("location", location);
-                startActivity(ViewBusStops);
-            }
+        try {
+            BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
+                this.renderUI(busStopList);
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        searchButton.setOnClickListener(view -> {
+            String searchQuery = searchTextBox.getText().toString();
+            Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
+            SearchBusStop.putExtra("query", searchQuery);
+            SearchBusStop.putExtra("location", location);
+            startActivity(SearchBusStop);
         });
 
-        favIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-                startActivity(ViewFavourites);
-            }
+        nearbyIcon.setOnClickListener(view -> {
+            Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
+            ViewBusStops.putExtra("location", location);
+            startActivity(ViewBusStops);
+        });
+
+        favIcon.setOnClickListener(view -> {
+            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
+            startActivity(ViewFavourites);
         });
 
         decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                    decorView.setSystemUiVisibility(hideSystemBars());
-                }
+        decorView.setOnSystemUiVisibilityChangeListener(visibility -> {
+            if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                decorView.setSystemUiVisibility(hideSystemBars());
             }
         });
 
@@ -123,6 +137,20 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+    }
+
+    public void renderUI(ArrayList<BusStop> busStopList){
+        this.runOnUiThread(() -> {
+            RecyclerView busStopRecycler = this.findViewById(R.id.nearbyRecyclerView);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(
+                    getApplicationContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+            );
+            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
+            busStopRecycler.setLayoutManager(layoutManager);
+            busStopRecycler.setAdapter(busTimingCardAdapter);
+        });
     }
 
     @Override
