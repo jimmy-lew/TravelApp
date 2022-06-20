@@ -44,43 +44,23 @@ public class ViewBusStops extends AppCompatActivity{
 
         location = getIntent().getParcelableExtra("location");
 
-        RecyclerView busStopRecycler = findViewById(R.id.favouritesRecycler);
-
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
         ImageView favIcon = findViewById(R.id.favIcon);
 
         nearbyIcon.setImageResource(R.drawable.nearby_active);
 
-//        Location location = new Location("");
+//        location = new Location("");
 //        location.setLatitude(1.3918577281406086);
 //        location.setLongitude(103.75166620390048);
-//        data = getBusStopList();
 
         try {
-            int i = 0;
-
-            while(i < 20){
-                data = BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location);
-                if(BusStopRepository.get_instance(getApplicationContext()).isResponseFulfilled){
-                    break;
-                }
-                else{
-                    TimeUnit.SECONDS.sleep(1);
-                    ++i;
-                }
-            }
-
-        } catch (JSONException | InterruptedException e) {
+            BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
+                this.renderUI(busStopList);
+            });
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(data);
-        busStopRecycler.setLayoutManager(layoutManager);
-        busStopRecycler.setAdapter(busTimingCardAdapter);
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +89,16 @@ public class ViewBusStops extends AppCompatActivity{
         });
     }
 
+    public void renderUI(ArrayList<BusStop> busStopList){
+        this.runOnUiThread(() -> {
+            RecyclerView busStopRecycler = this.findViewById(R.id.favouritesRecycler);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
+            busStopRecycler.setLayoutManager(layoutManager);
+            busStopRecycler.setAdapter(busTimingCardAdapter);
+        });
+    }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -129,30 +119,4 @@ public class ViewBusStops extends AppCompatActivity{
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
 
-    private ArrayList<BusStop> getBusStopList() {
-        ArrayList<BusStop> busStopList = new ArrayList<>();
-        ArrayList<Service> serviceList = new ArrayList<>();
-        ArrayList<Bus> busList = new ArrayList<>();
-
-        busList.add(new Bus("307", "WAB", "SB", "SDA", 1, 1, "Arr"));
-        busList.add(new Bus("307", "WAB", "SB", "SDA", 1, 1, "2 mins"));
-
-        serviceList.add(new Service("307", busList));
-        serviceList.add(new Service("84", busList));
-
-        BusStop busStop = new BusStop("11100", "Yew Tee Rd", "Save my soul", (double)1, (double)1, serviceList);
-        busStop.setBusStopName("1");
-        busStopList.add(busStop);
-
-        serviceList = new ArrayList<>();
-        busList.add(new Bus("307", "WAB", "SB", "SDA", 1, 1, "12 mins"));
-        serviceList.add(new Service("307A", busList));
-
-        BusStop busStop2 = new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList);
-        busStop2.setBusStopName("2");
-        busStopList.add(busStop2);
-        busStopList.add(new BusStop("111111", "Yew Tee Street", "Save my soul", (double)1, (double)1, serviceList));
-
-        return busStopList;
-    }
 }

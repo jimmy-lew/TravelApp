@@ -21,33 +21,21 @@ import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
 
-public class BusRepository {
+public class BusRepository implements Repository{
 
     private static BusRepository _instance = null;
-    private ArrayList<Bus> busList = new ArrayList<>();
     private ArrayList<Service> serviceList = new ArrayList<>();
     private final OkHttpClient client = new OkHttpClient();
-    public boolean isResponseFulfilled;
 
     private final String TAG = "BusRepo";
 
-    private BusRepository(){
-
-    }
+    private BusRepository(){}
 
     public static synchronized BusRepository get_instance(){
         return _instance == null ? _instance = new BusRepository() : _instance;
     }
 
-    public ArrayList<Service> getServiceList(String busStopCode){
-        populateBusList(busStopCode);
-
-        return serviceList;
-    }
-
-    private void populateBusList(String busStopCode){
-        isResponseFulfilled = false;
-
+    public void populateBusList(String busStopCode, final OnComplete<ArrayList<Service>> onComplete){
         Request request = new Request.Builder()
                 .url("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=" + busStopCode)
                 .header("AccountKey", "RdoZ93saQ32Ts1JcHbFegg==")
@@ -69,7 +57,6 @@ public class BusRepository {
                         ArrayList<Bus> newBusList = new ArrayList<>();
                         ArrayList<Service> newServiceList = new ArrayList<>();
 
-                        // --- Extract Bus Info | IF THERE ARE STILL BUS SERVICES (NO BUSES PAST 12, sad D: )----
                         if(services.length() > 0){
                             for(int i = 0; i < services.length(); i++){
                                 String serviceNo = (String) services.getJSONObject(i).get("ServiceNo");
@@ -116,8 +103,6 @@ public class BusRepository {
                                             e.printStackTrace();
                                         }
 
-//                                        Log.v(TAG, String.format("%s | ServiceNo: %s", busStopCode, serviceNo));
-
                                         Bus bus = new Bus(serviceNo,feature,busType,load,lat,lon,eta);
                                         newBusList.add(bus);
                                     }
@@ -126,23 +111,16 @@ public class BusRepository {
                                 newBusList = new ArrayList<>();
                             }
                             serviceList = newServiceList;
-                            String debug = String.format("Code: %s\nServiceList: ", busStopCode);
-                            for (Service service : serviceList){
-                                debug = String.format("%s %s", debug, service.ServiceNo);
-                            }
-                            Log.v("VB Activity", debug);
-                            isResponseFulfilled = true;
+
+                            onComplete.execute(serviceList);
                         }
                         else{
 
                         }
                     } catch (JSONException e) {
-                        // ERROR
                     }
                 }
             }
         });
-
     }
-
 }
