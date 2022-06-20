@@ -1,8 +1,5 @@
 package sg.edu.np.mad.travelapp;
 
-import android.media.Image;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,8 +10,6 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
 
     CardView rootView;
@@ -24,8 +19,6 @@ public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
     Group hiddenGroup;
 
     RecyclerView busRecycler;
-
-//    OnRefreshHandler onRefreshHandler;
 
     public BusTimingCardViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,22 +36,6 @@ public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
         hiddenGroup = itemView.findViewById(R.id.card_group);
         busRecycler = itemView.findViewById(R.id.busTimingRecyclerView);
 
-//        refreshImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (onRefreshHandler != null) {
-//                    onRefreshHandler.onRefresh();
-//                }
-//            }
-//        });
     }
 
-//    public BusTimingCardViewHolder setRefreshHandler(OnRefreshHandler onRefreshHandler){
-//        this.onRefreshHandler = onRefreshHandler;
-//        return this;
-//    }
-//
-//    public interface OnRefreshHandler {
-//        void onRefresh();
-//    }
 }
