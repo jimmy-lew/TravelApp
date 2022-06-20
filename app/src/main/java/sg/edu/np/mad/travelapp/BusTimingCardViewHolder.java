@@ -28,7 +28,7 @@ public class BusTimingCardViewHolder extends RecyclerView.ViewHolder {
 
         lateImageView = itemView.findViewById(R.id.isLateImageView);
         weatherImageView = itemView.findViewById(R.id.isRainingImageView);
-        favouriteImageView1 = itemView.findViewById(R.id.isFavouriteImageView);
+//        favouriteImageView1 = itemView.findViewById(R.id.isFavouriteImageView);
         favouriteImageView2 = itemView.findViewById(R.id.favouriteImgView);
         refreshImageView = itemView.findViewById(R.id.busTimingRefresh);
 
