@@ -34,7 +34,7 @@ public class SearchBusStop extends AppCompatActivity {
         Location location = getIntent().getParcelableExtra("location");
 
         try {
-            BusStopRepository.get_instance(getApplicationContext()).findBusStopFromQuery(query, busStopList -> {
+            BusStopRepository.get_instance(getApplicationContext()).findBusStopFromNameQuery(query, busStopList -> {
                 this.renderUI(busStopList);
             });
         } catch (JSONException e) {

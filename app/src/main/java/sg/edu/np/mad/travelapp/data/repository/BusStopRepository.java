@@ -77,11 +77,48 @@ public class BusStopRepository implements Repository {
         });
     }
 
-    public void findBusStopFromQuery(String stopName, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
+    public void findBusStopFromNameQuery(String stopName, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
         ArrayList<BusStop> busStopList = new ArrayList<>();
-        getBusStopFromName(new BusStop(stopName), busStop -> {
+        getBusStopFromName(new BusStop().setBusStopName(stopName), busStop -> {
             busStopList.add(busStop);
             onComplete.execute(busStopList);
+        });
+    }
+
+    public void findBusStopFromNamesQuery(ArrayList<String> busStopNameList, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
+        ArrayList<BusStop> busStopList = new ArrayList<>();
+        if(busStopNameList != null){
+            for (String stopName : busStopNameList){
+                getBusStopFromName(new BusStop().setBusStopName(stopName), busStop -> {
+                    busStopList.add(busStop);
+                    onComplete.execute(busStopList);
+                });
+            }
+        }
+        else{
+            onComplete.execute(busStopList);
+        }
+    }
+
+    public void findBusStopFromCodesQuery(ArrayList<String> busStopCodeList, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
+        ArrayList<BusStop> busStopList = new ArrayList<>();
+        if(busStopCodeList != null){
+            for (String stopCode : busStopCodeList){
+                getBusStopFromCode(new BusStop().setBusStopCode(stopCode), busStop -> {
+                    busStopList.add(busStop);
+                    onComplete.execute(busStopList);
+                });
+            }
+        }
+        else{
+            onComplete.execute(busStopList);
+        }
+    }
+
+    private void getBusStopFromCode(BusStop busStop, final OnComplete<BusStop> onComplete){
+        BusRepository.get_instance().populateBusList(busStop.getBusStopCode(), serviceList -> {
+            busStop.setServiceList(serviceList);
+            onComplete.execute(busStop);
         });
     }
 

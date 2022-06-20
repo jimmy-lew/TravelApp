@@ -20,8 +20,9 @@ public class BusStop {
         return BusStopCode;
     }
 
-    public void setBusStopCode(String busStopCode) {
+    public BusStop setBusStopCode(String busStopCode) {
         BusStopCode = busStopCode;
+        return this;
     }
 
     public String getRoadName() {
@@ -80,12 +81,12 @@ public class BusStop {
         return BusStopName;
     }
 
-    public void setBusStopName(String busStopName) {
+    public BusStop setBusStopName(String busStopName) {
         BusStopName = busStopName;
+        return this;
     }
 
-    public BusStop(String busStopName){
-        BusStopName = busStopName;
+    public BusStop(){
     }
 
     public BusStop(String busStopName, Double latitude, Double longitude){

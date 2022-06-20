@@ -1,34 +1,78 @@
 package sg.edu.np.mad.travelapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONException;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import sg.edu.np.mad.travelapp.data.model.Bus;
+import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.Service;
+import sg.edu.np.mad.travelapp.data.model.User;
+import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
 public class ViewFavourites extends AppCompatActivity {
     private final String TAG = "ViewFavouritesActivity";
     private View decorView;
+    private ArrayList<String> query = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_favourites);
 
-        RecyclerView favouritesRecycler = findViewById(R.id.nearbyBusRecycler);
-
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
         ImageView favIcon = findViewById(R.id.favIcon);
 
         favIcon.setImageResource(R.drawable.favorite);
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+//
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    User user = dataSnapshot.getValue(User.class);
+//                    query = user.getFavouritesList();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(getFavouritesList());
-//        favouritesRecycler.setLayoutManager(layoutManager);
-//        favouritesRecycler.setAdapter(busTimingCardAdapter);
+        query.add("Opp Blk 765");
+
+        try {
+            BusStopRepository.get_instance(getApplicationContext()).findBusStopFromNamesQuery(query, busStopList -> {
+                this.renderUI(busStopList);
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +81,6 @@ public class ViewFavourites extends AppCompatActivity {
                 startActivity(MainActivity);
             }
         });
-
         nearbyIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,5 +118,17 @@ public class ViewFavourites extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+    }
+
+    public void renderUI(ArrayList<BusStop> busStopList){
+        this.runOnUiThread(() -> {
+            RecyclerView busStopRecycler = this.findViewById(R.id.favouriteStopsRecycler);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(
+                    getApplicationContext()
+            );
+            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
+            busStopRecycler.setLayoutManager(layoutManager);
+            busStopRecycler.setAdapter(busTimingCardAdapter);
+        });
     }
 }

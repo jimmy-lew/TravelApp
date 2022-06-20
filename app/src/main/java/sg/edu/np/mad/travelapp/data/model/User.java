@@ -1,22 +1,34 @@
 package sg.edu.np.mad.travelapp.data.model;
 
+import java.util.ArrayList;
+
 public class User {
-    public String ID;
 
-    // Getter & Setter
-    public String getID() {
-        return ID;
-    }
+    private String UserID;
+    private ArrayList<String> FavouritesList;
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    // Constructor;
+    // Constructor
     public User(){ }
 
-    public User(String ID) {
-        this.ID = ID;
+    public User(String userID, ArrayList<String> favouritesList) {
+        UserID = userID;
+        FavouritesList = favouritesList;
     }
 
+    // Getter & Setter
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String userID) {
+        UserID = userID;
+    }
+
+    public ArrayList<String> getFavouritesList() {
+        return FavouritesList;
+    }
+
+    public void setFavouritesList(ArrayList<String> favouritesList) {
+        this.FavouritesList = favouritesList;
+    }
 }
