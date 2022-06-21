@@ -28,7 +28,12 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationToken;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 
@@ -36,14 +41,14 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
     private View decorView;
-    private Location location;
-    private LocationManager locationManager;
     private Location userLocation = new Location("");
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     @SuppressLint("MissingPermission")
     @Override
@@ -69,26 +74,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         homeIcon.setImageResource(R.drawable.home_active);
         //TODO: Not sure how to remove drop shadow for inactive
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        try {
-            int i = 0;
-
-            while (i < 15) {
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
-                if (location != null) {
-                    break;
-                } else {
-                    TimeUnit.SECONDS.sleep(1);
-                    ++i;
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         FusedLocationProviderClient fusedLocationClient;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -105,23 +90,33 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 if (location != null)
                 {
                     userLocation = location;
+                    ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            }
+                            else {
+                                User user = task.getResult().getValue(User.class);
+                                try {
+                                    BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
+                                        renderUI(busStopList, user);
+                                    });
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });
-
-        try {
-            BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
-                this.renderUI(busStopList);
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         searchButton.setOnClickListener(view -> {
             String searchQuery = searchTextBox.getText().toString();
             Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
             SearchBusStop.putExtra("query", searchQuery);
-            SearchBusStop.putExtra("location", location);
+            SearchBusStop.putExtra("location", userLocation);
             startActivity(SearchBusStop);
         });
 
@@ -133,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         favIcon.setOnClickListener(view -> {
             Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
+            ViewFavourites.putExtra("location", userLocation);
             startActivity(ViewFavourites);
         });
 
@@ -169,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
 
-    public void renderUI(ArrayList<BusStop> busStopList){
+    public void renderUI(ArrayList<BusStop> busStopList, User user){
         this.runOnUiThread(() -> {
             RecyclerView busStopRecycler = this.findViewById(R.id.nearbyRecyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(
@@ -177,27 +173,28 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     LinearLayoutManager.HORIZONTAL,
                     false
             );
-            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
+            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList, user);
             busStopRecycler.setLayoutManager(layoutManager);
+            busStopRecycler.setAdapter(busTimingCardAdapter);
             busStopRecycler.setAdapter(busTimingCardAdapter);
         });
     }
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        if (location != null) {
-            Log.v("Location Changed", location.getLatitude() + " and " + location.getLongitude());
-            locationManager.removeUpdates(this);
-        }
-    }
-
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-        Log.d("Latitude","enable");
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-        Log.d("Latitude","disable");
-    }
+//    @Override
+//    public void onLocationChanged(@NonNull Location location) {
+//        if (location != null) {
+//            Log.v("Location Changed", location.getLatitude() + " and " + location.getLongitude());
+////            locationManager.removeUpdates(this);
+//        }
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(@NonNull String provider) {
+//        Log.d("Latitude","enable");
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(@NonNull String provider) {
+//        Log.d("Latitude","disable");
+//    }
 }

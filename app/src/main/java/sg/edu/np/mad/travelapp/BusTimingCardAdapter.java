@@ -14,22 +14,29 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.User;
 
 public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardViewHolder> {
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    private ArrayList<BusStop> busStopList;
-    private User user = new User("1", new ArrayList<>());
+    private ArrayList<BusStop> busStopList = new ArrayList<>();
+    private ArrayList<String> favouritesList = new ArrayList<>();
+    private User user;
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
-    public BusTimingCardAdapter(ArrayList<BusStop> busStopList){
+    public BusTimingCardAdapter(ArrayList<BusStop> busStopList, User user){
         this.busStopList = busStopList;
+        this.user = user;
     }
 
     @NonNull
@@ -48,26 +55,30 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     @Override
     public void onBindViewHolder(@NonNull BusTimingCardViewHolder holder, int position) {
         BusStop busStop = busStopList.get(position);
-
         ArrayList<String> favouritesList = user.getFavouritesList();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
-        // Sends userid and favourite stop codes when favourite img is clicked
-        holder.favouriteImageView2.setOnClickListener(view -> {
-            if(favouritesList.contains(busStop.BusStopCode)) {
-                holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
-                favouritesList.remove(busStop.BusStopCode);
-            }
-            else {
-                holder.favouriteImageView2.setImageResource(R.drawable.favorite);
-                favouritesList.add(busStop.BusStopCode);
-            }
-            user.setFavouritesList(favouritesList);
-            ref.child("users").setValue(user);
-        });
+        boolean isFavourite = favouritesList.contains(busStop.BusStopName);
 
         holder.stopNameTextView.setText(busStop.getBusStopName());
         holder.stopIDTextView.setText(busStop.getBusStopCode());
+
+        if (isFavourite) {
+            holder.favouriteImageView2.setImageResource(R.drawable.favorite);
+        }
+
+        // Sends userid and favourite stop codes when favourite img is clicked
+        holder.favouriteImageView2.setOnClickListener(view -> {
+            if(favouritesList.contains(busStop.BusStopName)) {
+                holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
+                favouritesList.remove(busStop.BusStopName);
+            }
+            else {
+                holder.favouriteImageView2.setImageResource(R.drawable.favorite);
+                favouritesList.add(busStop.BusStopName);
+            }
+            user.setFavouritesList(favouritesList);
+            ref.child(user.getUserID()).setValue(user);
+        });
 
         holder.rootView.setOnClickListener(view -> {
             if (holder.hiddenGroup.getVisibility() == View.VISIBLE) {
