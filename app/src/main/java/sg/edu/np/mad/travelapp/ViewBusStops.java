@@ -38,11 +38,11 @@ public class ViewBusStops extends AppCompatActivity{
 
         nearbyIcon.setImageResource(R.drawable.nearby_active);
 
-//        location = new Location("");
-//        location.setLatitude(1.337164896071449);
-//        location.setLongitude(103.92073207075521);
+        //location = new Location("");
+        //location.setLatitude(1.337164896071449);
+        //location.setLongitude(103.92073207075521);
 
-        // 1.337164896071449, 103.92073207075521
+        //1.337164896071449, 103.92073207075521
 
         try {
             BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {

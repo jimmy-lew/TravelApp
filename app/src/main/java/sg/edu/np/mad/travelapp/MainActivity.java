@@ -21,6 +21,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.android.gms.location.CurrentLocationRequest;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.Granularity;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.CancellationToken;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -34,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private View decorView;
     private Location location;
     private LocationManager locationManager;
+    private Location userLocation = new Location("");
 
     @SuppressLint("MissingPermission")
     @Override
@@ -64,13 +74,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         try {
             int i = 0;
 
-            while(i < 15){
+            while (i < 15) {
                 location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                if(location != null){
+
+                if (location != null) {
                     break;
-                }
-                else{
+                } else {
                     TimeUnit.SECONDS.sleep(1);
                     ++i;
                 }
@@ -78,6 +88,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        FusedLocationProviderClient fusedLocationClient;
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        CurrentLocationRequest.Builder builder = new CurrentLocationRequest.Builder();
+        builder.setDurationMillis(Long.MAX_VALUE);
+        builder.setGranularity(Granularity.GRANULARITY_FINE);
+        builder.setMaxUpdateAgeMillis(0);
+        builder.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+        CurrentLocationRequest request = builder.build();
+
+        fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null)
+                {
+                    userLocation = location;
+                }
+            }
+        });
 
         try {
             BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
@@ -97,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         nearbyIcon.setOnClickListener(view -> {
             Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-            ViewBusStops.putExtra("location", location);
+            ViewBusStops.putExtra("location", userLocation);
             startActivity(ViewBusStops);
         });
 
@@ -163,9 +193,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onProviderEnabled(@NonNull String provider) {
+        Log.d("Latitude","enable");
     }
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
+        Log.d("Latitude","disable");
     }
 }
