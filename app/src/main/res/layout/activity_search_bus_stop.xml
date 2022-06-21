@@ -12,7 +12,7 @@
         android:layout_marginBottom="96dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favouriteStopsRecycler"
+            android:id="@+id/searchedBusRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
