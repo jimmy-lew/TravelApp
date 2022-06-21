@@ -100,27 +100,27 @@ public class BusStopRepository implements Repository {
         }
     }
 
-    public void findBusStopFromCodesQuery(ArrayList<String> busStopCodeList, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
-        ArrayList<BusStop> busStopList = new ArrayList<>();
-        if(busStopCodeList != null){
-            for (String stopCode : busStopCodeList){
-                getBusStopFromCode(new BusStop().setBusStopCode(stopCode), busStop -> {
-                    busStopList.add(busStop);
-                    onComplete.execute(busStopList);
-                });
-            }
-        }
-        else{
-            onComplete.execute(busStopList);
-        }
-    }
-
-    private void getBusStopFromCode(BusStop busStop, final OnComplete<BusStop> onComplete){
-        BusRepository.get_instance().populateBusList(busStop.getBusStopCode(), serviceList -> {
-            busStop.setServiceList(serviceList);
-            onComplete.execute(busStop);
-        });
-    }
+//    public void findBusStopFromCodesQuery(ArrayList<String> busStopCodeList, final OnComplete<ArrayList<BusStop>> onComplete) throws JSONException {
+//        ArrayList<BusStop> busStopList = new ArrayList<>();
+//        if(busStopCodeList != null){
+//            for (String stopCode : busStopCodeList){
+//                getBusStopFromCode(new BusStop().setBusStopCode(stopCode), busStop -> {
+//                    busStopList.add(busStop);
+//                    onComplete.execute(busStopList);
+//                });
+//            }
+//        }
+//        else{
+//            onComplete.execute(busStopList);
+//        }
+//    }
+//
+//    private void getBusStopFromCode(BusStop busStop, final OnComplete<BusStop> onComplete){
+//        BusRepository.get_instance().populateBusList(busStop.getBusStopCode(), serviceList -> {
+//            busStop.setServiceList(serviceList);
+//            onComplete.execute(busStop);
+//        });
+//    }
 
     private void getBusStopFromName(BusStop busStop, final OnComplete<BusStop> onComplete) throws JSONException {
         for (int i = 0; i < busStopJson.length(); i++){

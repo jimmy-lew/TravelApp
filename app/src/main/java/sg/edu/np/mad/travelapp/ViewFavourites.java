@@ -2,10 +2,12 @@ package sg.edu.np.mad.travelapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,57 +38,62 @@ public class ViewFavourites extends AppCompatActivity {
     private final String TAG = "ViewFavouritesActivity";
     private View decorView;
     private ArrayList<String> query = new ArrayList<>();
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_favourites);
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
         ImageView favIcon = findViewById(R.id.favIcon);
 
         favIcon.setImageResource(R.drawable.favorite);
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-//
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    User user = dataSnapshot.getValue(User.class);
-//                    query = user.getFavouritesList();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
-        query.add("Opp Blk 765");
+        Location location = getIntent().getParcelableExtra("location");
 
-        try {
-            BusStopRepository.get_instance(getApplicationContext()).findBusStopFromNamesQuery(query, busStopList -> {
-                this.renderUI(busStopList);
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        homeIcon.setOnClickListener(new View.OnClickListener() {
+        ref.child("1").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(MainActivity);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                query = snapshot.getValue(User.class).getFavouritesList();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-        nearbyIcon.setOnClickListener(new View.OnClickListener() {
+        ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onClick(View view) {
-                Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-                startActivity(ViewBusStops);
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    User user = task.getResult().getValue(User.class);
+                    query = user.getFavouritesList();
+                    try {
+                        BusStopRepository.get_instance(getApplicationContext()).findBusStopFromNamesQuery(query, busStopList -> {
+                            renderUI(busStopList, user);
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
+        });
+
+        nearbyIcon.setOnClickListener(view -> {
+            Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
+            ViewBusStops.putExtra("location", location);
+            startActivity(ViewBusStops);
+        });
+        homeIcon.setOnClickListener(view -> {
+            Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(MainActivity);
         });
 
         decorView = getWindow().getDecorView();
@@ -120,13 +127,13 @@ public class ViewFavourites extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
 
-    public void renderUI(ArrayList<BusStop> busStopList){
+    public void renderUI(ArrayList<BusStop> busStopList, User user){
         this.runOnUiThread(() -> {
             RecyclerView busStopRecycler = this.findViewById(R.id.favouriteStopsRecycler);
             LinearLayoutManager layoutManager = new LinearLayoutManager(
                     getApplicationContext()
             );
-            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
+            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList, user);
             busStopRecycler.setLayoutManager(layoutManager);
             busStopRecycler.setAdapter(busTimingCardAdapter);
         });
