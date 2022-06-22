@@ -2,96 +2,113 @@ package sg.edu.np.mad.travelapp.data.model;
 
 import java.util.ArrayList;
 
-public class BusStop {
-    public String BusStopCode;
-    public String BusStopName;
-    public String RoadName;
-    public String Description;
-    public Double Longitude;
-    public Double Latitude;
+import android.os.Parcelable;
 
-    public boolean hasLateBus;
-    public boolean isRaining;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public ArrayList<Service> ServiceList;
+public class BusStop implements Parcelable
+{
+    @SerializedName("location")
+    @Expose
+    private SimpleLocation simpleLocation;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("code")
+    @Expose
+    private String code;
+    @SerializedName("serviceList")
+    @Expose
+    private ArrayList<Service> serviceList = null;
+    public final static Creator<BusStop> CREATOR = new Creator<BusStop>() {
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public BusStop createFromParcel(android.os.Parcel in) {
+            return new BusStop(in);
+        }
+        public BusStop[] newArray(int size) {
+            return (new BusStop[size]);
+        }
+    };
 
-    // ---- Getters & Setters ----
-    public String getBusStopCode() {
-        return BusStopCode;
+    protected BusStop(android.os.Parcel in) {
+        this.simpleLocation = ((SimpleLocation) in.readValue((SimpleLocation.class.getClassLoader())));
+        this.name = ((String) in.readValue((String.class.getClassLoader())));
+        this.code = ((String) in.readValue((String.class.getClassLoader())));
+        in.readList(this.serviceList, (Service.class.getClassLoader()));
     }
 
-    public BusStop setBusStopCode(String busStopCode) {
-        BusStopCode = busStopCode;
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public BusStop() {
+    }
+
+    /**
+     *
+     * @param code
+     * @param name
+     * @param serviceList
+     * @param simpleLocation
+     */
+    public BusStop(SimpleLocation simpleLocation, String name, String code, ArrayList<Service> serviceList) {
+        super();
+        this.simpleLocation = simpleLocation;
+        this.name = name;
+        this.code = code;
+        this.serviceList = serviceList;
+    }
+
+    public BusStop(String name, SimpleLocation simpleLocation) {
+        this.name = name;
+        this.simpleLocation = simpleLocation;
+    }
+
+    public SimpleLocation getLocation() {
+        return simpleLocation;
+    }
+
+    public void setLocation(SimpleLocation simpleLocation) {
+        this.simpleLocation = simpleLocation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public BusStop setName(String name) {
+        this.name = name;
         return this;
     }
 
-    public String getRoadName() {
-        return RoadName;
+    public String getCode() {
+        return code;
     }
 
-    public void setRoadName(String roadName) {
-        RoadName = roadName;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getDescription() {
-        return Description;
+    public ArrayList<Service> getServiceList() {
+        return serviceList;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setServiceList(ArrayList<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 
-    public Double getLongitude() {
-        return Longitude;
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeValue(simpleLocation);
+        dest.writeValue(name);
+        dest.writeValue(code);
+        dest.writeList(serviceList);
     }
 
-    public void setLongitude(Double longitude) {
-        Longitude = longitude;
+    public int describeContents() {
+        return  0;
     }
 
-    public Double getLatitude() {
-        return Latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        Latitude = latitude;
-    }
-
-    public boolean isHasLateBus() {
-        return hasLateBus;
-    }
-
-    public void setHasLateBus(boolean hasLateBus) {
-        this.hasLateBus = hasLateBus;
-    }
-
-    public boolean isRaining() {
-        return isRaining;
-    }
-
-    public void setRaining(boolean raining) {
-        isRaining = raining;
-    }
-
-    public ArrayList<Service> getServiceList() { return ServiceList; }
-
-    public void setServiceList(ArrayList<Service> serviceList) { ServiceList = serviceList; }
-
-    public String getBusStopName() {
-        return BusStopName;
-    }
-
-    public BusStop setBusStopName(String busStopName) {
-        BusStopName = busStopName;
-        return this;
-    }
-
-    public BusStop(){
-    }
-
-    public BusStop(String busStopName, Double latitude, Double longitude){
-        BusStopName = busStopName;
-        Latitude = latitude;
-        Longitude = longitude;
-    }
 }

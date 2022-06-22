@@ -43,7 +43,8 @@ public class SearchBusStop extends AppCompatActivity {
         ImageView homeIcon = findViewById(R.id.homeIcon);
         ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
 
-        String query = getIntent().getStringExtra("query");
+        ArrayList<String> query = new ArrayList<>();
+        query.add(getIntent().getStringExtra("query"));
         Location location = getIntent().getParcelableExtra("location");
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -54,13 +55,9 @@ public class SearchBusStop extends AppCompatActivity {
                 }
                 else {
                     User user = task.getResult().getValue(User.class);
-                    try {
-                        BusStopRepository.get_instance(getApplicationContext()).findBusStopFromNameQuery(query, busStopList -> {
-                            renderUI(busStopList, user);
-                        });
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                        renderUI(busStopList, user);
+                    });
                 }
             }
         });
@@ -76,6 +73,7 @@ public class SearchBusStop extends AppCompatActivity {
         });
         favIcon.setOnClickListener(view -> {
             Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
+            ViewFavourites.putExtra("location", location);
             startActivity(ViewFavourites);
         });
 

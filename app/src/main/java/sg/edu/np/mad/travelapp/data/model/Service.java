@@ -1,14 +1,63 @@
+
 package sg.edu.np.mad.travelapp.data.model;
 
+import android.os.Parcelable;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class Service {
+public class Service implements Parcelable
+{
+    @SerializedName("serviceNo")
+    @Expose
+    private String serviceNo;
+    @SerializedName("busList")
+    @Expose
+    private ArrayList<Bus> busList = null;
+    public final static Creator<Service> CREATOR = new Creator<Service>() {
+        @SuppressWarnings({
+            "unchecked"
+        })
+        public Service createFromParcel(android.os.Parcel in) {
+            return new Service(in);
+        }
+        public Service[] newArray(int size) {
+            return (new Service[size]);
+        }
+    };
 
-    public String ServiceNo;
-    public ArrayList<Bus> busList;
+    protected Service(android.os.Parcel in) {
+        this.serviceNo = ((String) in.readValue((String.class.getClassLoader())));
+        in.readList(this.busList, (Bus.class.getClassLoader()));
+    }
 
-    public Service(String serviceNo) {
-        ServiceNo = serviceNo;
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public Service() {
+    }
+
+    /**
+     * 
+     * @param serviceNo
+     * @param busList
+     */
+    public Service(String serviceNo, ArrayList<Bus> busList) {
+        super();
+        this.serviceNo = serviceNo;
+        this.busList = busList;
+    }
+
+    public String getServiceNo() {
+        return serviceNo;
+    }
+
+    public void setServiceNo(String serviceNo) {
+        this.serviceNo = serviceNo;
     }
 
     public ArrayList<Bus> getBusList() {
@@ -19,17 +68,13 @@ public class Service {
         this.busList = busList;
     }
 
-    public String getServiceNo() {
-        return ServiceNo;
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeValue(serviceNo);
+        dest.writeList(busList);
     }
 
-    public void setServiceNo(String serviceNo) {
-        ServiceNo = serviceNo;
-    }
-
-    public Service(String serviceNo, ArrayList<Bus> busList){
-        ServiceNo = serviceNo;
-        this.busList = busList;
+    public int describeContents() {
+        return  0;
     }
 
 }

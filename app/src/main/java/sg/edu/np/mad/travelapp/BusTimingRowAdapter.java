@@ -38,7 +38,7 @@ public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowViewHo
     public void onBindViewHolder(@NonNull BusTimingRowViewHolder holder, int position) {
         Service service = serviceList.get(position);
 
-        holder.busNumber.setText(service.ServiceNo);
+        holder.busNumber.setText(service.getServiceNo());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 holder.busTimingRecycler.getContext(),
@@ -48,7 +48,7 @@ public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowViewHo
 
         layoutManager.setInitialPrefetchItemCount(service.getBusList().size());
 
-        BusTimingItemAdapter busTimingItemAdapter = new BusTimingItemAdapter(service.busList);
+        BusTimingItemAdapter busTimingItemAdapter = new BusTimingItemAdapter(service.getBusList());
         holder.busTimingRecycler.setLayoutManager(layoutManager);
         holder.busTimingRecycler.setAdapter(busTimingItemAdapter);
         holder.busTimingRecycler.setRecycledViewPool(viewPool);
