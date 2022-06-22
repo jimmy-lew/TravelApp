@@ -1,85 +1,111 @@
+
 package sg.edu.np.mad.travelapp.data.model;
 
-public class Bus extends Service{
-    // Documentation : https://datamall.lta.gov.sg/content/dam/datamall/datasets/LTA_DataMall_API_User_Guide.pdf#page=12&zoom=100,92,134
+import android.os.Parcelable;
 
-    public String serviceNo;    // Bus Number
-    public String Feature;      // Wheelchair accessible?
-    public String BusType;      // SD (for Single Deck) | DD (for Double Deck) | BD (for Bendy)
-    public String Load;         // How crowded the bus is | (SEA(for Seats Available) ▪ SDA (for Standing Available)▪ LSD (for Limited Standing)
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public double Latitude;
-    public double Longitude;
+public class Bus implements Parcelable
+{
 
-    public String EstimatedArrival;
+    @SerializedName("estimatedTime")
+    @Expose
+    private String estimatedTime;
+    @SerializedName("load")
+    @Expose
+    private String load;
+    @SerializedName("feature")
+    @Expose
+    private String feature;
+    @SerializedName("type")
+    @Expose
+    private String type;
+    public final static Creator<Bus> CREATOR = new Creator<Bus>() {
 
-    // ---- Getters & Setters ----
-    @Override
-    public String getServiceNo() {
-        return serviceNo;
+        @SuppressWarnings({
+            "unchecked"
+        })
+        public Bus createFromParcel(android.os.Parcel in) {
+            return new Bus(in);
+        }
+
+        public Bus[] newArray(int size) {
+            return (new Bus[size]);
+        }
+
+    };
+
+    protected Bus(android.os.Parcel in) {
+        this.estimatedTime = ((String) in.readValue((String.class.getClassLoader())));
+        this.load = ((String) in.readValue((String.class.getClassLoader())));
+        this.feature = ((String) in.readValue((String.class.getClassLoader())));
+        this.type = ((String) in.readValue((String.class.getClassLoader())));
     }
 
-    @Override
-    public void setServiceNo(String serviceNo) {
-        this.serviceNo = serviceNo;
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public Bus() {
     }
 
-    public String getFeature() {
-        return Feature;
+    /**
+     * 
+     * @param estimatedTime
+     * @param load
+     * @param feature
+     * @param type
+     */
+    public Bus(String estimatedTime, String load, String feature, String type) {
+        super();
+        this.estimatedTime = estimatedTime;
+        this.load = load;
+        this.feature = feature;
+        this.type = type;
     }
 
-    public void setFeature(String feature) {
-        Feature = feature;
+    public String getEstimatedTime() {
+        return estimatedTime;
     }
 
-    public String getBusType() {
-        return BusType;
-    }
-
-    public void setBusType(String busType) {
-        BusType = busType;
+    public void setEstimatedTime(String estimatedTime) {
+        this.estimatedTime = estimatedTime;
     }
 
     public String getLoad() {
-        return Load;
+        return load;
     }
 
     public void setLoad(String load) {
-        Load = load;
+        this.load = load;
     }
 
-    public double getLatitude() {
-        return Latitude;
+    public String getFeature() {
+        return feature;
     }
 
-    public void setLatitude(double latitude) {
-        Latitude = latitude;
+    public void setFeature(String feature) {
+        this.feature = feature;
     }
 
-    public double getLongitude() {
-        return Longitude;
+    public String getType() {
+        return type;
     }
 
-    public void setLongitude(double longitude) {
-        Longitude = longitude;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getEstimatedArrival() {
-        return EstimatedArrival;
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeValue(estimatedTime);
+        dest.writeValue(load);
+        dest.writeValue(feature);
+        dest.writeValue(type);
     }
 
-    public void setEstimatedArrival(String estimatedArrival) {
-        EstimatedArrival = estimatedArrival;
+    public int describeContents() {
+        return  0;
     }
 
-    // --- Constructors ---
-    public Bus(String serviceNo, String feature, String busType, String load, double latitude, double longitude, String estimatedArrival) {
-        super(serviceNo);
-        Feature = feature;
-        BusType = busType;
-        Load = load;
-        Latitude = latitude;
-        Longitude = longitude;
-        EstimatedArrival = estimatedArrival;
-    }
 }
