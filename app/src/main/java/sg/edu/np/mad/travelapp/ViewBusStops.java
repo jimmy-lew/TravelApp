@@ -55,8 +55,6 @@ public class ViewBusStops extends AppCompatActivity{
         //location.setLatitude(1.337164896071449);
         //location.setLongitude(103.92073207075521);
 
-        //1.337164896071449, 103.92073207075521
-
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
