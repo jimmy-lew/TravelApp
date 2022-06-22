@@ -30,12 +30,19 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private ArrayList<BusStop> busStopList = new ArrayList<>();
-    private ArrayList<String> favouritesList = new ArrayList<>();
     private User user;
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     public BusTimingCardAdapter(ArrayList<BusStop> busStopList, User user){
         this.busStopList = busStopList;
+        this.user = user;
+    }
+
+    public void setBusStopList(ArrayList<BusStop> busStopList) {
+        this.busStopList = busStopList;
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -57,10 +64,10 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
         BusStop busStop = busStopList.get(position);
         ArrayList<String> favouritesList = user.getFavouritesList();
 
-        boolean isFavourite = favouritesList.contains(busStop.BusStopName);
+        boolean isFavourite = favouritesList.contains(busStop.getName());
 
-        holder.stopNameTextView.setText(busStop.getBusStopName());
-        holder.stopIDTextView.setText(busStop.getBusStopCode());
+        holder.stopNameTextView.setText(busStop.getName());
+        holder.stopIDTextView.setText(busStop.getCode());
 
         if (isFavourite) {
             holder.favouriteImageView2.setImageResource(R.drawable.favorite);
@@ -68,13 +75,13 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
 
         // Sends userid and favourite stop codes when favourite img is clicked
         holder.favouriteImageView2.setOnClickListener(view -> {
-            if(favouritesList.contains(busStop.BusStopName)) {
+            if(favouritesList.contains(busStop.getName())) {
                 holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
-                favouritesList.remove(busStop.BusStopName);
+                favouritesList.remove(busStop.getName());
             }
             else {
                 holder.favouriteImageView2.setImageResource(R.drawable.favorite);
-                favouritesList.add(busStop.BusStopName);
+                favouritesList.add(busStop.getName());
             }
             user.setFavouritesList(favouritesList);
             ref.child(user.getUserID()).setValue(user);

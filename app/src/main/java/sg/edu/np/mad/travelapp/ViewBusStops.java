@@ -65,13 +65,9 @@ public class ViewBusStops extends AppCompatActivity{
                 }
                 else {
                     User user = task.getResult().getValue(User.class);
-                    try {
-                        BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
-                            renderUI(busStopList, user);
-                        });
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                        renderUI(busStopList, user);
+                    });
                 }
             }
         });
@@ -83,6 +79,7 @@ public class ViewBusStops extends AppCompatActivity{
 
         favIcon.setOnClickListener(view -> {
             Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
+            ViewFavourites.putExtra("location", location);
             startActivity(ViewFavourites);
         });
 

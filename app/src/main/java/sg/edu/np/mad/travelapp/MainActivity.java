@@ -47,6 +47,7 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
     private View decorView;
+    BusTimingCardAdapter busTimingCardAdapter;
     private Location userLocation = new Location("");
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
@@ -84,30 +85,32 @@ public class MainActivity extends AppCompatActivity{
         builder.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
         CurrentLocationRequest request = builder.build();
 
+        renderUI(new ArrayList<BusStop>(), new User("1", new ArrayList<String>()));
+
         fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null)
                 {
                     userLocation = location;
-                    ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (!task.isSuccessful()) {
-                                Log.e("firebase", "Error getting data", task.getException());
-                            }
-                            else {
-                                User user = task.getResult().getValue(User.class);
-                                try {
-                                    BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
-                                        renderUI(busStopList, user);
-                                    });
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
+                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                        busTimingCardAdapter.setBusStopList(busStopList);
+                        busTimingCardAdapter.notifyDataSetChanged();
                     });
+                }
+            }
+        });
+
+        ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    User user = task.getResult().getValue(User.class);
+                    busTimingCardAdapter.setUser(user);
+                    busTimingCardAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -173,28 +176,10 @@ public class MainActivity extends AppCompatActivity{
                     LinearLayoutManager.HORIZONTAL,
                     false
             );
-            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList, user);
+            busTimingCardAdapter = new BusTimingCardAdapter(busStopList, user);
             busStopRecycler.setLayoutManager(layoutManager);
             busStopRecycler.setAdapter(busTimingCardAdapter);
             busStopRecycler.setAdapter(busTimingCardAdapter);
         });
     }
-
-//    @Override
-//    public void onLocationChanged(@NonNull Location location) {
-//        if (location != null) {
-//            Log.v("Location Changed", location.getLatitude() + " and " + location.getLongitude());
-////            locationManager.removeUpdates(this);
-//        }
-//    }
-//
-//    @Override
-//    public void onProviderEnabled(@NonNull String provider) {
-//        Log.d("Latitude","enable");
-//    }
-//
-//    @Override
-//    public void onProviderDisabled(@NonNull String provider) {
-//        Log.d("Latitude","disable");
-//    }
 }
