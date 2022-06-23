@@ -102,19 +102,19 @@ public class MainActivity extends AppCompatActivity{
 
         renderUI(new ArrayList<BusStop>(), new User("1", new ArrayList<String>()));
 
-//        fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
-//            @Override
-//            public void onSuccess(Location location) {
-//                if (location != null)
-//                {
-//                    userLocation = location;
-//                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-//                        busTimingCardAdapter.setBusStopList(busStopList);
-//                        busTimingCardAdapter.notifyDataSetChanged();
-//                    });
-//                }
-//            }
-//        });
+        fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null)
+                {
+                    userLocation = location;
+                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                        busTimingCardAdapter.setBusStopList(busStopList);
+                        busTimingCardAdapter.notifyDataSetChanged();
+                    });
+                }
+            }
+        });
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
