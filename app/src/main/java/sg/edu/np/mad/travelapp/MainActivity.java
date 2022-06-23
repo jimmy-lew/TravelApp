@@ -23,6 +23,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -137,6 +139,12 @@ public class MainActivity extends AppCompatActivity{
             SearchBusStop.putExtra("location", userLocation);
             startActivity(SearchBusStop);
         });
+
+        // --- Autocomplete Suggestions ---
+        String [] suggestions = {"airplane", "bird", "chicken"};
+        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.mainSearchTextbox);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggestions);
+        autoCompleteTextView.setAdapter(arrayAdapter);
 
         // --- Search Debounce ---
         long delay = 1000; // 1 seconds after user stops typing
