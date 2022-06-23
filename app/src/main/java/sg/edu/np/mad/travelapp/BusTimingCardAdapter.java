@@ -2,6 +2,7 @@ package sg.edu.np.mad.travelapp;
 
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,11 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     private ArrayList<BusStop> busStopList = new ArrayList<>();
     private User user;
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+
+    public BusTimingCardAdapter(){
+        busStopList = new ArrayList<BusStop>();
+        user = new User("1", new ArrayList<String>());
+    }
 
     public BusTimingCardAdapter(ArrayList<BusStop> busStopList, User user){
         this.busStopList = busStopList;
@@ -86,6 +92,7 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
                 holder.favouriteImageView2.setVisibility(View.VISIBLE);
             } else {
                 TransitionManager.beginDelayedTransition(holder.rootView, new AutoTransition());
+                Log.v("Expand", "Expanded");
                 holder.hiddenGroup.setVisibility(View.VISIBLE);
                 holder.favouriteImageView2.setVisibility(View.GONE);
             }
