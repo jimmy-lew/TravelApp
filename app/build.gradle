@@ -13,9 +13,6 @@ android {
         targetSdk 32
         versionCode 3
         versionName "1.0.1"
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        buildConfigField "String", "MAPS_API_KEY", "\"${properties.getProperty('MAPS_API_KEY')}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
