@@ -37,6 +37,8 @@ import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -65,6 +67,12 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        // Initialize the SDK
+        Places.initialize(getApplicationContext(), GetAPIKey());
+
+        // Create a new PlacesClient instance
+        PlacesClient placesClient = Places.createClient(this);
 
         CardView homeOutCardView = findViewById(R.id.homeOutCardView);
         CardView homeInCardView = findViewById(R.id.homeInCardView);
