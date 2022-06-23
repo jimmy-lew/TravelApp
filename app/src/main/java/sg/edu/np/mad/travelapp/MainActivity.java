@@ -18,6 +18,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -37,6 +40,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 import org.json.JSONException;
 
@@ -90,19 +94,19 @@ public class MainActivity extends AppCompatActivity{
 
         renderUI(new ArrayList<BusStop>(), new User("1", new ArrayList<String>()));
 
-        fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null)
-                {
-                    userLocation = location;
-                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-                        busTimingCardAdapter.setBusStopList(busStopList);
-                        busTimingCardAdapter.notifyDataSetChanged();
-                    });
-                }
-            }
-        });
+//        fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//            @Override
+//            public void onSuccess(Location location) {
+//                if (location != null)
+//                {
+//                    userLocation = location;
+//                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+//                        busTimingCardAdapter.setBusStopList(busStopList);
+//                        busTimingCardAdapter.notifyDataSetChanged();
+//                    });
+//                }
+//            }
+//        });
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -124,6 +128,42 @@ public class MainActivity extends AppCompatActivity{
             SearchBusStop.putExtra("query", searchQuery);
             SearchBusStop.putExtra("location", userLocation);
             startActivity(SearchBusStop);
+        });
+
+        // --- Search Debounce ---
+        long delay = 1000; // 1 seconds after user stops typing
+        long last_text_edit = 0;
+        Handler handler = new Handler();
+
+        Runnable CheckInputFinish = new Runnable() {
+            public void run() {
+                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
+                    // TODO: do what you need here
+                    Log.v(TAG, "Stopped");
+                }
+            }
+        };
+
+        searchTextBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence s, int start, int before, int count) {
+                //You need to remove this to run only once
+                handler.removeCallbacks(CheckInputFinish);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //avoid triggering event when text is empty
+                if (s.length() > 0) {
+                    long last_text_edit = System.currentTimeMillis();
+                    handler.postDelayed(CheckInputFinish, delay);
+                }
+            }
         });
 
         nearbyIcon.setOnClickListener(view -> {
@@ -187,13 +227,13 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    // --- Get API KEY from local.properties/AndroidManifest ---
     public String GetAPIKey(){
         try{
             ApplicationInfo info = this.getApplicationContext()
                     .getPackageManager()
                     .getApplicationInfo(this.getApplicationContext().getPackageName(),
                             PackageManager.GET_META_DATA);
-
             String key = info.metaData.get("MAP_KEY").toString();
             return key;
         }
