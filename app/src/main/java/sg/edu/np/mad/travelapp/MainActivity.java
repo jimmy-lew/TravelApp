@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        Log.v(TAG,"API KEY: " + GetAPIKey());
     }
 
     // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----
@@ -182,4 +186,21 @@ public class MainActivity extends AppCompatActivity{
             busStopRecycler.setAdapter(busTimingCardAdapter);
         });
     }
+
+    public String GetAPIKey(){
+        try{
+            ApplicationInfo info = this.getApplicationContext()
+                    .getPackageManager()
+                    .getApplicationInfo(this.getApplicationContext().getPackageName(),
+                            PackageManager.GET_META_DATA);
+
+            String key = info.metaData.get("MAP_KEY").toString();
+            return key;
+        }
+        catch(Exception e){
+            Log.e("API Key", e.getMessage());
+            return null;
+        }
+    }
+
 }
