@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -36,10 +37,9 @@ import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ArrayList<String> query;
-    private View decorView;
     private BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
     private BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter();
     private Location userLocation = new Location("");
@@ -63,11 +63,9 @@ public class MainActivity extends AppCompatActivity{
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
         EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
 
-        //TODO: Need add drop shadow for navbar
         homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeIcon.setImageResource(R.drawable.home_active);
-        //TODO: Not sure how to remove drop shadow for inactive
 
         FusedLocationProviderClient fusedLocationClient;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -135,38 +133,6 @@ public class MainActivity extends AppCompatActivity{
             ViewFavourites.putExtra("location", userLocation);
             startActivity(ViewFavourites);
         });
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(visibility -> {
-            if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                decorView.setSystemUiVisibility(hideSystemBars());
-            }
-        });
-
-    }
-
-    // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----
-    // Documentation : https://developer.android.com/reference/android/app/Activity >> OnWindowFocusChanged ----
-    // Called when the activity gains or loses window focus, called true if focused.
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        {
-            // If there is focus on the window, hide the status bar and navigation bar.
-            if (hasFocus) {
-                decorView.setSystemUiVisibility(hideSystemBars());
-            }
-        }
-    }
-
-    public int hideSystemBars() {
-        // Use Bitwise Operators to combine the flags
-        return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     }
 
     public void renderUI(BusTimingCardAdapter adapter, RecyclerView recycler){
