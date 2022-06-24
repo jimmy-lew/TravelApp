@@ -24,17 +24,24 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.CurrentLocationRequest;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Granularity;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -80,11 +87,37 @@ public class MainActivity extends AppCompatActivity{
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
         EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
 
+
         //TODO: Need add drop shadow for navbar
         homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeIcon.setImageResource(R.drawable.home_active);
         //TODO: Not sure how to remove drop shadow for inactive
+
+        // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
+        // and once again when the user makes a selection (for example when calling fetchPlace()).
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+
+        // Use the builder to create a FindAutocompletePredictionsRequest.
+        FindAutocompletePredictionsRequest predictRequest = FindAutocompletePredictionsRequest.builder()
+            .setCountries("SG")
+            .setTypeFilter(TypeFilter.ADDRESS)
+            .setSessionToken(token)
+            .setQuery(searchTextBox.getText().toString())
+            .build();
+
+        placesClient.findAutocompletePredictions(predictRequest).addOnSuccessListener((response) -> {
+            for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
+
+                Log.i(TAG, prediction.getPlaceId());
+                Log.i(TAG, prediction.getPrimaryText(null).toString());
+            }
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+            }
+        });
 
         FusedLocationProviderClient fusedLocationClient;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
