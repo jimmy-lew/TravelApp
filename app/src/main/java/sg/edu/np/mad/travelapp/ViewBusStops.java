@@ -23,11 +23,13 @@ import java.util.ArrayList;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
+import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
-public class ViewBusStops extends AppCompatActivity{
+public class ViewBusStops extends BaseActivity {
 
     private final String TAG = "ViewBusStopActivity";
     private ArrayList<BusStop> data = new ArrayList<>();
+    private BusTimingCardAdapter adapter = new BusTimingCardAdapter();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     private Location location;
@@ -40,42 +42,25 @@ public class ViewBusStops extends AppCompatActivity{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         location = getIntent().getParcelableExtra("location");
-        Log.v("Location: ", String.valueOf(location));
+
+        initializeNavbar(location);
+        initializeRecycler(adapter, findViewById(R.id.nearbyBusRecycler), false);
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
+                    return;
                 }
-                else {
-                    User user = task.getResult().getValue(User.class);
-                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-                        renderUI(busStopList, user);
-                    });
-                }
+
+                User user = task.getResult().getValue(User.class);
+                BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                    adapter.setBusStopList(busStopList);
+                    adapter.setUser(user);
+                    adapter.notifyDataSetChanged();
+                });
             }
-        });
-
-        homeIcon.setOnClickListener(view -> {
-            Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(MainActivity);
-        });
-
-        favIcon.setOnClickListener(view -> {
-            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", location);
-            startActivity(ViewFavourites);
-        });
-    }
-
-    public void renderUI(ArrayList<BusStop> busStopList, User user){
-        this.runOnUiThread(() -> {
-            RecyclerView busStopRecycler = this.findViewById(R.id.nearbyBusRecycler);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList, user);
-            busStopRecycler.setLayoutManager(layoutManager);
-            busStopRecycler.setAdapter(busTimingCardAdapter);
         });
     }
 }

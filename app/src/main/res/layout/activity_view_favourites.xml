@@ -25,7 +25,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/favouritesFragmentContainerView"
+        android:id="@+id/navFragmentContainerView"
         android:name="sg.edu.np.mad.travelapp.NavbarFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
