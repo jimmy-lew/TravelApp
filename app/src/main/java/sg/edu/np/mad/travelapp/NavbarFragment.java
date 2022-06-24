@@ -16,41 +16,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-
-
 public class NavbarFragment extends Fragment {
+
+    private Location userLocation;
 
     public NavbarFragment() {
         // Required empty public constructor
-    }
-
-    public static void newInstance(final FragmentActivity activity){
-        activity.getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.mainFragmentContainerView, NavbarFragment.class, null)
-                .commit();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
-            Log.v("args", getArguments().getString("key"));
+            userLocation = getArguments().getParcelable("location");
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_navbar, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-
-        //Location userLocation = getArguments().getParcelable("location");
 
         CardView homeOutCardView = getView().findViewById(R.id.homeOutCardView);
         CardView homeInCardView = getView().findViewById(R.id.homeInCardView);
@@ -59,37 +47,33 @@ public class NavbarFragment extends Fragment {
         ImageView homeIcon = getView().findViewById(R.id.homeIcon);
         ImageView nearbyIcon = getView().findViewById(R.id.nearbyIcon);
 
-        //TODO: Need add drop shadow for navbar
         homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
-        //TODO: Not sure how to remove drop shadow for inactive
+
+        // TODO: Migrate to interface
 
         if(getActivity() instanceof MainActivity){
             homeIcon.setImageResource(R.drawable.home_active);
-        }
-
-        if(getActivity() instanceof ViewBusStops){
+        } else if(getActivity() instanceof ViewBusStops){
             nearbyIcon.setImageResource(R.drawable.nearby_active);
-        }
-
-        if(getActivity() instanceof  ViewFavourites){
+        } else if (getActivity() instanceof  ViewFavourites){
             favIcon.setImageResource(R.drawable.favorite);
         }
 
-        homeIcon.setOnClickListener(View -> {
+        homeIcon.setOnClickListener(fragView -> {
             Intent MainActivity = new Intent(getActivity(), MainActivity.class);
             startActivity(MainActivity);
         });
 
         nearbyIcon.setOnClickListener(fragView -> {
             Intent ViewBusStops = new Intent(getActivity(), ViewBusStops.class);
-            //ViewBusStops.putExtra("location", userLocation);
+            ViewBusStops.putExtra("location", userLocation);
             startActivity(ViewBusStops);
         });
 
         favIcon.setOnClickListener(fragView -> {
             Intent ViewFavourites = new Intent(getActivity(), ViewFavourites.class);
-            //ViewFavourites.putExtra("location", userLocation);
+            ViewFavourites.putExtra("location", userLocation);
             startActivity(ViewFavourites);
         });
     }

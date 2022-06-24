@@ -26,10 +26,14 @@ import java.util.ArrayList;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
+import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
-public class SearchBusStop extends AppCompatActivity {
+public class SearchBusStop extends BaseActivity {
 
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+    private ArrayList<String> query = new ArrayList<>();
+    private Location location;
+    private BusTimingCardAdapter adapter = new BusTimingCardAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +42,11 @@ public class SearchBusStop extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        ImageView favIcon = findViewById(R.id.favIcon);
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-
-        ArrayList<String> query = new ArrayList<>();
         query.add(getIntent().getStringExtra("query"));
-        Location location = getIntent().getParcelableExtra("location");
+        location = getIntent().getParcelableExtra("location");
+
+        initializeNavbar(location);
+        initializeRecycler(adapter, findViewById(R.id.searchedBusRecycler), false);
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -55,37 +57,12 @@ public class SearchBusStop extends AppCompatActivity {
                 else {
                     User user = task.getResult().getValue(User.class);
                     BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                        renderUI(busStopList, user);
+                        adapter.setUser(user);
+                        adapter.setBusStopList(busStopList);
+                        adapter.notifyDataSetChanged();
                     });
                 }
             }
-        });
-
-        nearbyIcon.setOnClickListener(view -> {
-            Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-            ViewBusStops.putExtra("location", location);
-            startActivity(ViewBusStops);
-        });
-        homeIcon.setOnClickListener(view -> {
-            Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(MainActivity);
-        });
-        favIcon.setOnClickListener(view -> {
-            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", location);
-            startActivity(ViewFavourites);
-        });
-    }
-
-    public void renderUI(ArrayList<BusStop> busStopList, User user){
-        this.runOnUiThread(() -> {
-            RecyclerView busStopRecycler = this.findViewById(R.id.searchedBusRecycler);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(
-                    getApplicationContext()
-            );
-            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList, user);
-            busStopRecycler.setLayoutManager(layoutManager);
-            busStopRecycler.setAdapter(busTimingCardAdapter);
         });
     }
 }

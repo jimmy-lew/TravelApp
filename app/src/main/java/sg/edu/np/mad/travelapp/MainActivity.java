@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,15 +31,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
+import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
     private ArrayList<String> query;
     private BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
@@ -57,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
         EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
 
-        FusedLocationProviderClient fusedLocationClient;
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         CurrentLocationRequest request = new CurrentLocationRequest.Builder()
                 .setDurationMillis(Long.MAX_VALUE)
@@ -67,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
                 .build();
 
-        renderUI(nearbyAdapter, findViewById(R.id.nearbyRecyclerView));
-        renderUI(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView));
+        initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
+        initializeRecycler(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
 
         fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
@@ -76,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 if (location != null)
                 {
                     userLocation = location;
+
+                    initializeNavbar(location);
                     BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
                         nearbyAdapter.setBusStopList(busStopList);
                         nearbyAdapter.notifyDataSetChanged();
@@ -84,46 +89,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ref.child("1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                query = user.getFavouritesList();
+                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                    favouritesAdapter.setUser(user);
+                    favouritesAdapter.setBusStopList(busStopList);
+                    favouritesAdapter.notifyDataSetChanged();
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
+                    return;
                 }
-                else {
-                    User user = task.getResult().getValue(User.class);
-                    nearbyAdapter.setUser(user);
+
+                User user = task.getResult().getValue(User.class);
+                nearbyAdapter.setUser(user);
+                query = user.getFavouritesList();
+                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                    favouritesAdapter.setUser(user);
+                    favouritesAdapter.setBusStopList(busStopList);
+                    favouritesAdapter.notifyDataSetChanged();
                     nearbyAdapter.notifyDataSetChanged();
-                    query = user.getFavouritesList();
-                    BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                        favouritesAdapter.setUser(user);
-                        favouritesAdapter.setBusStopList(busStopList);
-                        favouritesAdapter.notifyDataSetChanged();
-                    });
-                }
+                });
             }
         });
 
-        Bundle locBundle = new Bundle();
-        locBundle.putParcelable("location", userLocation);
-        locBundle.putString("key", "value");
-        NavbarFragment navbarFrag = new NavbarFragment();
-        navbarFrag.setArguments(locBundle);
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.mainFragmentContainerView, navbarFrag).commit();
-    }
-
-    public void renderUI(BusTimingCardAdapter adapter, RecyclerView recycler){
-        this.runOnUiThread(() -> {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(
-                    getApplicationContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-            );
-            recycler.setLayoutManager(layoutManager);
-            recycler.setAdapter(adapter);
-            recycler.setAdapter(adapter);
+        searchButton.setOnClickListener(view -> {
+            String searchQuery = searchTextBox.getText().toString();
+            Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
+            SearchBusStop.putExtra("query", searchQuery);
+            SearchBusStop.putExtra("location", userLocation);
+            startActivity(SearchBusStop);
         });
     }
 }
