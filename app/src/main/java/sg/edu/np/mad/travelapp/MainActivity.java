@@ -18,8 +18,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,6 +51,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 import org.json.JSONException;
 
@@ -167,6 +173,48 @@ public class MainActivity extends AppCompatActivity{
             startActivity(SearchBusStop);
         });
 
+        // --- Autocomplete Suggestions ---
+        String [] suggestions = {"airplane", "bird", "chicken"};
+        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.mainSearchTextbox);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggestions);
+        autoCompleteTextView.setAdapter(arrayAdapter);
+
+        // --- Search Debounce ---
+        long delay = 1000; // 1 seconds after user stops typing
+        long last_text_edit = 0;
+        Handler handler = new Handler();
+
+        Runnable CheckInputFinish = new Runnable() {
+            public void run() {
+                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
+                    // TODO: do what you need here
+                    Log.v(TAG, "Stopped");
+                }
+            }
+        };
+
+        searchTextBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence s, int start, int before, int count) {
+                //You need to remove this to run only once
+                handler.removeCallbacks(CheckInputFinish);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //avoid triggering event when text is empty
+                if (s.length() > 0) {
+                    long last_text_edit = System.currentTimeMillis();
+                    handler.postDelayed(CheckInputFinish, delay);
+                }
+            }
+        });
+
         nearbyIcon.setOnClickListener(view -> {
             Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
             ViewBusStops.putExtra("location", userLocation);
@@ -228,13 +276,13 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    // --- Get API KEY from local.properties/AndroidManifest ---
     public String GetAPIKey(){
         try{
             ApplicationInfo info = this.getApplicationContext()
                     .getPackageManager()
                     .getApplicationInfo(this.getApplicationContext().getPackageName(),
                             PackageManager.GET_META_DATA);
-
             String key = info.metaData.get("MAP_KEY").toString();
             return key;
         }
