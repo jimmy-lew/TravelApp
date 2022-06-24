@@ -3,17 +3,14 @@ package sg.edu.np.mad.travelapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,14 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONException;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
-import sg.edu.np.mad.travelapp.data.model.Service;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
@@ -47,13 +39,7 @@ public class ViewFavourites extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-        ImageView favIcon = findViewById(R.id.favIcon);
-
-        favIcon.setImageResource(R.drawable.favorite);
-
-        Location location = getIntent().getParcelableExtra("location");
+        //Location location = getIntent().getParcelableExtra("location");
 
         renderUI(new ArrayList<BusStop>(), new User("1", new ArrayList<String>()));
 

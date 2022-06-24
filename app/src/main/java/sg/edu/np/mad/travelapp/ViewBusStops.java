@@ -1,15 +1,14 @@
 package sg.edu.np.mad.travelapp;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -43,12 +40,7 @@ public class ViewBusStops extends AppCompatActivity{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         location = getIntent().getParcelableExtra("location");
-
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-        ImageView favIcon = findViewById(R.id.favIcon);
-
-        nearbyIcon.setImageResource(R.drawable.nearby_active);
+        Log.v("Location: ", String.valueOf(location));
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
