@@ -37,7 +37,16 @@ public class BusTimingItemAdapter extends RecyclerView.Adapter<BusTimingItemView
         Bus bus = busList.get(position);
         holder.busTime.setText(bus.getEstimatedTime());
 
-        //TODO: Implement different bus type icons
+        switch(bus.getType()){
+            case "BD":
+                holder.busImage.setImageResource(R.drawable.bendy);
+                break;
+            case "DD":
+                holder.busImage.setImageResource(R.drawable.double_decker);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
