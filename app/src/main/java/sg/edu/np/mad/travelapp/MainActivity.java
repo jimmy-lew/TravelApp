@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
@@ -53,19 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        CardView homeOutCardView = findViewById(R.id.homeOutCardView);
-        CardView homeInCardView = findViewById(R.id.homeInCardView);
-
-        ImageView favIcon = findViewById(R.id.favIcon);
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
         EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
-
-        homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
-        homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
-        homeIcon.setImageResource(R.drawable.home_active);
 
         FusedLocationProviderClient fusedLocationClient;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -114,25 +104,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        searchButton.setOnClickListener(view -> {
-            String searchQuery = searchTextBox.getText().toString();
-            Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
-            SearchBusStop.putExtra("query", searchQuery);
-            SearchBusStop.putExtra("location", userLocation);
-            startActivity(SearchBusStop);
-        });
+        Bundle locBundle = new Bundle();
+        locBundle.putParcelable("location", userLocation);
+        locBundle.putString("key", "value");
+        NavbarFragment navbarFrag = new NavbarFragment();
+        navbarFrag.setArguments(locBundle);
 
-        nearbyIcon.setOnClickListener(view -> {
-            Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-            ViewBusStops.putExtra("location", userLocation);
-            startActivity(ViewBusStops);
-        });
-
-        favIcon.setOnClickListener(view -> {
-            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", userLocation);
-            startActivity(ViewFavourites);
-        });
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragmentContainerView, navbarFrag).commit();
     }
 
     public void renderUI(BusTimingCardAdapter adapter, RecyclerView recycler){
