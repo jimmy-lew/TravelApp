@@ -30,7 +30,6 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 public class ViewBusStops extends AppCompatActivity{
 
     private final String TAG = "ViewBusStopActivity";
-    private View decorView;
     private ArrayList<BusStop> data = new ArrayList<>();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
@@ -50,10 +49,6 @@ public class ViewBusStops extends AppCompatActivity{
         ImageView favIcon = findViewById(R.id.favIcon);
 
         nearbyIcon.setImageResource(R.drawable.nearby_active);
-
-        //location = new Location("");
-        //location.setLatitude(1.337164896071449);
-        //location.setLongitude(103.92073207075521);
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -80,16 +75,6 @@ public class ViewBusStops extends AppCompatActivity{
             ViewFavourites.putExtra("location", location);
             startActivity(ViewFavourites);
         });
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                    decorView.setSystemUiVisibility(hideSystemBars());
-                }
-            }
-        });
     }
 
     public void renderUI(ArrayList<BusStop> busStopList, User user){
@@ -101,25 +86,4 @@ public class ViewBusStops extends AppCompatActivity{
             busStopRecycler.setAdapter(busTimingCardAdapter);
         });
     }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        {
-            // If there is focus on the window, hide the status bar and navigation bar.
-            if (hasFocus) {
-                decorView.setSystemUiVisibility(hideSystemBars());}
-        }
-    }
-
-    public int hideSystemBars() {
-        // Use Bitwise Operators to combine the flags
-        return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-    }
-
 }

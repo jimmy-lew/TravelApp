@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +16,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -33,7 +32,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.CurrentLocationRequest;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Granularity;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.maps.model.LatLng;
@@ -56,16 +54,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private View decorView;
-    BusTimingCardAdapter busTimingCardAdapter;
+    private ArrayList<String> query;
+    private BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
+    private BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter();
     private Location userLocation = new Location("");
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
@@ -98,7 +96,6 @@ public class MainActivity extends AppCompatActivity{
         homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeIcon.setImageResource(R.drawable.home_active);
-        //TODO: Not sure how to remove drop shadow for inactive
 
         // Create a new token for the autocomplete session. Pass this to FindAutocompletePredictionsRequest,
         // and once again when the user makes a selection (for example when calling fetchPlace()).
@@ -128,14 +125,15 @@ public class MainActivity extends AppCompatActivity{
         FusedLocationProviderClient fusedLocationClient;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        CurrentLocationRequest.Builder builder = new CurrentLocationRequest.Builder();
-        builder.setDurationMillis(Long.MAX_VALUE);
-        builder.setGranularity(Granularity.GRANULARITY_FINE);
-        builder.setMaxUpdateAgeMillis(0);
-        builder.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
-        CurrentLocationRequest request = builder.build();
+        CurrentLocationRequest request = new CurrentLocationRequest.Builder()
+                .setDurationMillis(Long.MAX_VALUE)
+                .setGranularity(Granularity.GRANULARITY_FINE)
+                .setMaxUpdateAgeMillis(0)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                .build();
 
-        renderUI(new ArrayList<BusStop>(), new User("1", new ArrayList<String>()));
+        renderUI(nearbyAdapter, findViewById(R.id.nearbyRecyclerView));
+        renderUI(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView));
 
         fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
@@ -144,8 +142,8 @@ public class MainActivity extends AppCompatActivity{
                 {
                     userLocation = location;
                     BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-                        busTimingCardAdapter.setBusStopList(busStopList);
-                        busTimingCardAdapter.notifyDataSetChanged();
+                        nearbyAdapter.setBusStopList(busStopList);
+                        nearbyAdapter.notifyDataSetChanged();
                     });
                 }
             }
@@ -159,8 +157,14 @@ public class MainActivity extends AppCompatActivity{
                 }
                 else {
                     User user = task.getResult().getValue(User.class);
-                    busTimingCardAdapter.setUser(user);
-                    busTimingCardAdapter.notifyDataSetChanged();
+                    nearbyAdapter.setUser(user);
+                    nearbyAdapter.notifyDataSetChanged();
+                    query = user.getFavouritesList();
+                    BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                        favouritesAdapter.setUser(user);
+                        favouritesAdapter.setBusStopList(busStopList);
+                        favouritesAdapter.notifyDataSetChanged();
+                    });
                 }
             }
         });
@@ -226,53 +230,18 @@ public class MainActivity extends AppCompatActivity{
             ViewFavourites.putExtra("location", userLocation);
             startActivity(ViewFavourites);
         });
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(visibility -> {
-            if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                decorView.setSystemUiVisibility(hideSystemBars());
-            }
-        });
-
-        Log.v(TAG,"API KEY: " + GetAPIKey());
     }
 
-    // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----
-    // Documentation : https://developer.android.com/reference/android/app/Activity >> OnWindowFocusChanged ----
-    // Called when the activity gains or loses window focus, called true if focused.
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        {
-            // If there is focus on the window, hide the status bar and navigation bar.
-            if (hasFocus) {
-                decorView.setSystemUiVisibility(hideSystemBars());
-            }
-        }
-    }
-
-    public int hideSystemBars() {
-        // Use Bitwise Operators to combine the flags
-        return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-    }
-
-    public void renderUI(ArrayList<BusStop> busStopList, User user){
+    public void renderUI(BusTimingCardAdapter adapter, RecyclerView recycler){
         this.runOnUiThread(() -> {
-            RecyclerView busStopRecycler = this.findViewById(R.id.nearbyRecyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(
                     getApplicationContext(),
                     LinearLayoutManager.HORIZONTAL,
                     false
             );
-            busTimingCardAdapter = new BusTimingCardAdapter(busStopList, user);
-            busStopRecycler.setLayoutManager(layoutManager);
-            busStopRecycler.setAdapter(busTimingCardAdapter);
-            busStopRecycler.setAdapter(busTimingCardAdapter);
+            recycler.setLayoutManager(layoutManager);
+            recycler.setAdapter(adapter);
+            recycler.setAdapter(adapter);
         });
     }
 

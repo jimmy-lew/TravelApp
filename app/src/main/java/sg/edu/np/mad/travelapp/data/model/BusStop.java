@@ -62,11 +62,6 @@ public class BusStop implements Parcelable
         this.serviceList = serviceList;
     }
 
-    public BusStop(String name, SimpleLocation simpleLocation) {
-        this.name = name;
-        this.simpleLocation = simpleLocation;
-    }
-
     public SimpleLocation getLocation() {
         return simpleLocation;
     }
