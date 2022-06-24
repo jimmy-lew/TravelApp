@@ -41,6 +41,7 @@ public class ViewBusStops extends AppCompatActivity{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         location = getIntent().getParcelableExtra("location");
+        Log.v("Location: ", String.valueOf(location));
 
         //location = new Location("");
         //location.setLatitude(1.337164896071449);

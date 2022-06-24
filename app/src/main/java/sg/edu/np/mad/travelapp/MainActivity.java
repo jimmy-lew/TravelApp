@@ -1,23 +1,41 @@
 package sg.edu.np.mad.travelapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.google.android.gms.location.CurrentLocationRequest;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.Granularity;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+import sg.edu.np.mad.travelapp.data.model.User;
+import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
 public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
@@ -39,7 +57,6 @@ public class MainActivity extends AppCompatActivity{
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
         EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
 
-        /*
         FusedLocationProviderClient fusedLocationClient;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -86,7 +103,6 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
-         */
 
         searchButton.setOnClickListener(view -> {
             String searchQuery = searchTextBox.getText().toString();
@@ -103,10 +119,11 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("location", userLocation);
+        Bundle locBundle = new Bundle();
+        locBundle.putParcelable("location", userLocation);
+        locBundle.putString("key", "value");
         NavbarFragment navbarFrag = new NavbarFragment();
-        navbarFrag.setArguments(bundle);
+        navbarFrag.setArguments(locBundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.mainFragmentContainerView, navbarFrag).commit();

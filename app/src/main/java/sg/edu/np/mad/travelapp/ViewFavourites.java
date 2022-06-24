@@ -40,7 +40,7 @@ public class ViewFavourites extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        Location location = getIntent().getParcelableExtra("location");
+        //Location location = getIntent().getParcelableExtra("location");
 
         renderUI(new ArrayList<BusStop>(), new User("1", new ArrayList<String>()));
 
