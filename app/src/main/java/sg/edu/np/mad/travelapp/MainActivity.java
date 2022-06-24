@@ -1,40 +1,23 @@
 package sg.edu.np.mad.travelapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
-import com.google.android.gms.location.CurrentLocationRequest;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.Granularity;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.Priority;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-
-import sg.edu.np.mad.travelapp.data.model.BusStop;
-import sg.edu.np.mad.travelapp.data.model.User;
-import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
 public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
@@ -53,22 +36,10 @@ public class MainActivity extends AppCompatActivity{
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        CardView homeOutCardView = findViewById(R.id.homeOutCardView);
-        CardView homeInCardView = findViewById(R.id.homeInCardView);
-
-        ImageView favIcon = findViewById(R.id.favIcon);
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
         EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
 
-        //TODO: Need add drop shadow for navbar
-        homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
-        homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
-        homeIcon.setImageResource(R.drawable.home_active);
-        //TODO: Not sure how to remove drop shadow for inactive
-
+        /*
         FusedLocationProviderClient fusedLocationClient;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -115,6 +86,7 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
+         */
 
         searchButton.setOnClickListener(view -> {
             String searchQuery = searchTextBox.getText().toString();
@@ -124,18 +96,6 @@ public class MainActivity extends AppCompatActivity{
             startActivity(SearchBusStop);
         });
 
-        nearbyIcon.setOnClickListener(view -> {
-            Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-            ViewBusStops.putExtra("location", userLocation);
-            startActivity(ViewBusStops);
-        });
-
-        favIcon.setOnClickListener(view -> {
-            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", userLocation);
-            startActivity(ViewFavourites);
-        });
-
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(visibility -> {
             if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
@@ -143,6 +103,13 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("location", userLocation);
+        NavbarFragment navbarFrag = new NavbarFragment();
+        navbarFrag.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragmentContainerView, navbarFrag).commit();
     }
 
     // ---- Hide System Default UI Elements (Status Bar & Navigation Bar) ----

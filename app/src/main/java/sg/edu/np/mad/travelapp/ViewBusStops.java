@@ -1,15 +1,14 @@
 package sg.edu.np.mad.travelapp;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -45,12 +42,6 @@ public class ViewBusStops extends AppCompatActivity{
 
         location = getIntent().getParcelableExtra("location");
 
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-        ImageView favIcon = findViewById(R.id.favIcon);
-
-        nearbyIcon.setImageResource(R.drawable.nearby_active);
-
         //location = new Location("");
         //location.setLatitude(1.337164896071449);
         //location.setLongitude(103.92073207075521);
@@ -70,17 +61,6 @@ public class ViewBusStops extends AppCompatActivity{
             }
         });
 
-        homeIcon.setOnClickListener(view -> {
-            Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(MainActivity);
-        });
-
-        favIcon.setOnClickListener(view -> {
-            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", location);
-            startActivity(ViewFavourites);
-        });
-
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -90,6 +70,9 @@ public class ViewBusStops extends AppCompatActivity{
                 }
             }
         });
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.nearbyFragmentContainerView, new NavbarFragment()).commit();
     }
 
     public void renderUI(ArrayList<BusStop> busStopList, User user){

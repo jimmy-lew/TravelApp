@@ -202,6 +202,10 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/navbar"/>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mainFragmentContainerView"
+        android:name="sg.edu.np.mad.travelapp.NavbarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
