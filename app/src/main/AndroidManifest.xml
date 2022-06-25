@@ -31,7 +31,8 @@
             android:exported="false" /> <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -31,6 +31,7 @@ public class BusStopRepository implements Repository {
         call.enqueue(new Callback<ArrayList<BusStop>>() {
             @Override
             public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
+                Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<BusStop> busStopList = (ArrayList<BusStop>) response.body();
                 busStopCache = busStopList;
                 onComplete.execute(busStopList);

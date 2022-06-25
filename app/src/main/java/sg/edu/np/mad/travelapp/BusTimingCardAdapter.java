@@ -21,10 +21,10 @@ import sg.edu.np.mad.travelapp.data.model.User;
 
 public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardViewHolder> {
 
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private ArrayList<BusStop> busStopList = new ArrayList<>();
     private User user;
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     public BusTimingCardAdapter(){
         busStopList = new ArrayList<BusStop>();
@@ -69,6 +69,9 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
 
         if (isFavourite) {
             holder.favouriteImageView2.setImageResource(R.drawable.favorite);
+        }
+        else {
+            holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
         }
 
         // Sends userid and favourite stop codes when favourite img is clicked
