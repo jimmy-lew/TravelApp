@@ -65,6 +65,7 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity {
+    private final String TAG  = "Main";
     private ArrayList<String> query;
     private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
     private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter();
@@ -90,6 +91,9 @@ public class MainActivity extends BaseActivity {
         // and once again when the user makes a selection (for example when calling fetchPlace()).
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
 
+        ImageButton searchButton = findViewById(R.id.mainSearchButton);
+        EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
+
         // Use the builder to create a FindAutocompletePredictionsRequest.
         FindAutocompletePredictionsRequest predictRequest = FindAutocompletePredictionsRequest.builder()
             .setCountries("SG")
@@ -111,19 +115,26 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        ImageButton searchButton = findViewById(R.id.mainSearchButton);
-        EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
-
         initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
         initializeRecycler(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
 
-        getUserLocation(location -> {
-            userLocation = location;
-            initializeNavbar(location);
-            BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-                nearbyAdapter.setBusStopList(busStopList);
-                nearbyAdapter.notifyDataSetChanged();
-            });
+//        getUserLocation(location -> {
+//            userLocation = location;
+//            initializeNavbar(location);
+//            BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+//                nearbyAdapter.setBusStopList(busStopList);
+//                nearbyAdapter.notifyDataSetChanged();
+//            });
+//        });
+
+        Location location = new Location("");
+        location.setLatitude(1.3918577281406086);
+        location.setLongitude(103.75166620390048);
+
+        initializeNavbar(location);
+        BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+            nearbyAdapter.setBusStopList(busStopList);
+            nearbyAdapter.notifyDataSetChanged();
         });
 
         ref.child("1").addValueEventListener(new ValueEventListener() {
@@ -213,31 +224,6 @@ public class MainActivity extends BaseActivity {
                     handler.postDelayed(CheckInputFinish, delay);
                 }
             }
-        });
-
-        nearbyIcon.setOnClickListener(view -> {
-            Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-            ViewBusStops.putExtra("location", userLocation);
-            startActivity(ViewBusStops);
-        });
-
-        favIcon.setOnClickListener(view -> {
-            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", userLocation);
-            startActivity(ViewFavourites);
-        });
-    }
-
-    public void renderUI(BusTimingCardAdapter adapter, RecyclerView recycler){
-        this.runOnUiThread(() -> {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(
-                    getApplicationContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-            );
-            recycler.setLayoutManager(layoutManager);
-            recycler.setAdapter(adapter);
-            recycler.setAdapter(adapter);
         });
     }
 
