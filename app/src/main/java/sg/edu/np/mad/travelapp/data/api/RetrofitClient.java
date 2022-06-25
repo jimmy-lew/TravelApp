@@ -20,5 +20,4 @@ public class RetrofitClient {
     }
 
     public BusAPI getApi() {return api;}
-
 }

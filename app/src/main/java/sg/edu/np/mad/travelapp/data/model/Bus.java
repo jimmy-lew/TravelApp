@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Bus implements Parcelable
 {
-
     @SerializedName("estimatedTime")
     @Expose
     private String estimatedTime;
@@ -22,7 +21,6 @@ public class Bus implements Parcelable
     @Expose
     private String type;
     public final static Creator<Bus> CREATOR = new Creator<Bus>() {
-
         @SuppressWarnings({
             "unchecked"
         })
@@ -33,7 +31,6 @@ public class Bus implements Parcelable
         public Bus[] newArray(int size) {
             return (new Bus[size]);
         }
-
     };
 
     protected Bus(android.os.Parcel in) {
