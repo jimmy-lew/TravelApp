@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity {
         // --- Autocomplete Suggestions ---
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.mainSearchTextbox);
         ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(this, android.R.layout.simple_list_item_1, predictionsList);
-
+        autoCompleteTextView.setAdapter(arrayAdapter);
 
         // --- Search Debounce ---
         long delay = 500; // 3 seconds after user stops typing
@@ -177,24 +177,22 @@ public class MainActivity extends BaseActivity {
                     // Use the builder to create a FindAutocompletePredictionsRequest.
                     FindAutocompletePredictionsRequest predictRequest = FindAutocompletePredictionsRequest.builder()
                             .setCountries("SG")
-                            .setTypeFilter(TypeFilter.ADDRESS)
                             .setSessionToken(token)
                             .setQuery(searchTextBox.getText().toString())
                             .build();
 
-                    Log.v(TAG, "api log" + predictRequest);
+//                    Log.v(TAG, "api log" + predictRequest);
                     placesClient.findAutocompletePredictions(predictRequest).addOnSuccessListener((FindAutocompletePredictionsResponse) -> {
+                        predictionsList.clear();
                         for (AutocompletePrediction prediction : FindAutocompletePredictionsResponse.getAutocompletePredictions()) {
                             Log.i(TAG, prediction.getPlaceId());
                             Log.i(TAG, prediction.getPrimaryText(null).toString());
-                            predictionsList.add(prediction.getFullText(STYLE_BOLD));
+                            SpannableString predictionString = prediction.getFullText(STYLE_BOLD);
+                            predictionsList.add(predictionString);
                         }
-
-                        Log.v(TAG, "Setting Adapter");
                         arrayAdapter.clear();
-                        for (SpannableString s : predictionsList) {
-                            arrayAdapter.add(s);
-                        }
+                        arrayAdapter.addAll(predictionsList);
+                        arrayAdapter.notifyDataSetChanged();
 
                     }).addOnFailureListener((exception) -> {
                         if (exception instanceof ApiException) {
@@ -203,7 +201,6 @@ public class MainActivity extends BaseActivity {
                         }
                     });
                     Log.v(TAG, "Stopped");
-                    autoCompleteTextView.setAdapter(arrayAdapter);
                 }
             }
         };
