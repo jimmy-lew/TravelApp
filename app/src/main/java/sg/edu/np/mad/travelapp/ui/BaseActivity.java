@@ -1,10 +1,13 @@
 package sg.edu.np.mad.travelapp.ui;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +23,7 @@ import sg.edu.np.mad.travelapp.R;
 public class BaseActivity extends AppCompatActivity {
     public static final String LOCATION = "location";
 
-    public void initializeRecycler(RecyclerView.Adapter adapter, RecyclerView recycler, boolean isHorizontal){
+    public void initializeRecycler(RecyclerView.Adapter adapter, RecyclerView recycler, boolean isHorizontal) {
         this.runOnUiThread(() -> {
             LinearLayoutManager layoutManager = new LinearLayoutManager(
                     getApplicationContext(),
@@ -29,11 +32,10 @@ public class BaseActivity extends AppCompatActivity {
             );
             recycler.setLayoutManager(layoutManager);
             recycler.setAdapter(adapter);
-            recycler.setAdapter(adapter);
         });
     }
 
-    public void initializeNavbar(Location location){
+    public void initializeNavbar(Location location) {
         Bundle args = new Bundle();
         args.putParcelable(LOCATION, location);
 

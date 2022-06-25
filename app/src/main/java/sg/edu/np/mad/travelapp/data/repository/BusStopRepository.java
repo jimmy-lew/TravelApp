@@ -16,11 +16,7 @@ public class BusStopRepository implements Repository {
     private static BusStopRepository _instance = null;
     public ArrayList<BusStop> busStopCache = new ArrayList<>();
 
-    private final String TAG = "BusStopRepo";
-
-    private BusStopRepository(){
-//        busStopJson = new JSONArray(readBusStops(context));
-    }
+    private BusStopRepository(){ }
 
     public static synchronized BusStopRepository get_instance() {
         return _instance == null ? _instance = new BusStopRepository() : _instance;
@@ -38,9 +34,7 @@ public class BusStopRepository implements Repository {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) {
-
-            }
+            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
         });
     }
 
@@ -56,9 +50,7 @@ public class BusStopRepository implements Repository {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) {
-
-            }
+            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
         });
     }
 }
