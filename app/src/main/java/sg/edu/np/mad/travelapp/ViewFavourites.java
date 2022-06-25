@@ -28,7 +28,6 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class ViewFavourites extends BaseActivity {
-    private final String TAG = "ViewFavouritesActivity";
     private BusTimingCardAdapter adapter = new BusTimingCardAdapter();
     private ArrayList<String> query = new ArrayList<>();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
@@ -40,7 +39,7 @@ public class ViewFavourites extends BaseActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        Location location = getIntent().getParcelableExtra("location");
+        Location location = getIntent().getParcelableExtra(LOCATION);
 
         initializeNavbar(location);
         initializeRecycler(adapter, findViewById(R.id.favouriteStopsRecycler), false);
@@ -63,22 +62,19 @@ public class ViewFavourites extends BaseActivity {
             }
         });
 
-        ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    User user = task.getResult().getValue(User.class);
-                    query = user.getFavouritesList();
-                    BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                        adapter.setUser(user);
-                        adapter.setBusStopList(busStopList);
-                        adapter.notifyDataSetChanged();
-                    });
-                }
+        ref.child("1").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+                return;
             }
+
+            User user = task.getResult().getValue(User.class);
+            query = user.getFavouritesList();
+            BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                adapter.setUser(user);
+                adapter.setBusStopList(busStopList);
+                adapter.notifyDataSetChanged();
+            });
         });
     }
 }

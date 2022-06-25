@@ -43,12 +43,11 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "MainActivity";
     private ArrayList<String> query;
-    private BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
-    private BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter();
+    private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
+    private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
     private Location userLocation = new Location("");
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     @SuppressLint("MissingPermission")
     @Override
@@ -61,43 +60,30 @@ public class MainActivity extends BaseActivity {
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
         EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
 
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        CurrentLocationRequest request = new CurrentLocationRequest.Builder()
-                .setDurationMillis(Long.MAX_VALUE)
-                .setGranularity(Granularity.GRANULARITY_FINE)
-                .setMaxUpdateAgeMillis(0)
-                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                .build();
-
         initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
         initializeRecycler(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
 
-        fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null)
-                {
-                    userLocation = location;
-
-                    initializeNavbar(location);
-                    BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-                        nearbyAdapter.setBusStopList(busStopList);
-                        nearbyAdapter.notifyDataSetChanged();
-                    });
-                }
-            }
+        getUserLocation(location -> {
+            userLocation = location;
+            initializeNavbar(location);
+            BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                nearbyAdapter.setBusStopList(busStopList);
+                nearbyAdapter.notifyDataSetChanged();
+            });
         });
 
         ref.child("1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
+                nearbyAdapter.setUser(user);
+                favouritesAdapter.setUser(user);
+
                 query = user.getFavouritesList();
                 BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                    favouritesAdapter.setUser(user);
                     favouritesAdapter.setBusStopList(busStopList);
                     favouritesAdapter.notifyDataSetChanged();
+                    nearbyAdapter.notifyDataSetChanged();
                 });
             }
 
@@ -107,31 +93,29 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    return;
-                }
-
-                User user = task.getResult().getValue(User.class);
-                nearbyAdapter.setUser(user);
-                query = user.getFavouritesList();
-                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                    favouritesAdapter.setUser(user);
-                    favouritesAdapter.setBusStopList(busStopList);
-                    favouritesAdapter.notifyDataSetChanged();
-                    nearbyAdapter.notifyDataSetChanged();
-                });
+        ref.child("1").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+                return;
             }
+
+            User user = task.getResult().getValue(User.class);
+            nearbyAdapter.setUser(user);
+            favouritesAdapter.setUser(user);
+
+            query = user.getFavouritesList();
+            BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                favouritesAdapter.setBusStopList(busStopList);
+                favouritesAdapter.notifyDataSetChanged();
+                nearbyAdapter.notifyDataSetChanged();
+            });
         });
 
         searchButton.setOnClickListener(view -> {
             String searchQuery = searchTextBox.getText().toString();
             Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
             SearchBusStop.putExtra("query", searchQuery);
-            SearchBusStop.putExtra("location", userLocation);
+            SearchBusStop.putExtra(LOCATION, userLocation);
             startActivity(SearchBusStop);
         });
     }

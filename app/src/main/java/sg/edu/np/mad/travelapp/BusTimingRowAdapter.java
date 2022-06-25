@@ -14,7 +14,7 @@ import sg.edu.np.mad.travelapp.data.model.Service;
 
 public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowViewHolder> {
 
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private ArrayList<Service> serviceList;
 
     public BusTimingRowAdapter(ArrayList<Service> serviceList){

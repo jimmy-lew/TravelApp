@@ -30,10 +30,10 @@ import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class SearchBusStop extends BaseActivity {
 
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+    private final BusTimingCardAdapter adapter = new BusTimingCardAdapter();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
     private ArrayList<String> query = new ArrayList<>();
     private Location location;
-    private BusTimingCardAdapter adapter = new BusTimingCardAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class SearchBusStop extends BaseActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         query.add(getIntent().getStringExtra("query"));
-        location = getIntent().getParcelableExtra("location");
+        location = getIntent().getParcelableExtra(LOCATION);
 
         initializeNavbar(location);
         initializeRecycler(adapter, findViewById(R.id.searchedBusRecycler), false);
