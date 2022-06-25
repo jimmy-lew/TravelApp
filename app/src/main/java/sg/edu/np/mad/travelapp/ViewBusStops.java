@@ -26,11 +26,8 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class ViewBusStops extends BaseActivity {
-
-    private final String TAG = "ViewBusStopActivity";
-    private ArrayList<BusStop> data = new ArrayList<>();
-    private BusTimingCardAdapter adapter = new BusTimingCardAdapter();
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+    private final BusTimingCardAdapter adapter = new BusTimingCardAdapter();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     private Location location;
 
@@ -41,9 +38,24 @@ public class ViewBusStops extends BaseActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        location = getIntent().getParcelableExtra("location");
+        location = getIntent().getParcelableExtra(LOCATION);
 
-        initializeNavbar(location);
+        // TODO: Abstract error handling logic
+        if (location == null) {
+            getUserLocation(location -> {
+                initializeNavbar(location);
+                BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                    adapter.setBusStopList(busStopList);
+                    adapter.notifyDataSetChanged();
+                });
+            });
+        } else {
+            BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                adapter.setBusStopList(busStopList);
+                adapter.notifyDataSetChanged();
+            });
+        }
+
         initializeRecycler(adapter, findViewById(R.id.nearbyBusRecycler), false);
 
         ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -55,11 +67,8 @@ public class ViewBusStops extends BaseActivity {
                 }
 
                 User user = task.getResult().getValue(User.class);
-                BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-                    adapter.setBusStopList(busStopList);
-                    adapter.setUser(user);
-                    adapter.notifyDataSetChanged();
-                });
+                adapter.setUser(user);
+                adapter.notifyDataSetChanged();
             }
         });
     }
