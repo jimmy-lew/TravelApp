@@ -164,10 +164,10 @@ public class MainActivity extends BaseActivity {
         // --- Autocomplete Suggestions ---
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.mainSearchTextbox);
         ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(this, android.R.layout.simple_list_item_1, predictionsList);
-        autoCompleteTextView.setAdapter(arrayAdapter);
+
 
         // --- Search Debounce ---
-        long delay = 3000; // 3 seconds after user stops typing
+        long delay = 500; // 3 seconds after user stops typing
         long last_text_edit = 0;
         Handler handler = new Handler();
 
@@ -196,6 +196,7 @@ public class MainActivity extends BaseActivity {
                         }
                     });
                     Log.v(TAG, "Stopped");
+                    autoCompleteTextView.setAdapter(arrayAdapter);
                 }
             }
         };
