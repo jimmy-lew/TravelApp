@@ -2,16 +2,15 @@ package sg.edu.np.mad.travelapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,114 +20,61 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONException;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import sg.edu.np.mad.travelapp.data.model.Bus;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
-import sg.edu.np.mad.travelapp.data.model.Service;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
+import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
-public class ViewFavourites extends AppCompatActivity {
-    private final String TAG = "ViewFavouritesActivity";
-    private View decorView;
+public class ViewFavourites extends BaseActivity {
+    private BusTimingCardAdapter adapter = new BusTimingCardAdapter();
     private ArrayList<String> query = new ArrayList<>();
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_favourites);
 
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-        ImageView favIcon = findViewById(R.id.favIcon);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        favIcon.setImageResource(R.drawable.favorite);
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-//
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    User user = dataSnapshot.getValue(User.class);
-//                    query = user.getFavouritesList();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        Location location = getIntent().getParcelableExtra(LOCATION);
 
-        query.add("Opp Blk 765");
+        initializeNavbar(location);
+        initializeRecycler(adapter, findViewById(R.id.favouriteStopsRecycler), false);
 
-        try {
-            BusStopRepository.get_instance(getApplicationContext()).findBusStopFromNamesQuery(query, busStopList -> {
-                this.renderUI(busStopList);
+        ref.child("1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                query = user.getFavouritesList();
+                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                    adapter.setUser(user);
+                    adapter.setBusStopList(busStopList);
+                    adapter.notifyDataSetChanged();
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ref.child("1").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+                return;
+            }
+
+            User user = task.getResult().getValue(User.class);
+            query = user.getFavouritesList();
+            BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                adapter.setUser(user);
+                adapter.setBusStopList(busStopList);
+                adapter.notifyDataSetChanged();
             });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        homeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(MainActivity);
-            }
-        });
-        nearbyIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ViewBusStops = new Intent(getApplicationContext(), ViewBusStops.class);
-                startActivity(ViewBusStops);
-            }
-        });
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                    decorView.setSystemUiVisibility(hideSystemBars());
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        {
-            // If there is focus on the window, hide the status bar and navigation bar.
-            if (hasFocus) {
-                decorView.setSystemUiVisibility(hideSystemBars());}
-        }
-    }
-
-    public int hideSystemBars(){
-        // Use Bitwise Operators to combine the flags
-        return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-    }
-
-    public void renderUI(ArrayList<BusStop> busStopList){
-        this.runOnUiThread(() -> {
-            RecyclerView busStopRecycler = this.findViewById(R.id.favouriteStopsRecycler);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(
-                    getApplicationContext()
-            );
-            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
-            busStopRecycler.setLayoutManager(layoutManager);
-            busStopRecycler.setAdapter(busTimingCardAdapter);
         });
     }
 }

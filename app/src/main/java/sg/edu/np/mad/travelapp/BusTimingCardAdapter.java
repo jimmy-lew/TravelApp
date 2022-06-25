@@ -1,14 +1,11 @@
 package sg.edu.np.mad.travelapp;
 
-import android.provider.ContactsContract;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,12 +21,27 @@ import sg.edu.np.mad.travelapp.data.model.User;
 
 public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardViewHolder> {
 
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    private ArrayList<BusStop> busStopList;
-    private User user = new User("1", new ArrayList<>());
+    private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private ArrayList<BusStop> busStopList = new ArrayList<>();
+    private User user;
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
-    public BusTimingCardAdapter(ArrayList<BusStop> busStopList){
+    public BusTimingCardAdapter(){
+        busStopList = new ArrayList<BusStop>();
+        user = new User("1", new ArrayList<String>());
+    }
+
+    public BusTimingCardAdapter(ArrayList<BusStop> busStopList, User user){
         this.busStopList = busStopList;
+        this.user = user;
+    }
+
+    public void setBusStopList(ArrayList<BusStop> busStopList) {
+        this.busStopList = busStopList;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @NonNull
@@ -48,26 +60,33 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     @Override
     public void onBindViewHolder(@NonNull BusTimingCardViewHolder holder, int position) {
         BusStop busStop = busStopList.get(position);
-
         ArrayList<String> favouritesList = user.getFavouritesList();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+        boolean isFavourite = favouritesList.contains(busStop.getName());
+
+        holder.stopNameTextView.setText(busStop.getName());
+        holder.stopIDTextView.setText(busStop.getCode());
+
+        if (isFavourite) {
+            holder.favouriteImageView2.setImageResource(R.drawable.favorite);
+        }
+        else {
+            holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
+        }
 
         // Sends userid and favourite stop codes when favourite img is clicked
         holder.favouriteImageView2.setOnClickListener(view -> {
-            if(favouritesList.contains(busStop.BusStopCode)) {
+            if(favouritesList.contains(busStop.getName())) {
                 holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
-                favouritesList.remove(busStop.BusStopCode);
+                favouritesList.remove(busStop.getName());
             }
             else {
                 holder.favouriteImageView2.setImageResource(R.drawable.favorite);
-                favouritesList.add(busStop.BusStopCode);
+                favouritesList.add(busStop.getName());
             }
             user.setFavouritesList(favouritesList);
-            ref.child("users").setValue(user);
+            ref.child(user.getUserID()).setValue(user);
         });
-
-        holder.stopNameTextView.setText(busStop.getBusStopName());
-        holder.stopIDTextView.setText(busStop.getBusStopCode());
 
         holder.rootView.setOnClickListener(view -> {
             if (holder.hiddenGroup.getVisibility() == View.VISIBLE) {
@@ -76,6 +95,7 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
                 holder.favouriteImageView2.setVisibility(View.VISIBLE);
             } else {
                 TransitionManager.beginDelayedTransition(holder.rootView, new AutoTransition());
+                Log.v("Expand", "Expanded");
                 holder.hiddenGroup.setVisibility(View.VISIBLE);
                 holder.favouriteImageView2.setVisibility(View.GONE);
             }

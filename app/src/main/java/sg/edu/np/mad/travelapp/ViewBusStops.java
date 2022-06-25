@@ -1,27 +1,33 @@
 package sg.edu.np.mad.travelapp;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
+import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
-public class ViewBusStops extends AppCompatActivity{
-
-    private final String TAG = "ViewBusStopActivity";
-    private View decorView;
-    private ArrayList<BusStop> data = new ArrayList<>();
+public class ViewBusStops extends BaseActivity {
+    private final BusTimingCardAdapter adapter = new BusTimingCardAdapter();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
     private Location location;
 
@@ -30,77 +36,40 @@ public class ViewBusStops extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_bus_stops);
 
-        location = getIntent().getParcelableExtra("location");
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        ImageView homeIcon = findViewById(R.id.homeIcon);
-        ImageView nearbyIcon = findViewById(R.id.nearbyIcon);
-        ImageView favIcon = findViewById(R.id.favIcon);
+        location = getIntent().getParcelableExtra(LOCATION);
 
-        nearbyIcon.setImageResource(R.drawable.nearby_active);
-
-//        location = new Location("");
-//        location.setLatitude(1.337164896071449);
-//        location.setLongitude(103.92073207075521);
-
-        // 1.337164896071449, 103.92073207075521
-
-        try {
-            BusStopRepository.get_instance(getApplicationContext()).findNearbyBusStops(location, busStopList -> {
-                this.renderUI(busStopList);
+        // TODO: Abstract error handling logic
+        if (location == null) {
+            getUserLocation(location -> {
+                initializeNavbar(location);
+                BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                    adapter.setBusStopList(busStopList);
+                    adapter.notifyDataSetChanged();
+                });
             });
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } else {
+            BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
+                adapter.setBusStopList(busStopList);
+                adapter.notifyDataSetChanged();
+            });
         }
 
-        homeIcon.setOnClickListener(view -> {
-            Intent MainActivity = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(MainActivity);
-        });
+        initializeRecycler(adapter, findViewById(R.id.nearbyBusRecycler), false);
 
-        favIcon.setOnClickListener(view -> {
-            Intent ViewFavourites = new Intent(getApplicationContext(), ViewFavourites.class);
-            startActivity(ViewFavourites);
-        });
-
-        decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+        ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                    decorView.setSystemUiVisibility(hideSystemBars());
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    return;
                 }
+
+                User user = task.getResult().getValue(User.class);
+                adapter.setUser(user);
+                adapter.notifyDataSetChanged();
             }
         });
     }
-
-    public void renderUI(ArrayList<BusStop> busStopList){
-        this.runOnUiThread(() -> {
-            RecyclerView busStopRecycler = this.findViewById(R.id.nearbyBusRecycler);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            BusTimingCardAdapter busTimingCardAdapter = new BusTimingCardAdapter(busStopList);
-            busStopRecycler.setLayoutManager(layoutManager);
-            busStopRecycler.setAdapter(busTimingCardAdapter);
-        });
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        {
-            // If there is focus on the window, hide the status bar and navigation bar.
-            if (hasFocus) {
-                decorView.setSystemUiVisibility(hideSystemBars());}
-        }
-    }
-
-    public int hideSystemBars() {
-        // Use Bitwise Operators to combine the flags
-        return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-    }
-
 }
