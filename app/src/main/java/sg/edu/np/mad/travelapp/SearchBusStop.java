@@ -4,12 +4,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,26 +29,23 @@ public class SearchBusStop extends BaseActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        query.add(getIntent().getStringExtra("query"));
+        query.add(getIntent().getStringExtra("query").replace(", Singapore", ""));
         location = getIntent().getParcelableExtra(LOCATION);
 
         initializeNavbar(location);
         initializeRecycler(adapter, findViewById(R.id.searchedBusRecycler), false);
 
-        ref.child("1").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    User user = task.getResult().getValue(User.class);
-                    BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                        adapter.setUser(user);
-                        adapter.setBusStopList(busStopList);
-                        adapter.notifyDataSetChanged();
-                    });
-                }
+        ref.child("1").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            }
+            else {
+                User user = task.getResult().getValue(User.class);
+                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
+                    adapter.setUser(user);
+                    adapter.setBusStopList(busStopList);
+                    adapter.notifyDataSetChanged();
+                });
             }
         });
     }
