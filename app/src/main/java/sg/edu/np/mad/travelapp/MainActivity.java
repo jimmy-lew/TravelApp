@@ -45,6 +45,7 @@ import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,6 +68,7 @@ public class MainActivity extends BaseActivity {
     private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
     private Location userLocation = new Location("");
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
+    private ArrayList<SpannableString> predictionsList = new ArrayList<>();
 
     @SuppressLint("MissingPermission")
     @Override
@@ -88,28 +90,7 @@ public class MainActivity extends BaseActivity {
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
 
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
-        EditText searchTextBox = findViewById(R.id.mainSearchTextbox);
-
-        // Use the builder to create a FindAutocompletePredictionsRequest.
-        FindAutocompletePredictionsRequest predictRequest = FindAutocompletePredictionsRequest.builder()
-            .setCountries("SG")
-            .setTypeFilter(TypeFilter.ADDRESS)
-            .setSessionToken(token)
-            .setQuery(searchTextBox.getText().toString())
-            .build();
-
-        placesClient.findAutocompletePredictions(predictRequest).addOnSuccessListener((response) -> {
-            for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
-
-                Log.i(TAG, prediction.getPlaceId());
-                Log.i(TAG, prediction.getPrimaryText(null).toString());
-            }
-        }).addOnFailureListener((exception) -> {
-            if (exception instanceof ApiException) {
-                ApiException apiException = (ApiException) exception;
-                Log.e(TAG, "Place not found: " + apiException.getStatusCode());
-            }
-        });
+        AutoCompleteTextView searchTextBox = findViewById(R.id.mainSearchTextbox);
 
         initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
         initializeRecycler(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
@@ -181,20 +162,39 @@ public class MainActivity extends BaseActivity {
         });
 
         // --- Autocomplete Suggestions ---
-        String [] suggestions = {"airplane", "bird", "chicken"};
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.mainSearchTextbox);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggestions);
+        ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(this, android.R.layout.simple_list_item_1, predictionsList);
         autoCompleteTextView.setAdapter(arrayAdapter);
 
         // --- Search Debounce ---
-        long delay = 1000; // 1 seconds after user stops typing
+        long delay = 3000; // 3 seconds after user stops typing
         long last_text_edit = 0;
         Handler handler = new Handler();
 
         Runnable CheckInputFinish = new Runnable() {
             public void run() {
                 if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
-                    // TODO: do what you need here
+                    // Use the builder to create a FindAutocompletePredictionsRequest.
+                    FindAutocompletePredictionsRequest predictRequest = FindAutocompletePredictionsRequest.builder()
+                            .setCountries("SG")
+                            .setTypeFilter(TypeFilter.ADDRESS)
+                            .setSessionToken(token)
+                            .setQuery(searchTextBox.getText().toString())
+                            .build();
+
+                    Log.v(TAG, "api log" + predictRequest);
+                    placesClient.findAutocompletePredictions(predictRequest).addOnSuccessListener((FindAutocompletePredictionsResponse) -> {
+                        for (AutocompletePrediction prediction : FindAutocompletePredictionsResponse.getAutocompletePredictions()) {
+                            Log.i(TAG, prediction.getPlaceId());
+                            Log.i(TAG, prediction.getPrimaryText(null).toString());
+                            predictionsList.add(prediction.getFullText(STYLE_BOLD));
+                        }
+                    }).addOnFailureListener((exception) -> {
+                        if (exception instanceof ApiException) {
+                            ApiException apiException = (ApiException) exception;
+                            Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+                        }
+                    });
                     Log.v(TAG, "Stopped");
                 }
             }
