@@ -189,6 +189,13 @@ public class MainActivity extends BaseActivity {
                             Log.i(TAG, prediction.getPrimaryText(null).toString());
                             predictionsList.add(prediction.getFullText(STYLE_BOLD));
                         }
+
+                        Log.v(TAG, "Setting Adapter");
+                        arrayAdapter.clear();
+                        for (SpannableString s : predictionsList) {
+                            arrayAdapter.add(s);
+                        }
+
                     }).addOnFailureListener((exception) -> {
                         if (exception instanceof ApiException) {
                             ApiException apiException = (ApiException) exception;
