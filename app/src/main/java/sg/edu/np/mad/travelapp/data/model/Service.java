@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bus service model class
+ */
 public class Service implements Parcelable
 {
     @SerializedName("serviceNo")
@@ -17,6 +20,8 @@ public class Service implements Parcelable
     @SerializedName("busList")
     @Expose
     private ArrayList<Bus> busList = null;
+
+    /* Parcelable constructor */
     public final static Creator<Service> CREATOR = new Creator<Service>() {
         @SuppressWarnings({
             "unchecked"
@@ -29,6 +34,7 @@ public class Service implements Parcelable
         }
     };
 
+    /* Parcelable object declarations */
     protected Service(android.os.Parcel in) {
         this.serviceNo = ((String) in.readValue((String.class.getClassLoader())));
         in.readList(this.busList, (Bus.class.getClassLoader()));

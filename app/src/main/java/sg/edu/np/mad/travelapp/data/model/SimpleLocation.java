@@ -5,6 +5,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Simple model class to store bus stop location
+ */
 public class SimpleLocation implements Parcelable
 {
     @SerializedName("lat")
@@ -13,6 +16,8 @@ public class SimpleLocation implements Parcelable
     @SerializedName("lng")
     @Expose
     private Double lng;
+
+    /* Parcelable constructor */
     public final static Creator<SimpleLocation> CREATOR = new Creator<SimpleLocation>() {
         @SuppressWarnings({
             "unchecked"
@@ -25,6 +30,7 @@ public class SimpleLocation implements Parcelable
         }
     };
 
+    /* Parcelable object declarations */
     protected SimpleLocation(android.os.Parcel in) {
         this.lat = ((Double) in.readValue((Double.class.getClassLoader())));
         this.lng = ((Double) in.readValue((Double.class.getClassLoader())));
