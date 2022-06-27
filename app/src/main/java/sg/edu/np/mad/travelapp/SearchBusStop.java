@@ -16,9 +16,7 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class SearchBusStop extends BaseActivity {
-
     private final BusTimingCardAdapter adapter = new BusTimingCardAdapter();
-    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
     private ArrayList<String> query = new ArrayList<>();
     private Location location;
 
@@ -27,15 +25,13 @@ public class SearchBusStop extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_bus_stop);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
         query.add(getIntent().getStringExtra("query").replace(", Singapore", ""));
         location = getIntent().getParcelableExtra(LOCATION);
 
         initializeNavbar(location);
         initializeRecycler(adapter, findViewById(R.id.searchedBusRecycler), false);
 
-        ref.child("1").get().addOnCompleteListener(task -> {
+        REF.child("1").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             }

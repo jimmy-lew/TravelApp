@@ -18,7 +18,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.Places;
@@ -28,8 +27,6 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -39,34 +36,28 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity {
-    private final String TAG  = "Main";
-    private ArrayList<String> query;
     private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
     private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter();
-    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-    private Location userLocation = new Location("");
-    private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
-    private ArrayList<SpannableString> predictionsList = new ArrayList<>();
 
-    @SuppressLint("MissingPermission")
+    private Location userLocation;
+    private ArrayList<String> query;
+
+    private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
+    private final ArrayList<SpannableString> predictionsList = new ArrayList<>();
+
+    @SuppressLint({"MissingPermission", "NotifyDataSetChanged"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-        Places.initialize(getApplicationContext(), GetAPIKey());
-
-        PlacesClient placesClient = Places.createClient(this);
-        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
-
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
-        AutoCompleteTextView searchTextBox = findViewById(R.id.mainSearchTextbox);
 
         initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
         initializeRecycler(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
 
+        /* Gets user location and passes into callback to get list of nearby bus stops, their serices, their respective timings
+        and update adapter's information to display on activity*/
         getUserLocation(location -> {
             userLocation = location;
             initializeNavbar(location);
@@ -76,12 +67,15 @@ public class MainActivity extends BaseActivity {
             });
         });
 
-        ref.child("1").addValueEventListener(new ValueEventListener() {
+        /* Listens to changes in user favourites and updates adapters accordingly */
+        REF.child("1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 nearbyAdapter.setUser(user);
                 favouritesAdapter.setUser(user);
+
+                assert user != null;
 
                 query = user.getFavouritesList();
                 BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
@@ -95,24 +89,20 @@ public class MainActivity extends BaseActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        searchButton.setOnClickListener(view -> {
-            String searchQuery = searchTextBox.getText().toString();
-            Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
-            SearchBusStop.putExtra("query", searchQuery);
-            SearchBusStop.putExtra(LOCATION, userLocation);
-            startActivity(SearchBusStop);
-        });
-
-        // --- Autocomplete Suggestions ---
-        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.mainSearchTextbox);
+        /* --- Autocomplete Suggestions --- */
+        Places.initialize(getApplicationContext(), GetAPIKey());
+        PlacesClient placesClient = Places.createClient(this);
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        AutoCompleteTextView searchTextBox = findViewById(R.id.mainSearchTextbox);
         ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(this, android.R.layout.simple_list_item_1, predictionsList);
-        autoCompleteTextView.setAdapter(arrayAdapter);
+        searchTextBox.setAdapter(arrayAdapter);
 
-        // --- Search Debounce ---
-        long delay = 500; // 3 seconds after user stops typing
+        /* --- Search Debounce --- */
+        long delay = 500; // delay to request
         long last_text_edit = 0;
         Handler handler = new Handler();
 
+        /* Debouncer function to only send request to google api when user stops typing */
         Runnable CheckInputFinish = new Runnable() {
             public void run() {
                 if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
@@ -141,6 +131,7 @@ public class MainActivity extends BaseActivity {
             }
         };
 
+        // TODO: Implement observer pattern
         searchTextBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -160,9 +151,17 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+        searchButton.setOnClickListener(view -> {
+            String searchQuery = searchTextBox.getText().toString();
+            Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
+            SearchBusStop.putExtra("query", searchQuery);
+            SearchBusStop.putExtra(LOCATION, userLocation);
+            startActivity(SearchBusStop);
+        });
     }
 
-    public String GetAPIKey(){
+    // TODO: Generalize
+    private String GetAPIKey(){
         try{
             ApplicationInfo info = this.getApplicationContext()
                     .getPackageManager()

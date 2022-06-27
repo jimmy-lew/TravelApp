@@ -7,6 +7,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Bus Stop model class
+ */
 public class BusStop implements Parcelable
 {
     @SerializedName("location")
@@ -21,6 +24,8 @@ public class BusStop implements Parcelable
     @SerializedName("serviceList")
     @Expose
     private ArrayList<Service> serviceList = null;
+
+    /* Parcelable constructor */
     public final static Creator<BusStop> CREATOR = new Creator<BusStop>() {
         @SuppressWarnings({
                 "unchecked"
@@ -33,6 +38,7 @@ public class BusStop implements Parcelable
         }
     };
 
+    /* Parcelable object declarations */
     protected BusStop(android.os.Parcel in) {
         this.simpleLocation = ((SimpleLocation) in.readValue((SimpleLocation.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));

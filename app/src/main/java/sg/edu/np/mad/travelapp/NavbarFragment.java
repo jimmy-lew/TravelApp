@@ -13,8 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+/**
+ * Navbar Fragment
+ * Much of the functionality of navbar is repeated as such it has been moved into a frag to
+ * remove code duplication
+ */
 public class NavbarFragment extends Fragment {
 
+    private final String LOCATION = "location";
     private Location userLocation;
 
     public NavbarFragment() {
@@ -25,7 +31,7 @@ public class NavbarFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
-            userLocation = getArguments().getParcelable("location");
+            userLocation = getArguments().getParcelable(LOCATION);
         }
     }
 
@@ -63,13 +69,13 @@ public class NavbarFragment extends Fragment {
 
         nearbyIcon.setOnClickListener(fragView -> {
             Intent ViewBusStops = new Intent(getActivity(), ViewBusStops.class);
-            ViewBusStops.putExtra("location", userLocation);
+            ViewBusStops.putExtra(LOCATION, userLocation);
             startActivity(ViewBusStops);
         });
 
         favIcon.setOnClickListener(fragView -> {
             Intent ViewFavourites = new Intent(getActivity(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", userLocation);
+            ViewFavourites.putExtra(LOCATION, userLocation);
             startActivity(ViewFavourites);
         });
     }
