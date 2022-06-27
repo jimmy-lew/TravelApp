@@ -76,7 +76,7 @@ Contributions of each student:
 * IDE: [Android Studio](https://developer.android.com/studio/)
 * Project Management: [Notion](https://notion.so)
   
-### Res  
+### Resources & Refrences
 #### Design Refs
 * [Dribbble](https://dribbble.com/)
 
