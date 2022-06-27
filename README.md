@@ -111,6 +111,7 @@ Contributions of each student:
 #### Code Refs
 * [Firebase Documentation](http://firebase.google.com/docs/firestore/manage-data/add-data)
 * [Android Developer Documentation](https://developer.android.com/)
+* [Google Place Autocomplete Documentation](https://developers.google.com/maps/documentation/places/android-sdk)
   
 ### Assets
 * [Poppins - Google fonts](https://fonts.google.com/specimen/Poppins)
