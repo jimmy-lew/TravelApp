@@ -29,6 +29,13 @@ Why TraveLah?:
 
 1. Grant app location permissions
 
+## Features
+
+1. Get bus stops near you & display all the timings of the respective buses
+2. Favourite a bus stop and save it
+3. Search for bus stops by name
+4. Search autocomplete
+
 ## Contributions
   
 Contributions of each student:
