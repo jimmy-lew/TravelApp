@@ -12,6 +12,8 @@ We aim to make travel simple, fun and uncomplicated for all Singaporeans so that
 
 Why TraveLah?:
 
+TraveLah is a simple, easy to use, travel companion app for buses! Frequent a certain bus stop? Favourite it so you can access it with ease.
+Don't know whether you should walk or run? Check bus timings for stops across the island from the palm of your hand wherever you are.
 
 ### ⚒️ Tools
 * [Android Studio](https://developer.android.com/studio)
@@ -80,8 +82,6 @@ Contributions of each student:
         * Implement Expandable Bus Timing Card
         * Implement Favourites
         * Implement Autocomplete Suggestions
-    * API
-        * Google Place Autocomplete API
     * Firebase
         * Implement RTDB
     
