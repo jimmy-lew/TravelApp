@@ -74,7 +74,17 @@ Contributions of each student:
 
   
 * Paul M Lim Wen Chuan - S10222819
-
+    * Design
+        * Bus Timing Card (bus_timing_card.xml)
+    * Android
+        * Implement Expandable Bus Timing Card
+        * Implement Favourites
+        * Implement Autocomplete Suggestions
+    * API
+        * Google Place Autocomplete API
+    * Firebase
+        * Implement RTDB
+    
   
 * Ryan Lim Junquan - S10192609
 
