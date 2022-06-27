@@ -67,7 +67,11 @@ Contributions of each student:
 
     
 * Lucas Ho - S10227850
-
+    * Firebase
+        * Implement RTDB
+    * Android
+        * Implement User Location
+        * Implement Navigation Bar Fragment
 
 ## Acknowledgments
 
