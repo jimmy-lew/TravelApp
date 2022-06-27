@@ -58,6 +58,19 @@ Contributions of each student:
     * App submission
   
 * Addison Chua Jie Yi - S10222525
+  >[![Wakatime](https://wakatime.com/badge/user/34d1de78-2bb7-440f-af5f-bf6a3a24305c/project/3779a0b1-97ec-4ec3-8184-59aa520e9517.svg)](https://wakatime.com/badge/user/34d1de78-2bb7-440f-af5f-bf6a3a24305c/project/3779a0b1-97ec-4ec3-8184-59aa520e9517)
+  * Design 
+        * 3D Phone Models (For Banner & Playstore Screenshots)
+        * Homepage (MainActivity.xml)
+    * Android
+        * Implement Bus Timing API
+        * Implement Bus Related Classes (Bus & Bus Stop)
+        * Implemented Search Debouncing
+        * Implement Autocomplete Suggestions (XML & Google Place Autocomplete API)
+        * Implement responsive layout
+        * General bug fixes
+    * App submission
+      * Playstore Screenshots
 
   
 * Paul M Lim Wen Chuan - S10222819
@@ -79,6 +92,7 @@ Contributions of each student:
 * Design: [Adobe XD](https://www.adobe.com/sg/products/xd.html)
 * IDE: [Android Studio](https://developer.android.com/studio/)
 * Project Management: [Notion](https://notion.so)
+
   
 ### Resources & Refrences
 #### Design Refs
