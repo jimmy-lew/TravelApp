@@ -39,7 +39,6 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
     public void setBusStopList(ArrayList<BusStop> busStopList) {
         this.busStopList = busStopList;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -67,21 +66,14 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
         holder.stopNameTextView.setText(busStop.getName());
         holder.stopIDTextView.setText(busStop.getCode());
 
-        if (isFavourite) {
-            holder.favouriteImageView2.setImageResource(R.drawable.favorite);
-        }
-        else {
-            holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
-        }
+        holder.favouriteImageView2.setImageResource(isFavourite ? R.drawable.favorite : R.drawable.favorite_inactive);
 
         // Sends userid and favourite stop codes when favourite img is clicked
         holder.favouriteImageView2.setOnClickListener(view -> {
-            if(favouritesList.contains(busStop.getName())) {
-                holder.favouriteImageView2.setImageResource(R.drawable.favorite_inactive);
+            holder.favouriteImageView2.setImageResource(isFavourite ? R.drawable.favorite_inactive : R.drawable.favorite);
+            if (isFavourite) {
                 favouritesList.remove(busStop.getName());
-            }
-            else {
-                holder.favouriteImageView2.setImageResource(R.drawable.favorite);
+            } else {
                 favouritesList.add(busStop.getName());
             }
             user.setFavouritesList(favouritesList);
@@ -89,16 +81,10 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardView
         });
 
         holder.rootView.setOnClickListener(view -> {
-            if (holder.hiddenGroup.getVisibility() == View.VISIBLE) {
-                TransitionManager.beginDelayedTransition(holder.rootView, new AutoTransition());
-                holder.hiddenGroup.setVisibility(View.GONE);
-                holder.favouriteImageView2.setVisibility(View.VISIBLE);
-            } else {
-                TransitionManager.beginDelayedTransition(holder.rootView, new AutoTransition());
-                Log.v("Expand", "Expanded");
-                holder.hiddenGroup.setVisibility(View.VISIBLE);
-                holder.favouriteImageView2.setVisibility(View.GONE);
-            }
+            boolean isVisible = holder.hiddenGroup.getVisibility() == View.VISIBLE;
+            TransitionManager.beginDelayedTransition(holder.rootView, new AutoTransition());
+            holder.hiddenGroup.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+            holder.favouriteImageView2.setVisibility(isVisible ? View.VISIBLE : View.GONE);
         });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
