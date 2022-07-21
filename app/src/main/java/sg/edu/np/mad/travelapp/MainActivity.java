@@ -16,6 +16,7 @@ import android.text.style.StyleSpan;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -130,6 +131,23 @@ public class MainActivity extends BaseActivity {
                 }
             }
         };
+
+        //Intent to Login Page
+        ImageView profileIcon = findViewById(R.id.mainProfilePic);
+        if (user is logged in)
+        {
+            profileIcon.setOnClickListener(view -> {
+                Intent Profile = new Intent(getApplicationContext(), Profile.class);
+                startActivity(Profile);
+            });
+        }
+        else
+        {
+            profileIcon.setOnClickListener(view -> {
+                Intent Login = new Intent(getApplicationContext(), Login.class);
+                startActivity(Login);
+            });
+        }
 
         // TODO: Implement observer pattern
         searchTextBox.addTextChangedListener(new TextWatcher() {
