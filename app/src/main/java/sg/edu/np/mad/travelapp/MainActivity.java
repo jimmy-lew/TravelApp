@@ -16,7 +16,6 @@ import android.text.style.StyleSpan;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -26,7 +25,6 @@ import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -46,8 +44,6 @@ public class MainActivity extends BaseActivity {
 
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
     private final ArrayList<SpannableString> predictionsList = new ArrayList<>();
-
-    private FirebaseAuth mAuth;
 
     @SuppressLint({"MissingPermission", "NotifyDataSetChanged"})
     @Override
@@ -134,13 +130,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         };
-
-        //Intent to Login Page
-        ImageView profileIcon = findViewById(R.id.mainProfilePic);
-        profileIcon.setOnClickListener(view -> {
-            Intent Login = new Intent(getApplicationContext(), Login.class);
-            startActivity(Login);
-        });
 
         // TODO: Implement observer pattern
         searchTextBox.addTextChangedListener(new TextWatcher() {

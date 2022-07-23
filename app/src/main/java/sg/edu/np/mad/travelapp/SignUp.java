@@ -38,19 +38,21 @@ public class SignUp extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
-        EditText signUpEmailText = (EditText)findViewById(R.id.SignUpEmailText);
+        EditText signUpEmailText = findViewById(R.id.SignUpEmailText);
         EditText signUpPasswordText = findViewById(R.id.SignUpPasswordText);
         Button signUpButton = findViewById(R.id.SignUpButton);
         TextView goToLoginText = findViewById(R.id.GoToLoginText);
 
         String email = signUpEmailText.getText().toString().trim();
+
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-        signUpEmailText.addTextChangedListener(new TextWatcher() {
+        signUpEmailText .addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
+
                 if (email.matches(emailPattern) && s.length() > 0)
                 {
-                    Toast.makeText(getApplicationContext(),"Valid email address",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"valid email address",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
