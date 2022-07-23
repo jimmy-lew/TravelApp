@@ -63,20 +63,26 @@ public class NavbarFragment extends Fragment {
         }
 
         homeIcon.setOnClickListener(fragView -> {
-            Intent MainActivity = new Intent(getActivity(), MainActivity.class);
-            startActivity(MainActivity);
+            if (!(getActivity() instanceof MainActivity)) {
+                Intent MainActivity = new Intent(getActivity(), MainActivity.class);
+                startActivity(MainActivity);
+            }
         });
 
         nearbyIcon.setOnClickListener(fragView -> {
-            Intent ViewBusStops = new Intent(getActivity(), ViewBusStops.class);
-            ViewBusStops.putExtra(LOCATION, userLocation);
-            startActivity(ViewBusStops);
+            if (!(getActivity() instanceof  ViewBusStops)) {
+                Intent ViewBusStops = new Intent(getActivity(), ViewBusStops.class);
+                ViewBusStops.putExtra(LOCATION, userLocation);
+                startActivity(ViewBusStops);
+            }
         });
 
         favIcon.setOnClickListener(fragView -> {
-            Intent ViewFavourites = new Intent(getActivity(), ViewFavourites.class);
-            ViewFavourites.putExtra(LOCATION, userLocation);
-            startActivity(ViewFavourites);
+            if (!(getActivity() instanceof ViewFavourites)) {
+                Intent ViewFavourites = new Intent(getActivity(), ViewFavourites.class);
+                ViewFavourites.putExtra(LOCATION, userLocation);
+                startActivity(ViewFavourites);
+            }
         });
     }
 }
