@@ -2,6 +2,10 @@ package sg.edu.np.mad.travelapp.data.model;
 
 import java.util.ArrayList;
 
+/**
+ * User model class
+ */
+// TODO: Implement parcelable
 public class User {
 
     private String UserID;

@@ -4,20 +4,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
+/**
+ * Navbar Fragment
+ * Much of the functionality of navbar is repeated as such it has been moved into a frag to
+ * remove code duplication
+ */
 public class NavbarFragment extends Fragment {
 
+    private final String LOCATION = "location";
     private Location userLocation;
 
     public NavbarFragment() {
@@ -28,7 +31,7 @@ public class NavbarFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
-            userLocation = getArguments().getParcelable("location");
+            userLocation = getArguments().getParcelable(LOCATION);
         }
     }
 
@@ -39,7 +42,6 @@ public class NavbarFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-
         CardView homeOutCardView = getView().findViewById(R.id.homeOutCardView);
         CardView homeInCardView = getView().findViewById(R.id.homeInCardView);
 
@@ -61,20 +63,26 @@ public class NavbarFragment extends Fragment {
         }
 
         homeIcon.setOnClickListener(fragView -> {
-            Intent MainActivity = new Intent(getActivity(), MainActivity.class);
-            startActivity(MainActivity);
+            if (!(getActivity() instanceof MainActivity)) {
+                Intent MainActivity = new Intent(getActivity(), MainActivity.class);
+                startActivity(MainActivity);
+            }
         });
 
         nearbyIcon.setOnClickListener(fragView -> {
-            Intent ViewBusStops = new Intent(getActivity(), ViewBusStops.class);
-            ViewBusStops.putExtra("location", userLocation);
-            startActivity(ViewBusStops);
+            if (!(getActivity() instanceof  ViewBusStops)) {
+                Intent ViewBusStops = new Intent(getActivity(), ViewBusStops.class);
+                ViewBusStops.putExtra(LOCATION, userLocation);
+                startActivity(ViewBusStops);
+            }
         });
 
         favIcon.setOnClickListener(fragView -> {
-            Intent ViewFavourites = new Intent(getActivity(), ViewFavourites.class);
-            ViewFavourites.putExtra("location", userLocation);
-            startActivity(ViewFavourites);
+            if (!(getActivity() instanceof ViewFavourites)) {
+                Intent ViewFavourites = new Intent(getActivity(), ViewFavourites.class);
+                ViewFavourites.putExtra(LOCATION, userLocation);
+                startActivity(ViewFavourites);
+            }
         });
     }
 }

@@ -10,18 +10,21 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import sg.edu.np.mad.travelapp.data.api.RetrofitClient;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.Service;
 
+/**
+ * Repository pattern to retrieve & store [WIP], bus stop information
+ */
 public class BusStopRepository implements Repository {
 
     private static BusStopRepository _instance = null;
-    public ArrayList<BusStop> busStopCache = new ArrayList<>();
+    public ArrayList<BusStop> nearbyCache = new ArrayList<>(); // TODO: implement caching
+    public ArrayList<BusStop> favouritesCache = new ArrayList<>();
 
-    private final String TAG = "BusStopRepo";
+    private BusStopRepository(){ }
 
-    private BusStopRepository(){
-//        busStopJson = new JSONArray(readBusStops(context));
-    }
-
+    /* Singleton pattern to ensure only one instance of the client is created / exists */
+    // TODO: implement lazy load
     public static synchronized BusStopRepository get_instance() {
         return _instance == null ? _instance = new BusStopRepository() : _instance;
     }
@@ -32,15 +35,42 @@ public class BusStopRepository implements Repository {
             @Override
             public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
-                ArrayList<BusStop> busStopList = (ArrayList<BusStop>) response.body();
-                busStopCache = busStopList;
+                ArrayList<BusStop> busStopList = response.body();
                 onComplete.execute(busStopList);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
+        });
+    }
 
+    public void getBusStopTimings(String query, final OnComplete<ArrayList<Service>> onComplete) {
+        Call<ArrayList<Service>> call = RetrofitClient.getInstance().getApi().getBusStopTimings(query);
+        call.enqueue(new Callback<ArrayList<Service>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Service>> call, Response<ArrayList<Service>> response) {
+                Log.v("URL", String.valueOf(call.request().url()));
+                ArrayList<Service> serviceList = response.body();
+                onComplete.execute(serviceList);
             }
+
+            @Override
+            public void onFailure(Call<ArrayList<Service>> call, Throwable t) { }
+        });
+    }
+
+    public void getBusStopsByCode(ArrayList<String> query, final OnComplete<ArrayList<BusStop>> onComplete){
+        Call<ArrayList<BusStop>> call = RetrofitClient.getInstance().getApi().getBusStopsByCode(query);
+        call.enqueue(new Callback<ArrayList<BusStop>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
+                Log.v("URL", String.valueOf(call.request().url()));
+                ArrayList<BusStop> busStopList = response.body();
+                onComplete.execute(busStopList);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
         });
     }
 
@@ -50,15 +80,12 @@ public class BusStopRepository implements Repository {
             @Override
             public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
-                ArrayList<BusStop> busStopList = (ArrayList<BusStop>) response.body();
-                busStopCache = busStopList;
+                ArrayList<BusStop> busStopList = response.body();
                 onComplete.execute(busStopList);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) {
-
-            }
+            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
         });
     }
 }

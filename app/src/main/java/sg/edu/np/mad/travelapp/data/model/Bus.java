@@ -6,9 +6,11 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Bus model class
+ */
 public class Bus implements Parcelable
 {
-
     @SerializedName("estimatedTime")
     @Expose
     private String estimatedTime;
@@ -21,8 +23,9 @@ public class Bus implements Parcelable
     @SerializedName("type")
     @Expose
     private String type;
-    public final static Creator<Bus> CREATOR = new Creator<Bus>() {
 
+    /* Parcelable constructor */
+    public final static Creator<Bus> CREATOR = new Creator<Bus>() {
         @SuppressWarnings({
             "unchecked"
         })
@@ -33,9 +36,9 @@ public class Bus implements Parcelable
         public Bus[] newArray(int size) {
             return (new Bus[size]);
         }
-
     };
 
+    /* Parcelable object declarations */
     protected Bus(android.os.Parcel in) {
         this.estimatedTime = ((String) in.readValue((String.class.getClassLoader())));
         this.load = ((String) in.readValue((String.class.getClassLoader())));

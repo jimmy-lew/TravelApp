@@ -8,6 +8,9 @@ import retrofit2.http.Query;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Service;
 
+/**
+ * Interface to define API endpoints
+ * */
 public interface BusAPI {
     String BASE_URL = "https://travelah-api.onrender.com/";
 
