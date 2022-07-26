@@ -15,8 +15,8 @@
         android:theme="@style/Theme.TravelApp"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name=".MapFragment"
-            android:exported="false" />
+            android:name=".Map"
+            android:exported="true" />
         <activity
             android:name=".Profile"
             android:exported="false" />
@@ -45,12 +45,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <meta-data
-            android:name="MAP_KEY"
+            android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
         <meta-data
             android:name="com.google.android.gms.version"
