@@ -45,7 +45,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database:20.0.5'
 
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    // Charts
+    implementation 'com.diogobernardino:williamchart:3.10.1'
+    // Tooltips
+    implementation 'com.diogobernardino.williamchart:tooltip-slider:3.10.1'
+    implementation 'com.diogobernardino.williamchart:tooltip-points:3.10.1'
 
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'com.google.android.libraries.places:places:2.6.0'
