@@ -33,7 +33,7 @@
             android:name=".ViewBusStops"
             android:exported="false" /> <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default -->
         <activity
-            android:name=".MainActivity"
+            android:name=".FareCalculator"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" >
             <intent-filter>
@@ -49,6 +49,9 @@
         <meta-data
             android:name="MAP_KEY"
             android:value="AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI" />
+        <meta-data
+            android:name="ROUTE_KEY"
+            android:value="xuayDA6y3ddEHXcAUkG3z8GvMr8TJdtA" />
     </application>
 
 </manifest>
