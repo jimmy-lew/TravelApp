@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +31,10 @@ public class SignUp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     // [END declare_auth]
 
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +44,18 @@ public class SignUp extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
-        EditText signUpEmailText = (EditText)findViewById(R.id.SignUpEmailText);
+        EditText signUpEmailText = findViewById(R.id.SignUpEmailText);
         EditText signUpPasswordText = findViewById(R.id.SignUpPasswordText);
         Button signUpButton = findViewById(R.id.SignUpButton);
         TextView goToLoginText = findViewById(R.id.GoToLoginText);
 
         String email = signUpEmailText.getText().toString().trim();
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
         signUpEmailText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                if (email.matches(emailPattern) && s.length() > 0)
+                Log.v("EMAILVALIDITY", email.matches(emailPattern)?"True": "False");
+                if (email.matches(emailPattern))
                 {
                     Toast.makeText(getApplicationContext(),"Valid email address",Toast.LENGTH_SHORT).show();
                 }
