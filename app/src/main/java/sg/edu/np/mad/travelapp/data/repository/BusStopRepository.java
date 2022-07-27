@@ -15,7 +15,7 @@ import sg.edu.np.mad.travelapp.data.model.Service;
 /**
  * Repository pattern to retrieve & store [WIP], bus stop information
  */
-public class BusStopRepository implements Repository {
+public class BusStopRepository implements IRepository {
 
     private static BusStopRepository _instance = null;
     public ArrayList<BusStop> nearbyCache = new ArrayList<>(); // TODO: implement caching
