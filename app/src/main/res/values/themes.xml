@@ -14,4 +14,13 @@
         <item name="android:windowFullscreen">true</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.TravelApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TravelApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.TravelApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
