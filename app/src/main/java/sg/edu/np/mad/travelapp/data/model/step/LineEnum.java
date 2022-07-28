@@ -7,18 +7,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import sg.edu.np.mad.travelapp.R;
 
 public enum LineEnum {
-    NE       (R.color.north_east,   "North East"),
-    NS       (R.color.north_south, "North South"),
-    EW       (R.color.east_west,     "East West"),
-    BP       (R.color.lrt,       "Bukit Panjang"),
-    SK       (R.color.lrt,           "Seng Kang"),
-    PG       (R.color.lrt,             "Punggol"),
-    TE       (R.color.thompson,  "Thompson East"),
-    DT       (R.color.downtown,       "Downtown"),
-    CC       (R.color.circle,           "Circle");
+    NE       (R.color.north_east,   "North East", "NE"),
+    NS       (R.color.north_south, "North South", "NS"),
+    EW       (R.color.east_west,     "East West", "EW"),
+    BP       (R.color.lrt,       "Bukit Panjang", "BP"),
+    SK       (R.color.lrt,           "Seng Kang", "SK"),
+    PG       (R.color.lrt,             "Punggol", "PG"),
+    TE       (R.color.thompson,  "Thompson East", "TE"),
+    DT       (R.color.downtown,       "Downtown", "DT"),
+    CC       (R.color.circle,           "Circle", "CC");
 
     private final int colorCode;
     private final String lineName;
+    private final String displayName;
     private static final Map<String, LineEnum> MAP;
 
     public String getLineName() {
@@ -29,9 +30,14 @@ public enum LineEnum {
         return colorCode;
     }
 
-    LineEnum(int colorCode, String lineName) {
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    LineEnum(int colorCode, String lineName, String displayName) {
         this.colorCode = colorCode;
         this.lineName = lineName;
+        this.displayName = displayName;
     }
 
     static {
@@ -45,5 +51,4 @@ public enum LineEnum {
     public static LineEnum get(String lineName) {
         return MAP.get(lineName);
     }
-
 }

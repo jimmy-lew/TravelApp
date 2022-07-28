@@ -1,13 +1,15 @@
 package sg.edu.np.mad.travelapp;
 
-import android.content.Context;
-import android.util.Log;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.FlexDirection;
@@ -18,14 +20,17 @@ import com.google.android.flexbox.JustifyContent;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.travelapp.data.model.Route;
+import sg.edu.np.mad.travelapp.data.model.step.Step;
 
 public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> {
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private ArrayList<Route> routeList = new ArrayList<Route>();
 
+
     public void setRouteList(ArrayList<Route> routeList) {
         this.routeList = routeList;
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -50,33 +55,55 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        public RecyclerView stepRecycler;
+        CardView rootView;
+        public RecyclerView minifiedStepRecycler, expandedStepRecycler;
         public TextView duration;
 
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
-            stepRecycler = itemView.findViewById(R.id.stepRecycler);
+            rootView = itemView.findViewById(R.id.route_card);
+            minifiedStepRecycler = itemView.findViewById(R.id.stepRecycler);
+            expandedStepRecycler = itemView.findViewById(R.id.expandedStepRecycler);
             duration = itemView.findViewById(R.id.durationTextView);
         }
 
-        private void onBind(int position)
+        protected void onBind(int position)
         {
             Route route = routeList.get(position);
-            MinifiedStepAdapter mAdapter = new MinifiedStepAdapter(route.getStepList(), stepRecycler.getContext());
+            ArrayList<Step> stepList = route.getStepList();
+            MinifiedStepAdapter mAdapter = new MinifiedStepAdapter(stepList, minifiedStepRecycler.getContext());
+            ExpandedStepAdapter eAdapter = new ExpandedStepAdapter(stepList, expandedStepRecycler.getContext());
 
             duration.setText(route.getDuration());
 
-            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(
-                    stepRecycler.getContext(),
+            rootView.setOnClickListener(view -> {
+                boolean isVisible = expandedStepRecycler.getVisibility() == View.VISIBLE;
+                TransitionManager.beginDelayedTransition(rootView, new AutoTransition());
+                expandedStepRecycler.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+            });
+
+            FlexboxLayoutManager minifiedLayoutManager = new FlexboxLayoutManager(
+                    minifiedStepRecycler.getContext(),
                     FlexDirection.ROW,
                     FlexWrap.WRAP
             );
-            layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+            minifiedLayoutManager.setJustifyContent(JustifyContent.FLEX_START);
 
-            stepRecycler.setLayoutManager(layoutManager);
-            stepRecycler.setAdapter(mAdapter);
-            stepRecycler.setRecycledViewPool(viewPool);
+            LinearLayoutManager expandedLayoutManager = new LinearLayoutManager(
+                    expandedStepRecycler.getContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+            );
+
+            expandedLayoutManager.setInitialPrefetchItemCount(stepList.size());
+
+            expandedStepRecycler.setLayoutManager(expandedLayoutManager);
+            expandedStepRecycler.setAdapter(eAdapter);
+            expandedStepRecycler.setRecycledViewPool(viewPool);
+
+            minifiedStepRecycler.setLayoutManager(minifiedLayoutManager);
+            minifiedStepRecycler.setAdapter(mAdapter);
+            minifiedStepRecycler.setRecycledViewPool(viewPool);
         }
     }
 }

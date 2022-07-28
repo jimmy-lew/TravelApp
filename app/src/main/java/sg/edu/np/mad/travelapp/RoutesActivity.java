@@ -20,9 +20,6 @@ public class RoutesActivity extends BaseActivity {
         SimpleLocation origin = new SimpleLocation(1.391841885183346,103.75166652244974);
         SimpleLocation destination = new SimpleLocation(1.3130129935971875,103.91341045018862);
 
-        ROUTE_REPO.getRoute(origin, destination, routeList -> {
-            adapter.setRouteList(routeList);
-            adapter.notifyDataSetChanged();
-        });
+        ROUTE_REPO.getRoute(origin, destination, adapter::setRouteList);
     }
 }

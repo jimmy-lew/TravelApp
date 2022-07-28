@@ -2,7 +2,6 @@ package sg.edu.np.mad.travelapp;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +58,7 @@ public class MinifiedStepAdapter extends RecyclerView.Adapter<MinifiedStepAdapte
             legDesc = itemView.findViewById(R.id.code);
             legDescBg = (GradientDrawable) legDesc.getBackground();
         }
+
         private void onBind(int position) {
             arrow.setVisibility(position == stepList.size() - 1 ? View.GONE : View.VISIBLE);
 

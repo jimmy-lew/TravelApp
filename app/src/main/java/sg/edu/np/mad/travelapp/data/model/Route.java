@@ -3,15 +3,14 @@ package sg.edu.np.mad.travelapp.data.model;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import sg.edu.np.mad.travelapp.data.model.step.BusStep;
+import sg.edu.np.mad.travelapp.data.model.step.Bus;
 import sg.edu.np.mad.travelapp.data.model.step.Step;
-import sg.edu.np.mad.travelapp.data.model.step.TrainStep;
-import sg.edu.np.mad.travelapp.data.model.step.WalkStep;
+import sg.edu.np.mad.travelapp.data.model.step.Train;
+import sg.edu.np.mad.travelapp.data.model.step.Walk;
 
 public class Route implements Parcelable
 {
@@ -79,15 +78,15 @@ public class Route implements Parcelable
                 Step newStep;
                 String type = step.getMode();
                 if (type.equals("MRT") || type.equals("LRT")){
-                    newStep = new TrainStep(step);
+                    newStep = new Train(step);
                 }
                 else if (type.equals("BUS"))
                 {
-                    newStep = new BusStep(step);
+                    newStep = new Bus(step);
                 }
                 else
                 {
-                    newStep = new WalkStep(step);
+                    newStep = new Walk(step);
                 }
                 stepList.add(newStep);
             }

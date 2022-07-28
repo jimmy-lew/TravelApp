@@ -27,6 +27,7 @@
         app:layout_constraintStart_toEndOf="@+id/bus"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="24dp"
