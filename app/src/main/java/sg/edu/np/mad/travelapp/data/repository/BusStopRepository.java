@@ -25,8 +25,16 @@ public class BusStopRepository implements Repository {
 
     /* Singleton pattern to ensure only one instance of the client is created / exists */
     // TODO: implement lazy load
-    public static synchronized BusStopRepository get_instance() {
+    public static synchronized BusStopRepository getInstance() {
         return _instance == null ? _instance = new BusStopRepository() : _instance;
+    }
+
+    public ArrayList<BusStop> getFavouritesCache() {
+        return favouritesCache;
+    }
+
+    public ArrayList<BusStop> getNearbyCache() {
+        return nearbyCache;
     }
 
     public void getNearbyBusStops(Location location, final OnComplete<ArrayList<BusStop>> onComplete){
@@ -36,6 +44,7 @@ public class BusStopRepository implements Repository {
             public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<BusStop> busStopList = response.body();
+                nearbyCache = busStopList;
                 onComplete.execute(busStopList);
             }
 
@@ -66,6 +75,22 @@ public class BusStopRepository implements Repository {
             public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<BusStop> busStopList = response.body();
+                onComplete.execute(busStopList);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
+        });
+    }
+
+    public void getFavouriteStops(ArrayList<String> query, final OnComplete<ArrayList<BusStop>> onComplete){
+        Call<ArrayList<BusStop>> call = RetrofitClient.getInstance().getApi().getBusStopsByName(query);
+        call.enqueue(new Callback<ArrayList<BusStop>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
+                Log.v("URL", String.valueOf(call.request().url()));
+                ArrayList<BusStop> busStopList = response.body();
+                favouritesCache = busStopList;
                 onComplete.execute(busStopList);
             }
 

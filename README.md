@@ -17,7 +17,7 @@ Don't know whether you should walk or run? Check bus timings for stops across th
 
 ### ⚒️ Tools
 * [Android Studio](https://developer.android.com/studio)
-* [Figma](https://www.figma.com/)
+* [Adobe XD](https://www.adobe.com/sg/products/xd.html)
 * [Firebase](https://firebase.google.com)
 
 [XD Design](https://xd.adobe.com/view/41c34446-1eb9-4357-9d29-d18e8258339c-1490/?fullscreen)
