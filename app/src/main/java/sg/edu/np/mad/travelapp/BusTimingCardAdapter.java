@@ -42,15 +42,11 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
         user = new User("1", new ArrayList<String>());
     }
 
-    public BusTimingCardAdapter(ArrayList<BusStop> busStopList, User user){
-        this.busStopList = busStopList;
-        this.user = user;
-    }
-
     public void setBusStopList(ArrayList<BusStop> busStopList) {
         this.busStopList = busStopList;
         this.notifyDataSetChanged();
     }
+
     public void setUser(User user) {
         this.user = user;
         this.notifyDataSetChanged();
