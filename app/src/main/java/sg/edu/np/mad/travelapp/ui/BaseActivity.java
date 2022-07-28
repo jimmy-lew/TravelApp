@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import sg.edu.np.mad.travelapp.NavbarFragment;
 import sg.edu.np.mad.travelapp.R;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
+import sg.edu.np.mad.travelapp.data.repository.RouteRepository;
 
 /**
  * Activity super class containing common functionality such as
@@ -35,7 +36,8 @@ public class BaseActivity extends AppCompatActivity {
     /* Intent TAG declarations */
     protected static final String LOCATION = "location";
     protected static final int FINE_LOCATION_CODE = 100;
-    protected final BusStopRepository REPO = BusStopRepository.getInstance();
+    protected final BusStopRepository BUS_STOP_REPO = BusStopRepository.getInstance();
+    protected final RouteRepository ROUTE_REPO = RouteRepository.getInstance();
     protected final DatabaseReference REF = FirebaseDatabase.getInstance().getReference("users");
 
     @Override

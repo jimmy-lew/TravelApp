@@ -2,12 +2,10 @@ package sg.edu.np.mad.travelapp;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 import sg.edu.np.mad.travelapp.data.model.User;
-import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class SearchBusStop extends BaseActivity {
@@ -30,7 +28,7 @@ public class SearchBusStop extends BaseActivity {
             if (!task.isSuccessful()) return;
             User user = task.getResult().getValue(User.class);
             adapter.setUser(user);
-            REPO.getBusStopsByName(query, adapter::setBusStopList);
+            BUS_STOP_REPO.getBusStopsByName(query, adapter::setBusStopList);
         });
     }
 }

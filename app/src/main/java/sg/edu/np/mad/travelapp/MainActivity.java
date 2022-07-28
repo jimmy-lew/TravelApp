@@ -38,8 +38,8 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity {
-    private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter(REPO.getNearbyCache());
-    private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter(REPO.getFavouritesCache());
+    private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter(BUS_STOP_REPO.getNearbyCache());
+    private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter(BUS_STOP_REPO.getFavouritesCache());
 
     private Location userLocation;
     private ArrayList<String> query;
