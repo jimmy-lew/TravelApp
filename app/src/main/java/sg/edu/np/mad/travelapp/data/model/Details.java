@@ -49,6 +49,10 @@ public class Details implements Parcelable
     public Details() {
     }
 
+    public Details(Line line) {
+        this.line = line;
+    }
+
     public String getArrTime() {
         return arrTime;
     }
