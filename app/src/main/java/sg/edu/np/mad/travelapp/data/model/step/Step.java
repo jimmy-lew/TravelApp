@@ -3,13 +3,14 @@ package sg.edu.np.mad.travelapp.data.model.step;
 import android.content.Context;
 import android.os.Parcelable;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import sg.edu.np.mad.travelapp.MinifiedStepAdapter;
 import sg.edu.np.mad.travelapp.data.model.Details;
 
-public class Step implements Parcelable, IStepBindable
+public class Step implements Parcelable, IBindable
 {
     @SerializedName("distance")
     @Expose
@@ -104,5 +105,5 @@ public class Step implements Parcelable, IStepBindable
     }
 
     @Override
-    public void bind(MinifiedStepAdapter.ViewHolder viewHolder, Context context) { }
+    public void bind(RecyclerView.ViewHolder viewHolder, Context context) { }
 }
