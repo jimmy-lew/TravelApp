@@ -38,8 +38,8 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity {
-    private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter();
-    private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter();
+    private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter(REPO.getNearbyCache());
+    private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter(REPO.getFavouritesCache());
 
     private Location userLocation;
     private ArrayList<String> query;
@@ -65,10 +65,7 @@ public class MainActivity extends BaseActivity {
         getUserLocation(location -> {
             userLocation = location;
             initializeNavbar(location);
-            BusStopRepository.get_instance().getNearbyBusStops(location, busStopList -> {
-                nearbyAdapter.setBusStopList(busStopList);
-                nearbyAdapter.notifyDataSetChanged();
-            });
+            BusStopRepository.getInstance().getNearbyBusStops(location, nearbyAdapter::setBusStopList);
         });
 
         /* Listens to changes in user favourites and updates adapters accordingly */
@@ -82,11 +79,7 @@ public class MainActivity extends BaseActivity {
                 assert user != null;
 
                 query = user.getFavouritesList();
-                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                    favouritesAdapter.setBusStopList(busStopList);
-                    favouritesAdapter.notifyDataSetChanged();
-                    nearbyAdapter.notifyDataSetChanged();
-                });
+                BusStopRepository.getInstance().getBusStopsByName(query, favouritesAdapter::setBusStopList);
             }
 
             @Override

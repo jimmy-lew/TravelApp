@@ -4,11 +4,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatDelegate;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 
 import sg.edu.np.mad.travelapp.data.model.User;
@@ -32,17 +27,10 @@ public class SearchBusStop extends BaseActivity {
         initializeRecycler(adapter, findViewById(R.id.searchedBusRecycler), false);
 
         REF.child("1").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting data", task.getException());
-            }
-            else {
-                User user = task.getResult().getValue(User.class);
-                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                    adapter.setUser(user);
-                    adapter.setBusStopList(busStopList);
-                    adapter.notifyDataSetChanged();
-                });
-            }
+            if (!task.isSuccessful()) return;
+            User user = task.getResult().getValue(User.class);
+            adapter.setUser(user);
+            REPO.getBusStopsByName(query, adapter::setBusStopList);
         });
     }
 }

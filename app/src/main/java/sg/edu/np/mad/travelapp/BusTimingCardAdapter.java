@@ -1,5 +1,6 @@
 package sg.edu.np.mad.travelapp;
 
+import android.annotation.SuppressLint;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
+@SuppressLint("NotifyDataSetChanged")
 public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdapter.ViewHolder> {
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool(); // Allows for sharing of view with nested recyclers
@@ -35,6 +37,11 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
         user = new User("1", new ArrayList<String>());
     }
 
+    public BusTimingCardAdapter(ArrayList<BusStop> busStopList){
+        this.busStopList = busStopList;
+        user = new User("1", new ArrayList<String>());
+    }
+
     public BusTimingCardAdapter(ArrayList<BusStop> busStopList, User user){
         this.busStopList = busStopList;
         this.user = user;
@@ -42,9 +49,11 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
 
     public void setBusStopList(ArrayList<BusStop> busStopList) {
         this.busStopList = busStopList;
+        this.notifyDataSetChanged();
     }
     public void setUser(User user) {
         this.user = user;
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -113,11 +122,9 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
             /* Toggle on/off favourite status and update RTDB */
             favouriteImageView2.setOnClickListener(view -> {
                 favouriteImageView2.setImageResource(isFavourite ? R.drawable.favorite_inactive : R.drawable.favorite);
-                if (isFavourite) {
-                    favouritesList.remove(busStop.getName());
-                } else {
-                    favouritesList.add(busStop.getName());
-                }
+                if (isFavourite) favouritesList.remove(busStop.getName());
+                else favouritesList.add(busStop.getName());
+
                 user.setFavouritesList(favouritesList);
                 REF.child(user.getUserID()).setValue(user);
             });
@@ -133,7 +140,7 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
             /* Refresh bus timings */
             refreshImageView.setOnClickListener(view -> {
                 String query = busStop.getCode();
-                BusStopRepository.get_instance().getBusStopTimings(query, serviceList -> {
+                BusStopRepository.getInstance().getBusStopTimings(query, serviceList -> {
                     busTimingRowAdapter.setServiceList(serviceList);
                     busTimingRowAdapter.notifyDataSetChanged(); // TODO: Add data observer to refresh displayed information by Bus Item
                 });
