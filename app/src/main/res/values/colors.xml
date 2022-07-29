@@ -7,5 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="card_1">#FFEEEFFF</color>
     <color name="grey">#FFF6F6F6</color>
+    <color name="circle">#FF9E1A</color>
+    <color name="downtown">#0156B5</color>
+    <color name="lrt">#728473</color>
+    <color name="east_west">#02964d</color>
+    <color name="north_south">#e12827</color>
+    <color name="north_east">#8f4199</color>
+    <color name="thompson">#9d5b24</color>
 </resources>

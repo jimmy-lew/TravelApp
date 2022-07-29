@@ -19,7 +19,7 @@ import sg.edu.np.mad.travelapp.ui.BaseActivity;
  * Displays list of user's favourite bus stops
  */
 public class ViewFavourites extends BaseActivity {
-    private final BusTimingCardAdapter adapter = new BusTimingCardAdapter(REPO.getFavouritesCache());
+    private final BusTimingCardAdapter adapter = new BusTimingCardAdapter(BUS_STOP_REPO.getFavouritesCache());
     private ArrayList<String> query = new ArrayList<>();
 
     @Override
@@ -38,7 +38,7 @@ public class ViewFavourites extends BaseActivity {
                 User user = snapshot.getValue(User.class);
                 adapter.setUser(user);
                 query = user.getFavouritesList();
-                REPO.getBusStopsByName(query, adapter::setBusStopList);
+                BUS_STOP_REPO.getBusStopsByName(query, adapter::setBusStopList);
             }
 
             @Override
