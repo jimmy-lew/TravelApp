@@ -2,14 +2,14 @@ package sg.edu.np.mad.travelapp.data.model;
 
 import java.util.List;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import sg.edu.np.mad.travelapp.data.model.step.Step;
+
 public class Leg implements Parcelable
 {
-
     @SerializedName("dptTime")
     @Expose
     private String dptTime;

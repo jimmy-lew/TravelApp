@@ -28,11 +28,11 @@ public class ViewBusStops extends BaseActivity {
         if (location == null) {
             getUserLocation(location -> {
                 initializeNavbar(location);
-                REPO.getNearbyBusStops(location, adapter::setBusStopList);
+                BUS_STOP_REPO.getNearbyBusStops(location, adapter::setBusStopList);
             });
         } else {
             initializeNavbar(location);
-            REPO.getNearbyBusStops(location, adapter::setBusStopList);
+            BUS_STOP_REPO.getNearbyBusStops(location, adapter::setBusStopList);
         }
 
         /* ASYNC: Retrieve user information once & update data accordingly */

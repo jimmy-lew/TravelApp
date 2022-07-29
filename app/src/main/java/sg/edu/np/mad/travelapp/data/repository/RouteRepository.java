@@ -2,6 +2,8 @@ package sg.edu.np.mad.travelapp.data.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -35,6 +37,23 @@ public class RouteRepository implements IRepository {
 
             @Override
             public void onFailure(Call<ArrayList<Route>> call, Throwable t) { }
+        });
+    }
+
+    public void getRouteByName(SimpleLocation origin, String destination, final OnComplete<ArrayList<Route>> onComplete) {
+        String originString = String.format("%s,%s", origin.getLat(), origin.getLng());
+
+        Call<ArrayList<Route>> call = RetrofitClient.getInstance().getApi().getRouteByName(originString, destination);
+        call.enqueue(new Callback<ArrayList<Route>>() {
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<Route>> call, @NonNull Response<ArrayList<Route>> response) {
+                Log.v("URL", String.valueOf(call.request().url()));
+                ArrayList<Route> routeList = response.body();
+                onComplete.execute(routeList);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<Route>> call, @NonNull Throwable t) { }
         });
     }
 }

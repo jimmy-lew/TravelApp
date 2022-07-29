@@ -1,14 +1,17 @@
-package sg.edu.np.mad.travelapp.data.model;
+package sg.edu.np.mad.travelapp.data.model.step;
 
+import android.content.Context;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import android.os.Parcelable.Creator;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Step implements Parcelable
-{
+import sg.edu.np.mad.travelapp.data.model.Details;
 
+public class Step implements Parcelable, IBindable
+{
     @SerializedName("distance")
     @Expose
     private String distance;
@@ -22,9 +25,8 @@ public class Step implements Parcelable
     @Expose
     private Details details;
     public final static Creator<Step> CREATOR = new Creator<Step>() {
-
         @SuppressWarnings({
-            "unchecked"
+                "unchecked"
         })
         public Step createFromParcel(android.os.Parcel in) {
             return new Step(in);
@@ -33,9 +35,7 @@ public class Step implements Parcelable
         public Step[] newArray(int size) {
             return (new Step[size]);
         }
-
-    }
-    ;
+    };
 
     protected Step(android.os.Parcel in) {
         this.distance = ((String) in.readValue((String.class.getClassLoader())));
@@ -45,6 +45,20 @@ public class Step implements Parcelable
     }
 
     public Step() {
+    }
+
+    public Step(Step step){
+        this.distance = step.getDistance();
+        this.duration = step.getDuration();
+        this.mode = step.getMode();
+        this.details = step.getDetails();
+    }
+
+    public Step(String distance, String duration, String mode, Details details) {
+        this.distance = distance;
+        this.duration = duration;
+        this.mode = mode;
+        this.details = details;
     }
 
     public String getDistance() {
@@ -90,4 +104,6 @@ public class Step implements Parcelable
         return  0;
     }
 
+    @Override
+    public void bind(RecyclerView.ViewHolder viewHolder, Context context) { }
 }

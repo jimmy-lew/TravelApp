@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="sg.edu.np.mad.travelapp" >
+    package="sg.edu.np.mad.travelapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -13,12 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".RoutesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Map"
+            android:exported="true" />
         <activity
             android:name=".Profile"
             android:exported="false" />
         <activity
-            android:name=".SearchBusStop"
+            android:name=".Search"
             android:exported="false" />
         <activity
             android:name=".SignUp"
@@ -33,25 +40,26 @@
             android:name=".ViewBusStops"
             android:exported="false" /> <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default -->
         <activity
-            android:name=".FareCalculator"
+            android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="stateHidden|adjustPan" >
+            android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <meta-data
-            android:name="MAP_KEY"
-            android:value="AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI" />
+            android:name="API_KEY"
+            android:value="${MAPS_API_KEY}" />
         <meta-data
-            android:name="ROUTE_KEY"
-            android:value="xuayDA6y3ddEHXcAUkG3z8GvMr8TJdtA" />
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

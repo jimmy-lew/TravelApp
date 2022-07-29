@@ -3,6 +3,8 @@ package sg.edu.np.mad.travelapp.data.repository;
 import android.location.Location;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -24,7 +26,6 @@ public class BusStopRepository implements IRepository {
     private BusStopRepository(){ }
 
     /* Singleton pattern to ensure only one instance of the client is created / exists */
-    // TODO: implement lazy load
     public static synchronized BusStopRepository getInstance() {
         return _instance == null ? _instance = new BusStopRepository() : _instance;
     }
@@ -41,7 +42,7 @@ public class BusStopRepository implements IRepository {
         Call<ArrayList<BusStop>> call = RetrofitClient.getInstance().getApi().getNearbyBusStops(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
         call.enqueue(new Callback<ArrayList<BusStop>>() {
             @Override
-            public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
+            public void onResponse(@NonNull Call<ArrayList<BusStop>> call, @NonNull Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<BusStop> busStopList = response.body();
                 nearbyCache = busStopList;
@@ -49,7 +50,7 @@ public class BusStopRepository implements IRepository {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
+            public void onFailure(@NonNull Call<ArrayList<BusStop>> call, @NonNull Throwable t) { }
         });
     }
 
@@ -57,14 +58,14 @@ public class BusStopRepository implements IRepository {
         Call<ArrayList<Service>> call = RetrofitClient.getInstance().getApi().getBusStopTimings(query);
         call.enqueue(new Callback<ArrayList<Service>>() {
             @Override
-            public void onResponse(Call<ArrayList<Service>> call, Response<ArrayList<Service>> response) {
+            public void onResponse(@NonNull Call<ArrayList<Service>> call, @NonNull Response<ArrayList<Service>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<Service> serviceList = response.body();
                 onComplete.execute(serviceList);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Service>> call, Throwable t) { }
+            public void onFailure(@NonNull Call<ArrayList<Service>> call, @NonNull Throwable t) { }
         });
     }
 
@@ -72,14 +73,14 @@ public class BusStopRepository implements IRepository {
         Call<ArrayList<BusStop>> call = RetrofitClient.getInstance().getApi().getBusStopsByCode(query);
         call.enqueue(new Callback<ArrayList<BusStop>>() {
             @Override
-            public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
+            public void onResponse(@NonNull Call<ArrayList<BusStop>> call, @NonNull Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<BusStop> busStopList = response.body();
                 onComplete.execute(busStopList);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
+            public void onFailure(@NonNull Call<ArrayList<BusStop>> call, @NonNull Throwable t) { }
         });
     }
 
@@ -87,7 +88,7 @@ public class BusStopRepository implements IRepository {
         Call<ArrayList<BusStop>> call = RetrofitClient.getInstance().getApi().getBusStopsByName(query);
         call.enqueue(new Callback<ArrayList<BusStop>>() {
             @Override
-            public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
+            public void onResponse(@NonNull Call<ArrayList<BusStop>> call, @NonNull Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<BusStop> busStopList = response.body();
                 favouritesCache = busStopList;
@@ -95,7 +96,7 @@ public class BusStopRepository implements IRepository {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
+            public void onFailure(@NonNull Call<ArrayList<BusStop>> call, @NonNull Throwable t) { }
         });
     }
 
@@ -103,14 +104,14 @@ public class BusStopRepository implements IRepository {
         Call<ArrayList<BusStop>> call = RetrofitClient.getInstance().getApi().getBusStopsByName(query);
         call.enqueue(new Callback<ArrayList<BusStop>>() {
             @Override
-            public void onResponse(Call<ArrayList<BusStop>> call, Response<ArrayList<BusStop>> response) {
+            public void onResponse(@NonNull Call<ArrayList<BusStop>> call, @NonNull Response<ArrayList<BusStop>> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
                 ArrayList<BusStop> busStopList = response.body();
                 onComplete.execute(busStopList);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<BusStop>> call, Throwable t) { }
+            public void onFailure(@NonNull Call<ArrayList<BusStop>> call, @NonNull Throwable t) { }
         });
     }
 }
