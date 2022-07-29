@@ -32,4 +32,7 @@ public interface BusAPI {
 
     @GET("route/name")
     Call<ArrayList<Route>> getRouteByName(@Query("origin") String origin, @Query("destination") String destination);
+
+    @GET("util/code")
+    Call<ArrayList<String>> getBusStopCode(@Query("stops") ArrayList<String> query);
 }
