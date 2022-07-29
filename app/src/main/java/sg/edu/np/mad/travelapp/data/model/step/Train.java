@@ -1,6 +1,7 @@
 package sg.edu.np.mad.travelapp.data.model.step;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +12,12 @@ import sg.edu.np.mad.travelapp.R;
 
 public class Train extends Step{
 
-    private final LineEnum line;
+    private final Line line;
 
     public Train(Step step)
     {
         super(step);
-        line = LineEnum.get(this.getDetails().getLine().getName());
+        line = Line.get(this.getDetails().getLine().getName());
     }
 
     @Override

@@ -68,10 +68,9 @@ public class BaseActivity extends AppCompatActivity {
                 .commit();
     }
 
-    protected void checkPermission(String permission, int requestCode)
+    private void checkPermission(String permission, int requestCode)
     {
         boolean isNotGranted = ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED;
-
         if (isNotGranted) { ActivityCompat.requestPermissions(this, new String[] { permission }, requestCode); }
     }
 

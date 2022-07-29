@@ -29,9 +29,10 @@ public class Walk extends Step{
 
             String duration = String.format("Walk %s [%s]", getDuration(), getDistance());
 
-//            holder.origin.setText(getDetails());
             holder.destination.setText(getDetails().getTo());
             holder.duration.setText(duration);
+            // TODO: Configure API to return timing
+//            holder.time.setText();
         }
     }
 }

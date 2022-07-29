@@ -29,4 +29,7 @@ public interface BusAPI {
 
     @GET("route")
     Call<ArrayList<Route>> getRoute(@Query("origin") String origin, @Query("destination") String destination);
+
+    @GET("route/name")
+    Call<ArrayList<Route>> getRouteByName(@Query("origin") String origin, @Query("destination") String destination);
 }

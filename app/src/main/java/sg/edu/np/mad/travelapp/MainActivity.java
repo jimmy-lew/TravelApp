@@ -39,7 +39,8 @@ import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity {
     private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter(BUS_STOP_REPO.getNearbyCache());
-    private final BusTimingCardAdapter favouritesAdapter = new BusTimingCardAdapter(BUS_STOP_REPO.getFavouritesCache());
+    private final BusTimingCardAdapter favouriteStopsAdapter = new BusTimingCardAdapter(BUS_STOP_REPO.getFavouritesCache());
+    private final RouteAdapter favouriteRoutesAdapter = new RouteAdapter();
 
     private Location userLocation;
     private ArrayList<String> query;
@@ -58,7 +59,7 @@ public class MainActivity extends BaseActivity {
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
 
         initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
-        initializeRecycler(favouritesAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
+        initializeRecycler(favouriteStopsAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
 
         /* Gets user location and passes into callback to get list of nearby bus stops, their serices, their respective timings
         and update adapter's information to display on activity*/
@@ -74,12 +75,12 @@ public class MainActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 nearbyAdapter.setUser(user);
-                favouritesAdapter.setUser(user);
+                favouriteStopsAdapter.setUser(user);
 
                 assert user != null;
 
                 query = user.getFavouritesList();
-                BusStopRepository.getInstance().getBusStopsByName(query, favouritesAdapter::setBusStopList);
+                BusStopRepository.getInstance().getBusStopsByName(query, favouriteStopsAdapter::setBusStopList);
             }
 
             @Override
@@ -155,9 +156,10 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+
         searchButton.setOnClickListener(view -> {
             String searchQuery = searchTextBox.getText().toString();
-            Intent SearchBusStop = new Intent(getApplicationContext(), SearchBusStop.class);
+            Intent SearchBusStop = new Intent(getApplicationContext(), Search.class);
             SearchBusStop.putExtra("query", searchQuery);
             SearchBusStop.putExtra(LOCATION, userLocation);
             startActivity(SearchBusStop);
@@ -171,7 +173,7 @@ public class MainActivity extends BaseActivity {
                     .getPackageManager()
                     .getApplicationInfo(this.getApplicationContext().getPackageName(),
                             PackageManager.GET_META_DATA);
-            String key = info.metaData.get("MAP_KEY").toString();
+            String key = info.metaData.get("API_KEY").toString();
             return key;
         }
         catch(Exception e){

@@ -17,8 +17,8 @@ import sg.edu.np.mad.travelapp.data.model.step.Step;
 
 public class MinifiedStepAdapter extends RecyclerView.Adapter<MinifiedStepAdapter.ViewHolder>{
 
-    private ArrayList<Step> stepList;
-    private Context context;
+    private final ArrayList<Step> stepList;
+    private final Context context;
 
     public MinifiedStepAdapter(ArrayList<Step> stepList, Context context) {
         this.stepList = stepList;
@@ -28,23 +28,16 @@ public class MinifiedStepAdapter extends RecyclerView.Adapter<MinifiedStepAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.step_item,
-                parent,
-                false
-        );
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        final View view = inflater.inflate(R.layout.step_item, parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(position);
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) { holder.onBind(position); }
 
     @Override
-    public int getItemCount() {
-        return stepList.size();
-    }
+    public int getItemCount() { return stepList.size(); }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView legIcon, arrow;
@@ -60,7 +53,8 @@ public class MinifiedStepAdapter extends RecyclerView.Adapter<MinifiedStepAdapte
         }
 
         private void onBind(int position) {
-            arrow.setVisibility(position == stepList.size() - 1 ? View.GONE : View.VISIBLE);
+            boolean isLastItem = position == stepList.size() - 1;
+            arrow.setVisibility(isLastItem ? View.GONE : View.VISIBLE);
 
             Step currentStep = stepList.get(position);
             currentStep.bind(this, context);

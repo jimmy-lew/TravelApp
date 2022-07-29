@@ -17,8 +17,10 @@ import sg.edu.np.mad.travelapp.data.model.step.Step;
 
 public class ExpandedStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Step> stepList;
-    private Context context;
+    private final ArrayList<Step> stepList;
+    private final Context context;
+    private final int WALK_STEP = 0;
+    private final int RIDE_STEP = 1;
 
     public ExpandedStepAdapter(ArrayList<Step> stepList, Context context) {
         this.stepList = stepList;
@@ -28,62 +30,37 @@ public class ExpandedStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case 1: {
-                View view = LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.vehicle_step_card,
-                        parent,
-                        false
-                );
-
-                view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
-
-                return new RideViewHolder(view);
-            }
-
-            default: {
-                View view = LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.walk_step_card,
-                        parent,
-                        false
-                );
-
-                view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
-
-                return new WalkViewHolder(view);
-            }
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        if (viewType == RIDE_STEP) {
+            View view = inflater.inflate(R.layout.vehicle_step_card, parent, false);
+            return new RideViewHolder(view);
         }
+
+        View view = inflater.inflate(R.layout.walk_step_card, parent, false);
+        return new WalkViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        switch(holder.getItemViewType()) {
-            case 1: {
-                RideViewHolder viewHolder = (RideViewHolder) holder;
-                viewHolder.onBind(position);
-                break;
-            }
-
-            default: {
-                WalkViewHolder viewHolder = (WalkViewHolder) holder;
-                viewHolder.onBind(position);
-                break;
-            }
+        if (holder.getItemViewType() == RIDE_STEP)
+        {
+            ((RideViewHolder) holder).onBind(position);
+        }
+        else if (holder.getItemViewType() == WALK_STEP)
+        {
+            ((WalkViewHolder) holder).onBind(position);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        int viewType = 0;
         Step currentStep = stepList.get(position);
-        if (currentStep == null) return viewType;
-        return currentStep.getMode().equals("WALKING") ? 0 : 1;
+        if (currentStep == null) return WALK_STEP;
+        return currentStep.getMode().equals("WALKING") ? WALK_STEP : RIDE_STEP;
     }
 
     @Override
-    public int getItemCount() {
-        return stepList.size();
-    }
+    public int getItemCount() { return stepList.size(); }
 
     public class WalkViewHolder extends RecyclerView.ViewHolder{
 

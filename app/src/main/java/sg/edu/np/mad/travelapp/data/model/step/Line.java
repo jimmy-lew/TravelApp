@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import sg.edu.np.mad.travelapp.R;
 
-public enum LineEnum {
+public enum Line {
     NE       (R.color.north_east,   "North East", "NE"),
     NS       (R.color.north_south, "North South", "NS"),
     EW       (R.color.east_west,     "East West", "EW"),
@@ -20,7 +20,7 @@ public enum LineEnum {
     private final int colorCode;
     private final String lineName;
     private final String displayName;
-    private static final Map<String, LineEnum> MAP;
+    private static final Map<String, Line> MAP;
 
     public String getLineName() {
         return lineName;
@@ -34,21 +34,21 @@ public enum LineEnum {
         return displayName;
     }
 
-    LineEnum(int colorCode, String lineName, String displayName) {
+    Line(int colorCode, String lineName, String displayName) {
         this.colorCode = colorCode;
         this.lineName = lineName;
         this.displayName = displayName;
     }
 
     static {
-        Map<String, LineEnum> map = new ConcurrentHashMap<String, LineEnum>();
-        for (LineEnum instance : LineEnum.values()) {
+        Map<String, Line> map = new ConcurrentHashMap<String, Line>();
+        for (Line instance : Line.values()) {
             map.put(instance.getLineName(), instance);
         }
         MAP = Collections.unmodifiableMap(map);
     }
 
-    public static LineEnum get(String lineName) {
+    public static Line get(String lineName) {
         return MAP.get(lineName);
     }
 }
