@@ -28,11 +28,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import sg.edu.np.mad.travelapp.data.api.APIUtilService;
+import sg.edu.np.mad.travelapp.data.api.BusAPI;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Leg;
 import sg.edu.np.mad.travelapp.data.model.Route;
 import sg.edu.np.mad.travelapp.data.model.SimpleLocation;
-import sg.edu.np.mad.travelapp.data.model.Step;
+import sg.edu.np.mad.travelapp.data.model.step.Step;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.data.repository.RouteRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
@@ -40,6 +42,8 @@ import sg.edu.np.mad.travelapp.ui.BaseActivity;
 public class FareCalculator extends BaseActivity {
     private static final String TAG = "FareCalculator";
     double total = 0.0;
+    String From = "";
+    String To = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +72,14 @@ public class FareCalculator extends BaseActivity {
     // [ToDo] API Call to calculate fare
     public double CalculateBusFare(int fareType, String from, String to, String busNo){
         Log.v(TAG, "Calculating fare for " + busNo);
-        String f = ConvertStopNameToCode(from);
-        String t = ConvertStopNameToCode(to);
-
-        f = "4465";
-        t = "2907";
         String tripInfo = "usiAccumulatedDistance1=0-usiAccumulatedDistance2=0-usiAccumulatedDistance3=0-usiAccumulatedDistance4=0-usiAccumulatedDistance5=0-usiAccumulatedDistance6=0-usiAccumulatedFare1=0-usiAccumulatedFare2=0-usiAccumulatedFare3=0-usiAccumulatedFare4=0-usiAccumulatedFare5=0-usiAccumulatedFare6=0";
-        String url = "https://www.lta.gov.sg/content/ltagov/en/map/fare-calculator/jcr:content/map2-content/farecalculator.busget.html?fare="+ fareType + "&from=" + f + "&to=" + t + "&tripInfo=" + tripInfo + "&bus=" + busNo;
+        String url = "https://www.lta.gov.sg/content/ltagov/en/map/fare-calculator/jcr:content/map2-content/farecalculator.busget.html?fare="+ fareType + "&from=" + from + "&to=" + to + "&tripInfo=" + tripInfo + "&bus=" + busNo;
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()
                 .add("fare=", String.valueOf(GetFareType()))
-                .add("from=", f)
-                .add("to=", t)
+                .add("from=", from)
+                .add("to=", to)
                 .add("tripInfo=", tripInfo)
                 .add("bus=", busNo)
                 .build();
@@ -116,9 +115,17 @@ public class FareCalculator extends BaseActivity {
         return 0;
     }
 
-    private String ConvertStopNameToCode(String query){
-        String code = "";
-        return code;
+    private String ConvertStopNameToCode(String from, String to){
+        ArrayList<String> stopName = new ArrayList<>();
+        stopName.add(from);
+        stopName.add(to);
+        APIUtilService.getInstance().getBusStopCode(stopName, stopCode -> {
+            From = stopCode.get(0);
+            To = stopCode.get(1);
+            Log.v(TAG, "From: " + From);
+            Log.v(TAG, "To: " + To);
+        });
+        return "";
     }
 
     private void DisplayFare(double fare){
@@ -156,7 +163,8 @@ public class FareCalculator extends BaseActivity {
                         Log.v(TAG, step.getMode());
                         if(step.getMode().equals("BUS")){
                             Log.v(TAG, "[Bus Details]: " + step.getDetails().getFrom() + "| to |" + step.getDetails().getTo() + "Bus No: " + step.getDetails().getLine().getName());
-                             CalculateBusFare(GetFareType(), step.getDetails().getFrom(), step.getDetails().getTo(), step.getDetails().getLine().getName());
+                            ConvertStopNameToCode(step.getDetails().getFrom(), step.getDetails().getTo());
+                             CalculateBusFare(GetFareType(), From, To, step.getDetails().getLine().getName());
                         }
                         if(step.getMode().equals("MRT")){
                             total += 1;
