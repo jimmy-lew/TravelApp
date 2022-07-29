@@ -23,25 +23,21 @@ public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowAdapte
         this.serviceList = serviceList;
     }
 
-    public void setServiceList(ArrayList<Service> serviceList) { this.serviceList = serviceList; }
+    public void setServiceList(ArrayList<Service> serviceList) {
+        this.serviceList = serviceList;
+        this.notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.bus_timing_card_row,
-                parent,
-                false
-        );
-
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.bus_timing_card_row, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(position);
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) { holder.onBind(position); }
 
     @Override
     public int getItemCount() {
@@ -74,7 +70,7 @@ public class BusTimingRowAdapter extends RecyclerView.Adapter<BusTimingRowAdapte
 
             layoutManager.setInitialPrefetchItemCount(service.getBusList().size());
 
-            BusTimingItemAdapter busTimingItemAdapter = new BusTimingItemAdapter(service.getBusList());
+            BusTimingItemAdapter busTimingItemAdapter = new BusTimingItemAdapter(service.getBusList(), busTimingRecycler.getContext());
             busTimingRecycler.setLayoutManager(layoutManager);
             busTimingRecycler.setAdapter(busTimingItemAdapter);
             busTimingRecycler.setRecycledViewPool(viewPool);

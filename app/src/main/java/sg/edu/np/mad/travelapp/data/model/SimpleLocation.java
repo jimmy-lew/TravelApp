@@ -1,5 +1,6 @@
 package sg.edu.np.mad.travelapp.data.model;
 
+import android.location.Location;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
@@ -49,7 +50,6 @@ public class SimpleLocation implements Parcelable
      * @param lat
      */
     public SimpleLocation(Double lat, Double lng) {
-        super();
         this.lat = lat;
         this.lng = lng;
     }
@@ -77,5 +77,9 @@ public class SimpleLocation implements Parcelable
 
     public int describeContents() {
         return  0;
+    }
+
+    public static SimpleLocation fromAndroidLocation(Location location){
+        return new SimpleLocation(location.getLatitude(), location.getLongitude());
     }
 }
