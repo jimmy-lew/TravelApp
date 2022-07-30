@@ -35,4 +35,7 @@ public interface BusAPI {
 
     @GET("util/code")
     Call<ArrayList<String>> getBusStopCode(@Query("stops") ArrayList<String> query);
+
+    @GET("util/fare")
+    Call<Double> getFare(@Query("trips") ArrayList<String> query, @Query("fareType") String type);
 }
