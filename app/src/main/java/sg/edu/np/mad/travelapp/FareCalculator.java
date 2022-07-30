@@ -60,6 +60,7 @@ public class FareCalculator extends BaseActivity {
     String From = "";
     String To = "";
     double total = 0;
+    MainActivity mainActivity = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,19 @@ public class FareCalculator extends BaseActivity {
         });
 
         // [ToDo] Add Search Debouncing & Google API Auto complete to AutoCompleteTextViews
+        String API_Key = mainActivity.GetAPIKey(this);
+        mainActivity.InitializeGoogleAC(originTextView, this, API_Key);
+        mainActivity.InitializeGoogleAC(destinationTextView, this, API_Key);
     }
+
+
+
+
+
+    // ================= User Defined Functions =================
+
+
+
 
     // --- [Main] Compute Function >> Call other functions; Handles Flow --
     public void Compute(String from, String to) {
