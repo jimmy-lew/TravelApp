@@ -108,49 +108,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/DestinationCard" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/DestinationCard"
-                    android:layout_width="353dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="28dp"
-                    android:elevation="4dp"
-                    android:foregroundGravity="center"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/CardView">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="8dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/DestinationTextBox"
-                            android:layout_width="320dp"
-                            android:layout_height="31dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="12dp"
-                            android:background="#FFFFFF"
-                            android:completionThreshold="1"
-                            android:ems="10"
-                            android:fontFamily="@font/poppins_bold"
-                            android:hint="Enter Destination Location"
-                            android:inputType="textPersonName"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textIsSelectable="false"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
                     android:id="@+id/CardView"
                     android:layout_width="305dp"
                     android:layout_height="50dp"
@@ -194,6 +151,212 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/DestinationCard"
+                    android:layout_width="353dp"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="28dp"
+                    android:elevation="4dp"
+                    android:foregroundGravity="center"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/CardView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/DestinationTextBox"
+                            android:layout_width="320dp"
+                            android:layout_height="31dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"
+                            android:background="#FFFFFF"
+                            android:completionThreshold="1"
+                            android:ems="10"
+                            android:fontFamily="@font/poppins_bold"
+                            android:hint="Enter Destination Location"
+                            android:inputType="textPersonName"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textIsSelectable="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/DetailsCheapestCard"
+                    android:layout_width="352dp"
+                    android:layout_height="298dp"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="20dp"
+                    android:elevation="4dp"
+                    android:foregroundGravity="center"
+                    android:visibility="gone"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ComputeButton">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="8dp">
+
+                        <ImageButton
+                            android:id="@+id/CheapestShareRouteButton"
+                            android:layout_width="37dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="248dp"
+                            android:layout_marginTop="36dp"
+                            android:scaleType="centerInside"
+                            app:layout_constraintStart_toEndOf="@+id/CheapestSaveRouteButton"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestTotalDistanceTitle"
+                            app:srcCompat="@drawable/nav_start" />
+
+                        <TextView
+                            android:id="@+id/CheapestDurationText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="---"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/CheapestDurationTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestStepTitle" />
+
+                        <TextView
+                            android:id="@+id/CheapestDurationTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Total Duration:"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestStepTitle" />
+
+                        <TextView
+                            android:id="@+id/CheapestTotalDistanceTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Total Walking Distance:"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestDurationTitle" />
+
+                        <TextView
+                            android:id="@+id/CheapestTotalDistanceText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="---"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/CheapestTotalDistanceTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestDurationTitle" />
+
+                        <TextView
+                            android:id="@+id/CheapestStepTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="No. Of Steps:"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestCostTitle" />
+
+                        <TextView
+                            android:id="@+id/CheapestStepText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="---"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/CheapestStepTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestCostTitle" />
+
+                        <TextView
+                            android:id="@+id/DetailsTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Details - Cheapest"
+                            android:textColor="@color/black"
+                            android:textSize="24sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.09"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/CheapestCostTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Total Cost: "
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/DetailsTitle" />
+
+                        <TextView
+                            android:id="@+id/CheapestCostText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="---"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/CheapestCostTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/DetailsTitle" />
+
+                        <ImageButton
+                            android:id="@+id/CheapestSaveRouteButton"
+                            android:layout_width="37dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="36dp"
+                            android:scaleType="centerInside"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/CheapestTotalDistanceTitle"
+                            app:srcCompat="@drawable/favorite_inactive" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:id="@+id/DetailsFastestCard"
                     android:layout_width="352dp"
                     android:layout_height="298dp"
@@ -201,7 +364,7 @@
                     android:layout_marginTop="20dp"
                     android:elevation="4dp"
                     android:foregroundGravity="center"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.609"
@@ -351,169 +514,6 @@
                             android:scaleType="centerInside"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/FastestTotalDistanceTitle"
-                            app:srcCompat="@drawable/favorite_inactive" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/DetailsCheapestCard"
-                    android:layout_width="352dp"
-                    android:layout_height="298dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginTop="20dp"
-                    android:elevation="4dp"
-                    android:foregroundGravity="center"
-                    android:visibility="visible"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ComputeButton">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="8dp">
-
-                        <ImageButton
-                            android:id="@+id/CheapestShareRouteButton"
-                            android:layout_width="37dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="248dp"
-                            android:layout_marginTop="36dp"
-                            android:scaleType="centerInside"
-                            app:layout_constraintStart_toEndOf="@+id/CheapestSaveRouteButton"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestTotalDistanceTitle"
-                            app:srcCompat="@drawable/nav_start" />
-
-                        <TextView
-                            android:id="@+id/CheapestDurationText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="---"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toEndOf="@+id/CheapestDurationTitle"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestStepTitle" />
-
-                        <TextView
-                            android:id="@+id/CheapestDurationTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="Total Duration:"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestStepTitle" />
-
-                        <TextView
-                            android:id="@+id/CheapestTotalDistanceTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="Total Walking Distance:"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestDurationTitle" />
-
-                        <TextView
-                            android:id="@+id/CheapestTotalDistanceText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="---"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toEndOf="@+id/CheapestTotalDistanceTitle"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestDurationTitle" />
-
-                        <TextView
-                            android:id="@+id/CheapestStepTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="No. Of Steps:"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestCostTitle" />
-
-                        <TextView
-                            android:id="@+id/CheapestStepText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="---"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toEndOf="@+id/CheapestStepTitle"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestCostTitle" />
-
-                        <TextView
-                            android:id="@+id/DetailsTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="Details - Cheapest"
-                            android:textColor="@color/black"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.09"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/CheapestCostTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="12dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="Total Cost: "
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/DetailsTitle" />
-
-                        <TextView
-                            android:id="@+id/CheapestCostText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="12dp"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="---"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toEndOf="@+id/CheapestCostTitle"
-                            app:layout_constraintTop_toBottomOf="@+id/DetailsTitle" />
-
-                        <ImageButton
-                            android:id="@+id/CheapestSaveRouteButton"
-                            android:layout_width="37dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="36dp"
-                            android:scaleType="centerInside"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestTotalDistanceTitle"
                             app:srcCompat="@drawable/favorite_inactive" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

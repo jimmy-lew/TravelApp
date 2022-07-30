@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
@@ -48,6 +49,7 @@ import sg.edu.np.mad.travelapp.data.api.BusAPI;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
 import sg.edu.np.mad.travelapp.data.model.Leg;
 import sg.edu.np.mad.travelapp.data.model.Route;
+import sg.edu.np.mad.travelapp.data.model.RouteFare;
 import sg.edu.np.mad.travelapp.data.model.SimpleLocation;
 import sg.edu.np.mad.travelapp.data.model.step.Step;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
@@ -89,7 +91,6 @@ public class FareCalculator extends BaseActivity {
         userLocationButton.setOnClickListener(view ->{
             GetCurrentLocation();
         });
-
         // [ToDo] Add Search Debouncing & Google API Auto complete to AutoCompleteTextViews
         String API_Key = mainActivity.GetAPIKey(this);
         mainActivity.InitializeGoogleAC(originTextView, this, API_Key);
@@ -108,25 +109,17 @@ public class FareCalculator extends BaseActivity {
     // --- [Main] Compute Function >> Call other functions; Handles Flow --
     public void Compute(String from, String to) {
         Log.v(TAG, "Compute Function");
-        getFareList(fareList -> {
-            // Find cheapest and find fastest fare
-            double cheapest = 0;
-            int index = 0;
-
-            for (String fare : fareList) {
-                if (index == 0) {
-                    cheapest = Double.valueOf(fare);
-                } else if (Double.valueOf(fare) < cheapest) {
-                    cheapest = Double.valueOf(fare);
-                    index++;
-                }
+        getFareList(rfList -> {
+            for (RouteFare rf : rfList) {
+                if (rf.getFare() == null) return;
             }
-            Log.v(TAG, "Cheapest Fare: " + cheapest);
+            SetDisplay(rfList,1);
+            SetDisplay(rfList,2);
         });
     }
 
-    private void getFareList(final OnComplete<ArrayList<String>> onComplete) {
-        ArrayList<String> fareList = new ArrayList<>();
+    private void getFareList(final OnComplete<ArrayList<RouteFare>> onComplete) {
+        ArrayList<RouteFare> fareList = new ArrayList<>();
         SimpleLocation origin = new SimpleLocation();
 //        origin.setLat(GeocodeLocation("from").get(0));
 //        origin.setLat(GeocodeLocation("from").get(1));
@@ -140,9 +133,12 @@ public class FareCalculator extends BaseActivity {
         destination.setLat(1.4138053998770526);
         destination.setLng(103.8093035017651);
         RouteRepository.getInstance().getRoute(origin, destination, RouteList -> {
+            ArrayList<RouteFare> rfList = new ArrayList<>();
             ArrayList<String> transitModeCost = new ArrayList<>();
             for (Route route : RouteList) {
                 // Reset Values
+                RouteFare routefare = new RouteFare();
+                routefare.setRoute(route);
                 transitModeCost.clear();
                 Log.v(TAG, "Route: " + "NEW ROUTE --------------- ");
                 for (Leg leg : route.getLegs()) {
@@ -156,10 +152,11 @@ public class FareCalculator extends BaseActivity {
                     }
                 }
                 APIUtilService.getInstance().getFare(transitModeCost, GetFareType(), fare -> {
-                    fareList.add(fare);
+                    routefare.setFare(fare);
                     Log.v(TAG, "Fare: " + fare);
-                    onComplete.execute(fareList);
+                    onComplete.execute(rfList);
                 });
+                rfList.add(routefare);
             }
         });
     }
@@ -171,7 +168,7 @@ public class FareCalculator extends BaseActivity {
 
     public String GetFareType() {
         // [ToDo] Get Fare Type from User Settings
-        String Type = "Student";
+        String Type = "student";
         return Type;
     }
 
@@ -209,9 +206,71 @@ public class FareCalculator extends BaseActivity {
         originTextView.setText(location.getLatitude() + ", " + location.getLongitude());
     }
 
-    private void DisplayCheapest(ArrayList<String> fareList){
-        // [ToDo] Display Cheapest Fare
+    private void SetDisplay(ArrayList<RouteFare> routeFares, int option){
+
+        switch (option){
+            case 1:
+                Log.v(TAG, "RouteFare Size: " + routeFares.size());
+
+                // [ToDo] Display Cheapest
+                int index = 0;
+                Double cheapestFare = 0.0;
+                RouteFare cheapestRoute = new RouteFare();
+                for (RouteFare routeFare : routeFares) {
+                    Log.v(TAG, "Fare: " + routeFare.getFare());
+
+                    if (index == 0) {
+                        cheapestFare =  Double.parseDouble(routeFare.getFare());
+                        cheapestRoute = routeFare;
+                    }
+                    else if (Double.parseDouble(routeFare.getFare()) < cheapestFare) {
+                        cheapestFare = Double.parseDouble(routeFare.getFare());
+                        cheapestRoute = routeFare;
+                    }
+                    index++;
+                }
+                 // Putting Values into the Display Cards
+                Log.v(TAG, "Cheapest Route: " + "Setting Display");
+                TextView Cost = findViewById(R.id.CheapestCostText);
+                Cost.setText("$" + cheapestFare/100 + " SGD");
+                TextView Duration = findViewById(R.id.CheapestDurationText);
+                Duration.setText(cheapestRoute.getTotalDuration());
+                TextView Distance = findViewById(R.id.CheapestTotalDistanceText);
+                Distance.setText(cheapestRoute.getWalkingDistance() + " KM");
+                TextView NumSteps = findViewById(R.id.CheapestStepText);
+                NumSteps.setText(cheapestRoute.getNoSteps() + " Steps");
+                break;
+
+            case 2:
+                // [ToDo] Display Fastest
+                index = 0;
+                Double fastestDuration = 0.0;
+                RouteFare fastestRoute = new RouteFare();
+                for (RouteFare rf : routeFares){
+                    Log.v(TAG, "Duration: " + rf.getTotalDuration());
+                    if (index == 0){
+                        fastestDuration = rf.getRawTotalDuration();
+                        fastestRoute = rf;
+                    }
+                    else if (rf.getRawTotalDuration() < fastestDuration){
+                        fastestDuration = rf.getRawTotalDuration();
+                        fastestRoute = rf;
+                    }
+                    index++;
+                }
+                Double fare = Double.parseDouble(fastestRoute.getFare())/100;
+                TextView fCost = findViewById(R.id.FastestCostText);
+                fCost.setText("$" + fare + " SGD");
+                TextView fDuration = findViewById(R.id.FastestDurationText);
+                fDuration.setText(fastestRoute.getTotalDuration());
+                TextView fDistance = findViewById(R.id.FastestTotalDistanceText);
+                fDistance.setText(fastestRoute.getWalkingDistance() + " KM");
+                TextView fNumSteps = findViewById(R.id.FastestStepText);
+                fNumSteps.setText(fastestRoute.getNoSteps() + " Steps");
+                break;
+        }
     }
+
 
     public interface OnComplete<T>{
         void execute(T data);
