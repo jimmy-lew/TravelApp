@@ -20,13 +20,18 @@ public class BaseWidget extends AppWidgetProvider {
 
             //Go to Main Activity when Widget is clicked
             Intent intent = new Intent(context, MainActivity.class);
+
+            //PendingIntent gives permission to AppWidgetManager to run MainActivity intent
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
-            //Start pending intent when logo is clicked on
+            //Set Widget View to base_widget.xml
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.base_widget);
+
+            //Start PendingIntent when logo is clicked on
             views.setOnClickPendingIntent(R.id.widgetLogoImageView, pendingIntent);
 
-            appWidgetManager.updateAppWidget(appWidgetId, views); //Update all instances of the same widget
+            //Update all instances of the same widget
+            appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
 }
