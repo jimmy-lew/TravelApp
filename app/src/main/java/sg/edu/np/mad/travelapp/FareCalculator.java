@@ -16,7 +16,9 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.location.CurrentLocationRequest;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.Granularity;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -163,12 +165,18 @@ public class FareCalculator extends BaseActivity {
     private void GetCurrentLocation() {
         Log.v(TAG, "BOOL: " + String.valueOf(ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED));
         if (ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getUserLocation(location -> {
-                Location userLocation = location;
-                initializeNavbar(location);
-                if (userLocation != null){
-                    Log.v(TAG, "User Location: " + userLocation.getLatitude() + "," + userLocation.getLongitude());
-                    SetCurrentLocation(userLocation);
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            CurrentLocationRequest request = new CurrentLocationRequest.Builder()
+                    .setDurationMillis(Long.MAX_VALUE)
+                    .setGranularity(Granularity.GRANULARITY_FINE)
+                    .setMaxUpdateAgeMillis(0)
+                    .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                    .build();
+
+            fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, location -> {
+                if (location != null){
+                    Log.v(TAG, "User Location: " + location.getLatitude() + "," + location.getLongitude());
+                    SetCurrentLocation(location);
                 }else{
                     Log.v(TAG, "Location is Null");
                     Toast.makeText(getApplicationContext(), "Unable to Get Location", Toast.LENGTH_LONG).show();
