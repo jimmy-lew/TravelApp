@@ -1,13 +1,25 @@
 package sg.edu.np.mad.travelapp;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -42,6 +54,7 @@ import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class FareCalculator extends BaseActivity {
     private static final String TAG = "FareCalculator";
+    private FusedLocationProviderClient fusedLocationClient;
     String From = "";
     String To = "";
     double total = 0;
@@ -50,8 +63,10 @@ public class FareCalculator extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fare_calculator);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         Button computeButton = findViewById(R.id.ComputeButton);
+        ImageButton userLocationButton = findViewById(R.id.UseLocationButton);
         CardView cheapestCard = findViewById(R.id.DetailsCheapestCard);
         CardView fastestCard = findViewById(R.id.DetailsFastestCard);
         AutoCompleteTextView originTextView = findViewById(R.id.OriginTextbox);
@@ -60,6 +75,7 @@ public class FareCalculator extends BaseActivity {
         String origin = originTextView.getText().toString();
         String destination = destinationTextView.getText().toString();
 
+
         computeButton.setOnClickListener(view -> {
             fastestCard.setVisibility(CardView.VISIBLE);
             cheapestCard.setVisibility(CardView.VISIBLE);
@@ -67,18 +83,35 @@ public class FareCalculator extends BaseActivity {
             Compute(origin, destination);
         });
 
+        userLocationButton.setOnClickListener(view ->{
+            GetCurrentLocation();
+        });
+
         // [ToDo] Add Search Debouncing & Google API Auto complete to AutoCompleteTextViews
     }
 
+    // --- [Main] Compute Function >> Call other functions; Handles Flow --
+    public void Compute(String from, String to) {
+        Log.v(TAG, "Compute Function");
+        getFareList(fareList -> {
+            // Find cheapest and find fastest fare
+            double cheapest = 0;
+            int index = 0;
 
-    // [ToDo] Call API & Calculate Cost
-    public double CalculateMrtFare(int fareType, String from, String to){
-        return 0;
+            for (String fare : fareList) {
+                if (index == 0) {
+                    cheapest = Double.valueOf(fare);
+                } else if (Double.valueOf(fare) < cheapest) {
+                    cheapest = Double.valueOf(fare);
+                    index++;
+                }
+            }
+            Log.v(TAG, "Cheapest Fare: " + cheapest);
+        });
     }
 
-    // --- [Main] Compute Function >> Call other functions; Handles Flow --
-    public void Compute(String from, String to){
-        Log.v(TAG, "Compute Function");
+    private void getFareList(final OnComplete<ArrayList<String>> onComplete) {
+        ArrayList<String> fareList = new ArrayList<>();
         SimpleLocation origin = new SimpleLocation();
 //        origin.setLat(GeocodeLocation("from").get(0));
 //        origin.setLat(GeocodeLocation("from").get(1));
@@ -91,125 +124,75 @@ public class FareCalculator extends BaseActivity {
 //        destination.setLat(GeocodeLocation("from").get(1));
         destination.setLat(1.4138053998770526);
         destination.setLng(103.8093035017651);
-        RouteRepository.getInstance().getRoute(origin, destination, RouteList ->{
-            for (Route route: RouteList){
+        RouteRepository.getInstance().getRoute(origin, destination, RouteList -> {
+            ArrayList<String> transitModeCost = new ArrayList<>();
+            for (Route route : RouteList) {
                 // Reset Values
+                transitModeCost.clear();
                 Log.v(TAG, "Route: " + "NEW ROUTE --------------- ");
-                for (Leg leg : route.getLegs()){
+                for (Leg leg : route.getLegs()) {
                     total = 0;
-                    for (Step step : leg.getSteps()){
-                        // Log.v(TAG, "[BUS]: " + String.valueOf(step.getMode().equals("BUS")));
-                        if(step.getMode().equals("BUS")){
-                            Log.v(TAG, "[Bus Details]: " + step.getDetails().getFrom() + "| to |" + step.getDetails().getTo() + "Bus No: " + step.getDetails().getLine().getName());
-                            Log.v(TAG, "[Bus Details] DISTANCE: " + step.getDistance());
-
-                            // ===== Calculate Bus Fare =====
-                            double distance = Double.parseDouble(step.getDistance().split(" ")[0]);
-                            ArrayList<String> fareType = GetFareType();
-
-                            // Tried using LTA's API (Fare Calculator) But their Bus Stop IDs are no the same as the Bus Stop Codes.
-                            String url = "https://data.gov.sg/api/action/datastore_search?resource_id=cd2db3f7-bb5d-43d1-9264-955d71eeaf97";
-                            OkHttpClient client = new OkHttpClient();
-                            Request request = new Request.Builder()
-                                    .url(url)
-                                    .build();
-
-                            client.newCall(request).enqueue(new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    if (!response.isSuccessful()) {
-                                        throw new IOException("Unexpected code " + response);
-                                    }
-                                    String responseData = response.body().string();
-                                    // Log.v(TAG, "Response: " + responseData);
-                                    try {
-                                        JSONArray records = new JSONObject(responseData).getJSONObject("result").getJSONArray("records");
-                                        for (int i = 0; i < records.length(); i++) {
-                                            JSONObject record = records.getJSONObject(i);
-
-                                            if (record.getInt("_id") == ConvertDistanceToRange(distance)) {
-                                                Log.v(TAG, "Query: " + ConvertDistanceToRange(distance));
-                                                Log.v(TAG, "ID: " + record.getString("_id"));
-                                                Log.v(TAG, "Bool: " +  String.valueOf(record.getInt("_id") == ConvertDistanceToRange(distance)));
-                                                Log.v(TAG, "Distance: " + record.getString("distance"));
-                                                total += Double.parseDouble(record.getString(fareType.get(0)))- Double.parseDouble(fareType.get(1));
-                                                Log.v(TAG, "Total: " + total);
-                                                Log.v(TAG, "_--------------------------------_");
-                                            }
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-                        }
-                        if(step.getMode().equals("MRT")){
-                            total += 1;
-                            //CalculateMrtFare(GetFareType(), step.getDetails().getFrom(), step.getDetails().getTo());
-                        }
+                    for (Step step : leg.getSteps()) {
+                        if (step.getMode().equals("WALKING")) continue;
+                        Log.v(TAG, "Distance: " + step.getDistance());
+                        Log.v(TAG, "String: " + String.format("%s_%s", step.getDistance().split(" ")[0], step.getMode()));
+                        Log.v(TAG, "Boolean:" + step.getMode().equals("WALKING"));
+                        transitModeCost.add(String.format("%s_%s", step.getDistance().split(" ")[0], step.getMode()));
                     }
                 }
+                APIUtilService.getInstance().getFare(transitModeCost, GetFareType(), fare -> {
+                    fareList.add(fare);
+                    Log.v(TAG, "Fare: " + fare);
+                    onComplete.execute(fareList);
+                });
             }
-
-            // Append Details
         });
     }
 
-    private String ConvertStopNameToCode(String from, String to){
-        ArrayList<String> stopName = new ArrayList<>();
-        stopName.add(from);
-        stopName.add(to);
-        APIUtilService.getInstance().getBusStopCode(stopName, stopCode -> {
-            From = stopCode.get(0);
-            To = stopCode.get(1);
-            Log.v(TAG, "From: " + From);
-            Log.v(TAG, "To: " + To);
-        });
-        return "";
-    }
-
-    private void DisplayFare(double fare){
-        Log.v(TAG, "Fare: " + fare);
-    }
-
-    private double GeocodeLocation(String Location){
+    private double GeocodeLocation(String Location) {
         // [ToDO] Call Google > Convert Location to coordinates
         return 0;
     }
 
-    public ArrayList<String> GetFareType() {
+    public String GetFareType() {
         // [ToDo] Get Fare Type from User Settings
-        // ----- Offsets -----
-        // (using LTA Calculator > (201) Kent Ridge Terminal > Blk 455 (2.9km) | Celementi Station A (3.2km)
-        //Student Offset : 30 cents
-        //Adult Offset: 60 cents
-        //Senior Citizen: 45 cents
-        //workfare_transport : 50 cents
-        //Disabilities: 45 cents
-
         String Type = "Student";
-        switch (Type) {
-            case "Adult":
-                return new ArrayList<>(Arrays.asList("adult_card_fare_per_ride","60"));
-            case "Student":
-                return new ArrayList<>(Arrays.asList("student_card_fare_per_ride","30"));
-            case "Senior":
-                return new ArrayList<>(Arrays.asList("senior_citizen_card_fare_per_ride","45"));
-            case "Workfare":
-                return new ArrayList<>(Arrays.asList("workfare_transport_concession_card_fare_per_ride","30"));
-            case "Disability":
-                return new ArrayList<>(Arrays.asList("persons_with_disabilities_card_fare_per_ride","45"));
-        }
-        return new ArrayList<>(Arrays.asList("Cash","0"));
+        return Type;
     }
 
-    public double ConvertDistanceToRange(double input){
-        if (input <= 40.2){ return input - 2.2;}
-        else {return 39;}
+    private void GetCurrentLocation() {
+        Log.v(TAG, "BOOL: " + String.valueOf(ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED));
+        if (ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getUserLocation(location -> {
+                Location userLocation = location;
+                initializeNavbar(location);
+                if (userLocation != null){
+                    Log.v(TAG, "User Location: " + userLocation.getLatitude() + "," + userLocation.getLongitude());
+                    SetCurrentLocation(userLocation);
+                }else{
+                    Log.v(TAG, "Location is Null");
+                    Toast.makeText(getApplicationContext(), "Unable to Get Location", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            Log.v(TAG, "Location Permissions Not Granted");
+            Toast.makeText(getApplicationContext(), "Location Permissions Not Granted, Please enable location permission in the system settings.", Toast.LENGTH_LONG).show();
+            // Request permission
+            ActivityCompat.requestPermissions(FareCalculator.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+    }
+
+    private void SetCurrentLocation(Location location){
+        AutoCompleteTextView originTextView = findViewById(R.id.OriginTextbox);
+        originTextView.setText(location.getLatitude() + ", " + location.getLongitude());
+    }
+
+    private void DisplayCheapest(ArrayList<String> fareList){
+        // [ToDo] Display Cheapest Fare
+    }
+
+    public interface OnComplete<T>{
+        void execute(T data);
     }
 }

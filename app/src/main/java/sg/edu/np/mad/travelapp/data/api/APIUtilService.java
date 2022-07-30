@@ -34,18 +34,18 @@ public class APIUtilService {
         });
     }
 
-    public void getFare(ArrayList<String> query, String type, final OnComplete<Double> onComplete) {
-        Call<Double> call = RetrofitClient.getInstance().getApi().getFare(query, type);
-        call.enqueue(new Callback<Double>() {
+    public void getFare(ArrayList<String> query, String type, final OnComplete<String> onComplete) {
+        Call<String> call = RetrofitClient.getInstance().getApi().getFare(query, type);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(@NonNull Call<Double> call, @NonNull Response<Double> response) {
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 Log.v("URL", String.valueOf(call.request().url()));
-                Double fare = response.body();
+                String fare = response.body();
                 onComplete.execute(fare);
             }
 
             @Override
-            public void onFailure(@NonNull Call<Double> call, @NonNull Throwable t) { }
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) { }
         });
     }
 
