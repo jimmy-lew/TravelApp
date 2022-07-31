@@ -163,13 +163,15 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
             origin.setLng(FromToCoordinates.get(0).get(1));
             Log.v(TAG, "Origin: " + origin.getLat() + "," + origin.getLng());
 
-            SimpleLocation destination = new SimpleLocation();
-            destination.setLat(FromToCoordinates.get(1).get(0));
-            destination.setLng(FromToCoordinates.get(1).get(1));
-            Log.v(TAG, "Destination: " + destination.getLat() + "," + destination.getLng());
+            // Update (31/7/22, 9:11PM) : API Support for Raw String Addresses for Destinations. >> removed need to geocode for destination
+//            SimpleLocation destination = new SimpleLocation();
+//            destination.setLat(FromToCoordinates.get(1).get(0));
+//            destination.setLng(FromToCoordinates.get(1).get(1));
+//            Log.v(TAG, "Destination: " + destination.getLat() + "," + destination.getLng());
+            String destination = ((AutoCompleteTextView)findViewById(R.id.DestinationTextBox)).getText().toString();
 
             // Call API to Get Routes
-            RouteRepository.getInstance().getRoute(origin, destination, RouteList -> {
+            RouteRepository.getInstance().getRouteByName(origin, destination, RouteList -> {
                 ArrayList<RouteFare> rfList = new ArrayList<>();
                 ArrayList<String> transitModeCost = new ArrayList<>();
                 for (Route route : RouteList) {
@@ -202,8 +204,9 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
     // GeocodeLocation Function > Geocodes Addresses into Coordinates (Using Google API)
     private void GeocodeLocation(final OnComplete<List<List<Double>>> onComplete) {
         String origin = ((AutoCompleteTextView)findViewById(R.id.OriginTextbox)).getText().toString();
-        String destination = ((AutoCompleteTextView)findViewById(R.id.DestinationTextBox)).getText().toString();
-        ArrayList<String> toGeocode = new ArrayList<>( Arrays.asList(origin, destination));
+        // Update (31/7/22, 9:11PM) : API Support for Raw String Addresses for Destinations. >> removed need to geocode for destination
+        // String destination = ((AutoCompleteTextView)findViewById(R.id.DestinationTextBox)).getText().toString();
+        ArrayList<String> toGeocode = new ArrayList<>( Arrays.asList(origin));
 
         // Prepare toast messages (for errors)
         Toast ToastGeocodeFailed = Toast.makeText(FareCalculator.this, "Geocoding Failed!", Toast.LENGTH_SHORT);
