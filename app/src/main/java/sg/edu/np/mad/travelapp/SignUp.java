@@ -24,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Pattern;
+
 public class SignUp extends AppCompatActivity {
 
     private static final String TAG = "Sign Up";
@@ -49,13 +51,10 @@ public class SignUp extends AppCompatActivity {
         Button signUpButton = findViewById(R.id.SignUpButton);
         TextView goToLoginText = findViewById(R.id.GoToLoginText);
 
-        String email = signUpEmailText.getText().toString().trim();
-        String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
         signUpEmailText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                Log.v("EMAILVALIDITY", email.matches(emailPattern)?"True": "False");
-                if (email.matches(emailPattern))
+                Log.v("EMAILVALIDITY", Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$").matcher(signUpEmailText.getText().toString()).matches()? "True": "False");
+                if (Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$").matcher(signUpEmailText.getText().toString()).matches())
                 {
                     Toast.makeText(getApplicationContext(),"Valid email address",Toast.LENGTH_SHORT).show();
                 }
@@ -96,7 +95,8 @@ public class SignUp extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            reload();
+            Intent profileIntent = new Intent(SignUp.this, Profile.class);
+            startActivity(profileIntent);
         }
     }
     // [END on_start_check_user]
@@ -111,7 +111,8 @@ public class SignUp extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            Intent profileIntent = new Intent(SignUp.this, Profile.class);
+                            startActivity(profileIntent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ViewReminderNotification"
+            android:exported="false" />
+        <activity
+            android:name=".NewReminder"
+            android:exported="false" />
 
         <receiver
             android:name=".BaseWidget"
