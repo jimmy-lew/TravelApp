@@ -20,11 +20,29 @@
         <activity
             android:name=".NewReminder"
             android:exported="false" />
+
+        <receiver
+            android:name=".BaseWidget"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/base_widget_info" />
+        </receiver>
+
+        <activity
+            android:name=".RoutesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Map"
+            android:exported="true" />
         <activity
             android:name=".Profile"
             android:exported="false" />
         <activity
-            android:name=".SearchBusStop"
+            android:name=".Search"
             android:exported="false" />
         <activity
             android:name=".SignUp"
@@ -39,22 +57,32 @@
             android:name=".ViewBusStops"
             android:exported="false" /> <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default -->
         <activity
+            android:name=".FareCalculator"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <meta-data
-            android:name="MAP_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:name="API_KEY"
+            android:value="AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI" />
+        <meta-data
+            android:name="GEOCODE_API_KEY"
+            android:value="AIzaSyDZcZNMqbqnZOLJ3FQNZVZTzCh4LGZW14Q" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

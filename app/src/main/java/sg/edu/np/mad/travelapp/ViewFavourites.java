@@ -2,15 +2,11 @@ package sg.edu.np.mad.travelapp;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -23,7 +19,7 @@ import sg.edu.np.mad.travelapp.ui.BaseActivity;
  * Displays list of user's favourite bus stops
  */
 public class ViewFavourites extends BaseActivity {
-    private final BusTimingCardAdapter adapter = new BusTimingCardAdapter();
+    private final BusTimingCardAdapter adapter = new BusTimingCardAdapter(BUS_STOP_REPO.getFavouritesCache());
     private ArrayList<String> query = new ArrayList<>();
 
     @Override
@@ -40,12 +36,9 @@ public class ViewFavourites extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
+                adapter.setUser(user);
                 query = user.getFavouritesList();
-                BusStopRepository.get_instance().getBusStopsByName(query, busStopList -> {
-                    adapter.setUser(user);
-                    adapter.setBusStopList(busStopList);
-                    adapter.notifyDataSetChanged();
-                });
+                BUS_STOP_REPO.getBusStopsByName(query, adapter::setBusStopList);
             }
 
             @Override
