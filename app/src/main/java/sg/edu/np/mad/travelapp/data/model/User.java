@@ -7,19 +7,26 @@ import java.util.ArrayList;
 /**
  * User model class
  */
-// TODO: Implement parcelable
 public class User implements Parcelable {
 
     private String UserID;
     private ArrayList<String> FavouritesList;
+    private ArrayList<Route> FavouriteRoutes;
     private ArrayList<Reminder> ReminderList = new ArrayList<Reminder>();
 
     // Constructor
     public User(){ }
 
-    public User(String userID, ArrayList<String> favouritesList) {
+    public User(String UserID){
+        this.UserID = UserID;
+        FavouritesList = new ArrayList<String>();
+        FavouriteRoutes = new ArrayList<Route>();
+    }
+
+    public User(String userID, ArrayList<String> favouritesList, ArrayList<Route> favouritesRoutes) {
         UserID = userID;
         FavouritesList = favouritesList;
+        FavouriteRoutes = favouritesRoutes;
     }
 
     public User(ArrayList<Reminder> reminderList) {
@@ -44,6 +51,7 @@ public class User implements Parcelable {
         this.UserID = ((String) in.readValue((String.class.getClassLoader())));
         in.readList(this.FavouritesList, (String.class.getClassLoader()));
         in.readList(this.ReminderList, (Reminder.class.getClassLoader()));
+        in.readList(this.FavouriteRoutes, (Route.class.getClassLoader()));
     }
 
     // Getter & Setter
@@ -56,7 +64,7 @@ public class User implements Parcelable {
     }
 
     public ArrayList<String> getFavouritesList() {
-        return FavouritesList;
+        return FavouritesList == null ? new ArrayList<String>() : FavouritesList;
     }
 
     public void setFavouritesList(ArrayList<String> favouritesList) { this.FavouritesList = favouritesList; }
@@ -65,10 +73,19 @@ public class User implements Parcelable {
 
     public void setReminderList(ArrayList<Reminder> reminderList) { this.ReminderList = reminderList; }
 
+    public ArrayList<Route> getFavouriteRoutes() {
+        return FavouriteRoutes == null ? new ArrayList<Route>() : FavouriteRoutes;
+    }
+
+    public void setFavouriteRoutes(ArrayList<Route> favouriteRoutes) {
+        FavouriteRoutes = favouriteRoutes;
+    }
+
     public void writeToParcel(android.os.Parcel dest, int flags) {
         dest.writeValue(UserID);
         dest.writeList(FavouritesList);
         dest.writeList(ReminderList);
+        dest.writeList(FavouriteRoutes);
     }
 
     public int describeContents() {
