@@ -3,6 +3,7 @@
     <string name="favIcon">favIcon</string>
     <string name="homeIcon">homeIcon</string>
     <string name="nearbyIcon">nearbyIcon</string>
+    <string name ="calculatorIcon">calculatorIcon</string>
     <string name="title_activity_view_favourites">ViewFavourites</string>
     <string name="title_activity_profile">Profile</string>
     <!-- Strings used for fragments for navigation -->
