@@ -95,7 +95,7 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        EditText email = getView().findViewById(R.id.emailEditText);
+        TextView email = getView().findViewById(R.id.emailEditText);
         EditText password = getView().findViewById(R.id.passwordEditText);
         EditText passwordNew = getView().findViewById(R.id.passwordEditTextNew);
         TextView emailErr = getView().findViewById(R.id.emailErrorTextView);
@@ -106,6 +106,7 @@ public class SettingsFragment extends Fragment {
         FirebaseUser user = mAuth.getCurrentUser();
 
         email.setText(user.getEmail());
+
 
         passwordNew.addTextChangedListener(new TextWatcher() {
             @Override
