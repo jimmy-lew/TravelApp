@@ -33,9 +33,6 @@
         </receiver>
 
         <activity
-            android:name=".RoutesActivity"
-            android:exported="false" />
-        <activity
             android:name=".Map"
             android:exported="true" />
         <activity
@@ -76,6 +73,9 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="API_KEY"
+            android:value="${MAPS_API_KEY}" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
         <meta-data
             android:name="GEOCODE_API_KEY"

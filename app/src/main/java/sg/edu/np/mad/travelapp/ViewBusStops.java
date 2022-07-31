@@ -28,6 +28,11 @@ public class ViewBusStops extends BaseActivity {
 
         initializeRecycler(adapter, findViewById(R.id.nearbyBusRecycler), false);
 
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.mapFragmentContainerView, new MapFragment())
+                .commit();
+
         /* ASYNC: Check if activity recieved a location, else get user location and display nearby bus stops */
         // TODO: Abstract error handling logic
         if (location == null) {
