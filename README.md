@@ -95,6 +95,7 @@ Contributions of each student:
     * Android
         * Implement User Location
         * Implement Navigation Bar Fragment
+        * Implement App Widget
 
 ## Acknowledgments
 
