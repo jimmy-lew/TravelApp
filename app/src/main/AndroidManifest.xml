@@ -41,6 +41,9 @@
             android:exported="false" /> <!-- API 28 and above,clearTextTraffic is set to false by default, lower is true by default -->
         <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FareCalculator"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
@@ -56,7 +59,10 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI" />
+        <meta-data
+            android:name="GEOCODE_API_KEY"
+            android:value="AIzaSyDZcZNMqbqnZOLJ3FQNZVZTzCh4LGZW14Q" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

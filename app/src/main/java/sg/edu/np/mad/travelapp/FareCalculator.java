@@ -97,18 +97,20 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         computeButton.setOnClickListener(view -> {
             String origin = originTextView.getText().toString();
             String destination = destinationTextView.getText().toString();
-            if (origin.isEmpty() || destination.isEmpty()) {
+            if (origin.isEmpty() || destination.isEmpty())  // Check if TextBox values are empty
+            {
                 Toast.makeText(FareCalculator.this, "Please enter origin and destination", Toast.LENGTH_SHORT).show();
             } else {
-                Compute(origin, destination);
+                Compute(); // Run Compute Function
             }
         });
 
+        // Get Location button (Beside the "from" search)
         userLocationButton.setOnClickListener(view ->{
             GetCurrentLocation();
         });
 
-        // [ToDo] Add Search Debouncing & Google API Auto complete to AutoCompleteTextViews
+        /* --- Initializing AutoCompleteTextView w/ Google AutoComplete Suggestions --- */
         String API_Key = mainActivity.GetAPIKey(this,"API_KEY");
         mainActivity.InitializeGoogleAC(originTextView, this, API_Key);
         mainActivity.InitializeGoogleAC(destinationTextView, this, API_Key);
@@ -123,8 +125,8 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
 
 
 
-    // --- [Main] Compute Function >> Call other functions; Handles Flow --
-    public void Compute(String from, String to) {
+    // --- [Main] Compute Function >> Handles Flow ; Calls other Functions --
+    public void Compute() {
         Log.v(TAG, "Compute Function");
 
         getFareList(rfList -> {
@@ -137,91 +139,110 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
     }
 
     private void getFareList(final OnComplete<ArrayList<RouteFare>> onComplete) {
-        //Async Function, Local Scope, Can't access variables outside of function
-        SimpleLocation origin = new SimpleLocation();
-        List<Double> originCoordinates = GeocodeLocation(((AutoCompleteTextView)findViewById(R.id.OriginTextbox)).getText().toString());
-        origin.setLat(originCoordinates.get(0));
-        origin.setLat(originCoordinates.get(1));
-//        origin.setLat(1.4346539724345708);
-//        origin.setLng(103.76548453675491);
-        Log.v(TAG, "Origin: " + origin.getLat() + "," + origin.getLng());
+        //Async Function, Returns value of "ArrayList<RouteFare>" to callback method after getting data from API
+        GeocodeLocation(FromToCoordinates ->{
+            for (List<Double> dList : FromToCoordinates) {
+                Log.v(TAG, "FromToCoordinates: " + dList.toString());
+                if (dList.isEmpty()) return;
+                for(Double d : dList)  // Check if every element in the nested List has a value
+                {
+                    Log.v(TAG, "Coordinate: " + d);
+                    if (d == null) return;
+                }
+            }
 
-        SimpleLocation destination = new SimpleLocation();
-        List<Double> destinationCoordinates = GeocodeLocation(((AutoCompleteTextView)findViewById(R.id.DestinationTextBox)).getText().toString());
-        destination.setLat(destinationCoordinates.get(0));
-        destination.setLat(destinationCoordinates.get(1));
-//        destination.setLat(1.4138053998770526);
-//        destination.setLng(103.8093035017651);
+            // Get Fare List (after receiving coordinates)
+            SimpleLocation origin = new SimpleLocation();
+            origin.setLat(FromToCoordinates.get(0).get(0));
+            origin.setLng(FromToCoordinates.get(0).get(1));
+            Log.v(TAG, "Origin: " + origin.getLat() + "," + origin.getLng());
 
-        // Call API to Get Routes
-        RouteRepository.getInstance().getRoute(origin, destination, RouteList -> {
-            ArrayList<RouteFare> rfList = new ArrayList<>();
-            ArrayList<String> transitModeCost = new ArrayList<>();
-            for (Route route : RouteList) {
-                // Reset Values
-                RouteFare routefare = new RouteFare();
-                routefare.setRoute(route);
-                transitModeCost.clear();
-                for (Leg leg : route.getLegs()) {
-                    total = 0;
-                    for (Step step : leg.getSteps()) {
-                        if (step.getMode().equals("WALKING")) continue;
+            SimpleLocation destination = new SimpleLocation();
+            destination.setLat(FromToCoordinates.get(1).get(0));
+            destination.setLng(FromToCoordinates.get(1).get(1));
+            Log.v(TAG, "Destination: " + destination.getLat() + "," + destination.getLng());
+
+            // Call API to Get Routes
+            RouteRepository.getInstance().getRoute(origin, destination, RouteList -> {
+                ArrayList<RouteFare> rfList = new ArrayList<>();
+                ArrayList<String> transitModeCost = new ArrayList<>();
+                for (Route route : RouteList) {
+                    // Reset Values
+                    RouteFare routefare = new RouteFare();
+                    routefare.setRoute(route);
+                    transitModeCost.clear();
+                    for (Leg leg : route.getLegs()) {
+                        total = 0;
+                        for (Step step : leg.getSteps()) {
+                            if (step.getMode().equals("WALKING")) continue;
 //                        Log.v(TAG, "Distance: " + step.getDistance());
 //                        Log.v(TAG, "String: " + String.format("%s_%s", step.getDistance().split(" ")[0], step.getMode()));
 //                        Log.v(TAG, "Boolean:" + step.getMode().equals("WALKING"));
-                        transitModeCost.add(String.format("%s_%s", step.getDistance().split(" ")[0], step.getMode()));
+                            transitModeCost.add(String.format("%s_%s", step.getDistance().split(" ")[0], step.getMode()));
+                        }
                     }
+                    APIUtilService.getInstance().getFare(transitModeCost, GetFareType(), fare -> {
+                        routefare.setFare(fare);
+                        onComplete.execute(rfList);
+                    });
+                    rfList.add(routefare);
                 }
-                APIUtilService.getInstance().getFare(transitModeCost, GetFareType(), fare -> {
-                    routefare.setFare(fare);
-                    onComplete.execute(rfList);
-                });
-                rfList.add(routefare);
-            }
+            });
         });
+
+
     }
 
-    private List<Double> GeocodeLocation(String Location) {
-        // [ToDo] Add Geocoding Function
-        OkHttpClient client = new OkHttpClient();
-        String Country = "SG";
-        String URL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + Location + "&components=country:" + Country + "&key=" + mainActivity.GetAPIKey(this,"GEOCODE_API_KEY");
-        Request request = new Request.Builder()
-                .url(URL)
-                .build();
+    private void GeocodeLocation(final OnComplete<List<List<Double>>> onComplete) {
+        String origin = ((AutoCompleteTextView)findViewById(R.id.OriginTextbox)).getText().toString();
+        String destination = ((AutoCompleteTextView)findViewById(R.id.DestinationTextBox)).getText().toString();
+        ArrayList<String> toGeocode = new ArrayList<>( Arrays.asList(origin, destination));
 
-        client.newCall(request)
-                .enqueue(new Callback() {
-                    @Override
-                    public void onFailure(final Call call, IOException e) {
-                        Log.v(TAG, "API Geocode Failed");
-                    }
+        // Prepare toast messages (for errors)
+        Toast ToastGeocodeFailed = Toast.makeText(FareCalculator.this, "Geocoding Failed!", Toast.LENGTH_SHORT);
 
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-                        String res = response.body().string();
-                        try {
-                            Log.v(TAG, "[API Geocode] Response: " + res);
-                            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+        List<List<Double>> FromToCoordsList = new ArrayList<>();
+        // API Request
+        for (String Location : toGeocode){
+            OkHttpClient client = new OkHttpClient();
+            String Country = "SG";
+            String URL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + Location + "&components=country:" + Country + "&key=" + mainActivity.GetAPIKey(this,"GEOCODE_API_KEY");
+            Request request = new Request.Builder()
+                    .url(URL)
+                    .build();
 
-                            Double Longitude = jsonObject.getAsJsonArray("results").getAsJsonArray().getAsJsonArray().get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("location").getAsJsonObject().get("lng").getAsDouble();
-                            Double Latitude = jsonObject.getAsJsonArray("results").getAsJsonArray().getAsJsonArray().get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("location").getAsJsonObject().get("lat").getAsDouble();
-                            List<Double> coordinates = new ArrayList<>();
-                            coordinates.add(Latitude);
-                            coordinates.add(Longitude);
-                            Log.v(TAG,"Longitude: " + Longitude);
-                            Log.v(TAG,"Latitude: " + Latitude);
+            client.newCall(request)
+                    .enqueue(new Callback() {
+                        @Override
+                        public void onFailure(final Call call, IOException e) {
+                            Log.v(TAG, "API Geocode Failed");
+                            ToastGeocodeFailed.show();
                         }
-                        catch (Exception e) {
-                            Log.v(TAG, "API Parsing Failed");
-                            Log.v(TAG, "Exception: " + e);
-                        }
-                    }
-                });
 
-        // Toast Message
-        Toast.makeText(this, "Failed to Geocode Location!", Toast.LENGTH_SHORT).show();
-        return null;
+                        @Override
+                        public void onResponse(Call call, final Response response) throws IOException {
+                            String res = response.body().string();
+                            Log.v(TAG, "[API] Geocode Response: " + res);
+                            try {
+                                JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+
+                                Double Longitude = jsonObject.getAsJsonArray("results").getAsJsonArray().getAsJsonArray().get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("location").getAsJsonObject().get("lng").getAsDouble();
+                                Double Latitude = jsonObject.getAsJsonArray("results").getAsJsonArray().getAsJsonArray().get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("location").getAsJsonObject().get("lat").getAsDouble();
+                                List<Double> coordinates = new ArrayList<>();
+                                coordinates.add(Latitude);
+                                coordinates.add(Longitude);
+                                FromToCoordsList.add(coordinates);
+                                Log.v(TAG, "[Geocode] Latitude: " + Latitude + " Longitude: " + Longitude);
+                                // Call Callback Function
+                                onComplete.execute(FromToCoordsList);
+                            }
+                            catch (Exception e) {
+                                Log.v(TAG, "API Parsing Failed");
+                                Log.v(TAG, "Exception: " + e);
+                            }
+                        }
+                    });
+        }
     }
 
 
@@ -270,7 +291,6 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
     private void SetDisplay(ArrayList<RouteFare> routeFares, int option){
         switch (option){
             case 1:
-                Log.v(TAG, "RouteFare Size: " + routeFares.size());
                 int index = 0;
                 Double cheapestFare = 0.0;
                 RouteFare cheapestRoute = new RouteFare();
@@ -286,7 +306,6 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                     index++;
                 }
                  // Putting Values into the Display Cards
-                Log.v(TAG, "Cheapest Route: " + "Setting Display");
                 TextView Cost = findViewById(R.id.CheapestCostText);
                 Cost.setText("$" + cheapestFare/100 + " SGD");
                 TextView Duration = findViewById(R.id.CheapestDurationText);
@@ -339,9 +358,5 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
     // ====== Interfaces for ASync (Callback Functions) ====== //
     public interface OnComplete<T>{
         void execute(T data);
-    }
-
-    public interface getCoordinates {
-        void getJsonResponse(final String id);
     }
 }

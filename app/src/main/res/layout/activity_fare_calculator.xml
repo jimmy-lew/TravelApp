@@ -24,7 +24,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="22dp"
+                tools:layout_editor_absoluteY="0dp">
 
                 <ImageButton
                     android:id="@+id/UseLocationButton"
@@ -36,8 +38,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.074"
                     app:layout_constraintStart_toEndOf="@+id/CardView"
-                    app:layout_constraintTop_toBottomOf="@+id/FareTypeTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/ActivityTitle"
                     app:srcCompat="@drawable/nav_start" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="250dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.323"
+                    app:layout_constraintStart_toEndOf="@+id/FareTypeTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/DestinationCard" />
 
                 <TextView
                     android:id="@+id/ActivityTitle"
@@ -58,31 +70,17 @@
                     android:id="@+id/FareTypeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="17dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Fare Type:"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="normal"
-                    app:layout_constraintEnd_toStartOf="@+id/FareTypeText"
-                    app:layout_constraintHorizontal_bias="0.34"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ActivityTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/DestinationCard" />
 
-                <TextView
-                    android:id="@+id/FareTypeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="238dp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="---"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/FareTypeTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/ActivityTitle" />
 
                 <TextView
                     android:id="@+id/NavbarOffset"
@@ -94,32 +92,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/DetailsFastestCard" />
 
-
                 <Button
                     android:id="@+id/ComputeButton"
                     android:layout_width="353dp"
                     android:layout_height="49dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="40dp"
                     android:backgroundTint="@color/quantum_cyan400"
                     android:text="Calculate"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.508"
+                    app:layout_constraintHorizontal_bias="0.475"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/DestinationCard" />
+                    app:layout_constraintTop_toBottomOf="@+id/FareTypeTitle" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/CardView"
                     android:layout_width="305dp"
                     android:layout_height="50dp"
                     android:layout_marginHorizontal="32dp"
-                    android:layout_marginStart="28dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="16dp"
                     android:elevation="4dp"
                     android:foregroundGravity="center"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toStartOf="@+id/UseLocationButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/FareTypeTitle">
+                    app:layout_constraintTop_toBottomOf="@+id/ActivityTitle">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -129,7 +126,7 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/OriginTextbox"
-                            android:layout_width="319dp"
+                            android:layout_width="290dp"
                             android:layout_height="31dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="12dp"
@@ -195,13 +192,14 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/DetailsCheapestCard"
-                    android:layout_width="352dp"
-                    android:layout_height="298dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="20dp"
                     android:elevation="4dp"
                     android:foregroundGravity="center"
-                    android:visibility="gone"
+                    android:paddingEnd="10dp"
+                    android:visibility="visible"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -209,19 +207,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginVertical="8dp">
-
-                        <ImageButton
-                            android:id="@+id/CheapestShareRouteButton"
-                            android:layout_width="37dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="248dp"
-                            android:layout_marginTop="36dp"
-                            android:scaleType="centerInside"
-                            app:layout_constraintStart_toEndOf="@+id/CheapestSaveRouteButton"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestTotalDistanceTitle"
-                            app:srcCompat="@drawable/nav_start" />
 
                         <TextView
                             android:id="@+id/CheapestDurationText"
@@ -336,21 +323,10 @@
                             android:layout_marginTop="12dp"
                             android:fontFamily="@font/poppins_bold"
                             android:text="---"
-                            android:textColor="@color/black"
+                            android:textColor="@color/east_west"
                             android:textSize="14sp"
                             app:layout_constraintStart_toEndOf="@+id/CheapestCostTitle"
                             app:layout_constraintTop_toBottomOf="@+id/DetailsTitle" />
-
-                        <ImageButton
-                            android:id="@+id/CheapestSaveRouteButton"
-                            android:layout_width="37dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="36dp"
-                            android:scaleType="centerInside"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/CheapestTotalDistanceTitle"
-                            app:srcCompat="@drawable/favorite_inactive" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -358,13 +334,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/DetailsFastestCard"
-                    android:layout_width="352dp"
-                    android:layout_height="298dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="20dp"
                     android:elevation="4dp"
                     android:foregroundGravity="center"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.609"
@@ -375,17 +351,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginVertical="8dp">
-
-                        <ImageButton
-                            android:id="@+id/FastestShareRouteButton"
-                            android:layout_width="37dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="248dp"
-                            android:layout_marginTop="36dp"
-                            android:scaleType="centerInside"
-                            app:layout_constraintStart_toEndOf="@+id/FastestSaveRouteButton"
-                            app:layout_constraintTop_toBottomOf="@+id/FastestTotalDistanceTitle"
-                            app:srcCompat="@drawable/nav_start" />
 
                         <TextView
                             android:id="@+id/FastestDurationText"
@@ -500,21 +465,10 @@
                             android:layout_marginTop="12dp"
                             android:fontFamily="@font/poppins_bold"
                             android:text="---"
-                            android:textColor="@color/black"
+                            android:textColor="@color/east_west"
                             android:textSize="14sp"
                             app:layout_constraintStart_toEndOf="@+id/FastestCostTitle"
                             app:layout_constraintTop_toBottomOf="@+id/FastestDetailTitle" />
-
-                        <ImageButton
-                            android:id="@+id/FastestSaveRouteButton"
-                            android:layout_width="37dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="36dp"
-                            android:scaleType="centerInside"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/FastestTotalDistanceTitle"
-                            app:srcCompat="@drawable/favorite_inactive" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -526,11 +480,11 @@
     </ScrollView>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/navFragmentContainerView6"
+        android:id="@+id/navFragmentContainerView2"
         android:name="sg.edu.np.mad.travelapp.NavbarFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="visible"
+        tools:layout_editor_absoluteY="5dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
