@@ -70,10 +70,10 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="API_KEY"
-            android:value="AIzaSyCnu98m6eMKGjpCfOfSMHFfa2bwbPZ0UcI" />
+            android:value="${MAPS_API_KEY}" />
         <meta-data
             android:name="GEOCODE_API_KEY"
-            android:value="AIzaSyDZcZNMqbqnZOLJ3FQNZVZTzCh4LGZW14Q" />
+            android:value="${GEOCODE_API_KEY}" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
