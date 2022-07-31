@@ -48,6 +48,7 @@ public class NavbarFragment extends Fragment {
         ImageView favIcon = getView().findViewById(R.id.favIcon);
         ImageView homeIcon = getView().findViewById(R.id.homeIcon);
         ImageView nearbyIcon = getView().findViewById(R.id.nearbyIcon);
+        ImageView calculatorIcon = getView().findViewById(R.id.calculatorIcon);
 
         homeOutCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         homeInCardView.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
@@ -60,6 +61,8 @@ public class NavbarFragment extends Fragment {
             nearbyIcon.setImageResource(R.drawable.nearby_active);
         } else if (getActivity() instanceof  ViewFavourites){
             favIcon.setImageResource(R.drawable.favorite);
+        } else if (getActivity() instanceof FareCalculator){
+            calculatorIcon.setImageResource(R.drawable.calculator_active);
         }
 
         homeIcon.setOnClickListener(fragView -> {
@@ -82,6 +85,13 @@ public class NavbarFragment extends Fragment {
                 Intent ViewFavourites = new Intent(getActivity(), ViewFavourites.class);
                 ViewFavourites.putExtra(LOCATION, userLocation);
                 startActivity(ViewFavourites);
+            }
+        });
+
+        calculatorIcon.setOnClickListener(fragView ->{
+            if (!(getActivity() instanceof FareCalculator)) {
+                Intent ViewCalculator = new Intent(getActivity(), FareCalculator.class);
+                startActivity(ViewCalculator);
             }
         });
     }

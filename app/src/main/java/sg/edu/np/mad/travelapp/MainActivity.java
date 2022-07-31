@@ -1,6 +1,7 @@
 package sg.edu.np.mad.travelapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
@@ -46,7 +48,7 @@ public class MainActivity extends BaseActivity {
     private ArrayList<String> query;
 
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
-    private final ArrayList<SpannableString> predictionsList = new ArrayList<>();
+
 
     private FirebaseAuth mAuth;
 
@@ -87,12 +89,52 @@ public class MainActivity extends BaseActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        /* --- Autocomplete Suggestions --- */
-        Places.initialize(getApplicationContext(), GetAPIKey());
-        PlacesClient placesClient = Places.createClient(this);
-        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        // Initialize AutoCompleteTextView for Google API Places AutoComplete
         AutoCompleteTextView searchTextBox = findViewById(R.id.mainSearchTextbox);
-        ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(this, android.R.layout.simple_list_item_1, predictionsList);
+        InitializeGoogleAC(searchTextBox, getApplicationContext(), GetAPIKey(this, "API_KEY"));
+
+        //Intent to Login Page
+        ImageView profileIcon = findViewById(R.id.mainProfilePic);
+        profileIcon.setOnClickListener(view -> {
+            Intent Login = new Intent(getApplicationContext(), Login.class);
+            startActivity(Login);
+        });
+
+        searchButton.setOnClickListener(view -> {
+            String searchQuery = searchTextBox.getText().toString();
+            Intent SearchBusStop = new Intent(getApplicationContext(), Search.class);
+            SearchBusStop.putExtra("query", searchQuery);
+            SearchBusStop.putExtra(LOCATION, userLocation);
+            startActivity(SearchBusStop);
+        });
+    }
+
+    // TODO: Generalize
+    public String GetAPIKey(Context context, String keyName) {
+        try{
+            ApplicationInfo info = context.getApplicationContext()
+                    .getPackageManager()
+                    .getApplicationInfo(context.getApplicationContext().getPackageName(),
+                            PackageManager.GET_META_DATA);
+            String key = info.metaData.get(keyName).toString();
+            return key;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
+    public void InitializeGoogleAC(AutoCompleteTextView ACTV, Context AppContext, String APIKey){
+        Log.v("MainActivity", "Initializing Google Places API for " + ACTV.getId());
+        Log.v("MainActivity", "API Key: " + APIKey);
+        final ArrayList<SpannableString> predictionsList = new ArrayList<>();
+        /* --- Autocomplete Suggestions --- */
+        // Places.initialize(getApplicationContext(), GetAPIKey());
+        Places.initialize(AppContext, GetAPIKey(AppContext, "API_KEY"));
+        PlacesClient placesClient = Places.createClient(AppContext);
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        AutoCompleteTextView searchTextBox = ACTV;
+        ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(AppContext.getApplicationContext(), android.R.layout.simple_list_item_1, predictionsList);
         searchTextBox.setAdapter(arrayAdapter);
 
         /* --- Search Debounce --- */
@@ -129,13 +171,6 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-        //Intent to Login Page
-        ImageView profileIcon = findViewById(R.id.mainProfilePic);
-        profileIcon.setOnClickListener(view -> {
-            Intent Login = new Intent(getApplicationContext(), Login.class);
-            startActivity(Login);
-        });
-
         // TODO: Implement observer pattern
         searchTextBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -156,28 +191,5 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-
-        searchButton.setOnClickListener(view -> {
-            String searchQuery = searchTextBox.getText().toString();
-            Intent SearchBusStop = new Intent(getApplicationContext(), Search.class);
-            SearchBusStop.putExtra("query", searchQuery);
-            SearchBusStop.putExtra(LOCATION, userLocation);
-            startActivity(SearchBusStop);
-        });
-    }
-
-    // TODO: Generalize
-    private String GetAPIKey(){
-        try{
-            ApplicationInfo info = this.getApplicationContext()
-                    .getPackageManager()
-                    .getApplicationInfo(this.getApplicationContext().getPackageName(),
-                            PackageManager.GET_META_DATA);
-            String key = info.metaData.get("API_KEY").toString();
-            return key;
-        }
-        catch(Exception e){
-            return null;
-        }
     }
 }
