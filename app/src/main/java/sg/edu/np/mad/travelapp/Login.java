@@ -70,7 +70,8 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            reload();
+            Intent profileIntent = new Intent(Login.this, Profile.class);
+            startActivity(profileIntent);
         }
     }
     // [END on_start_check_user]
@@ -91,9 +92,8 @@ public class Login extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed.",
+                            Toast.makeText(getApplicationContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            Toast.makeText(Login.this, "Auth Failed!", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }

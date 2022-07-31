@@ -71,6 +71,7 @@ Contributions of each student:
       * Implement Autocomplete Suggestions (XML & Google Place Autocomplete API)
       * Implement responsive layout
       * General bug fixes
+      * Implement Fare Calculator
   * App submission
       * Playstore Screenshots
 
@@ -95,6 +96,7 @@ Contributions of each student:
     * Android
         * Implement User Location
         * Implement Navigation Bar Fragment
+        * Implement App Widget
 
 ## Acknowledgments
 

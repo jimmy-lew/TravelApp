@@ -1,6 +1,7 @@
 package sg.edu.np.mad.travelapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
@@ -52,6 +54,7 @@ public class MainActivity extends BaseActivity {
     private final RouteAdapter favouriteRoutesAdapter = new RouteAdapter();
     private Location userLocation;
     private ArrayList<String> query;
+
     private Timer myTimer = new Timer();
     private LateNotification lateNotif = new LateNotification();
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
@@ -106,74 +109,15 @@ public class MainActivity extends BaseActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        /* --- Autocomplete Suggestions --- */
-        Places.initialize(getApplicationContext(), GetAPIKey());
-        PlacesClient placesClient = Places.createClient(this);
-        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        // Initialize AutoCompleteTextView for Google API Places AutoComplete
         AutoCompleteTextView searchTextBox = findViewById(R.id.mainSearchTextbox);
-        ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(this, android.R.layout.simple_list_item_1, predictionsList);
-        searchTextBox.setAdapter(arrayAdapter);
-
-        /* --- Search Debounce --- */
-        long delay = 500; // delay to request
-        long last_text_edit = 0;
-        Handler handler = new Handler();
-
-        /* Debouncer function to only send request to google api when user stops typing */
-        Runnable CheckInputFinish = new Runnable() {
-            public void run() {
-                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
-                    FindAutocompletePredictionsRequest predictRequest = FindAutocompletePredictionsRequest.builder()
-                            .setCountries("SG")
-                            .setSessionToken(token)
-                            .setQuery(searchTextBox.getText().toString())
-                            .build();
-
-                    placesClient.findAutocompletePredictions(predictRequest).addOnSuccessListener((FindAutocompletePredictionsResponse) -> {
-                        predictionsList.clear();
-                        for (AutocompletePrediction prediction : FindAutocompletePredictionsResponse.getAutocompletePredictions()) {
-                            SpannableString predictionString = prediction.getFullText(STYLE_BOLD);
-                            predictionsList.add(predictionString);
-                        }
-                        arrayAdapter.clear();
-                        arrayAdapter.addAll(predictionsList);
-                        arrayAdapter.notifyDataSetChanged();
-
-                    }).addOnFailureListener((exception) -> {
-                        if (exception instanceof ApiException) {
-                            ApiException apiException = (ApiException) exception;
-                        }
-                    });
-                }
-            }
-        };
+        InitializeGoogleAC(searchTextBox, getApplicationContext(), GetAPIKey(this, "API_KEY"));
 
         //Intent to Login Page
         ImageView profileIcon = findViewById(R.id.mainProfilePic);
         profileIcon.setOnClickListener(view -> {
             Intent Login = new Intent(getApplicationContext(), Login.class);
             startActivity(Login);
-        });
-
-        // TODO: Implement observer pattern
-        searchTextBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(final CharSequence s, int start, int before, int count) {
-                //You need to remove this to run only once
-                handler.removeCallbacks(CheckInputFinish);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //avoid triggering event when text is empty
-                if (s.length() > 0) {
-                    long last_text_edit = System.currentTimeMillis();
-                    handler.postDelayed(CheckInputFinish, delay);
-                }
-            }
         });
 
         searchButton.setOnClickListener(view -> {
@@ -183,27 +127,5 @@ public class MainActivity extends BaseActivity {
             SearchBusStop.putExtra(LOCATION, userLocation);
             startActivity(SearchBusStop);
         });
-    }
-
-
-    // TODO: Generalize
-    private String GetAPIKey(){
-        try{
-            ApplicationInfo info = this.getApplicationContext()
-                    .getPackageManager()
-                    .getApplicationInfo(this.getApplicationContext().getPackageName(),
-                            PackageManager.GET_META_DATA);
-            String key = info.metaData.get("API_KEY").toString();
-            return key;
-        }
-        catch(Exception e){
-            return null;
-        }
-    }
-    @Override
-    protected void onPause(){
-        super.onPause();
-        // Stops the timer when the app is on background
-        this.myTimer.cancel();
     }
 }
