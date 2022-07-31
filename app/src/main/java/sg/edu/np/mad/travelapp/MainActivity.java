@@ -21,6 +21,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.Places;
@@ -34,6 +40,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
@@ -43,9 +52,13 @@ public class MainActivity extends BaseActivity {
     private final BusTimingCardAdapter nearbyAdapter = new BusTimingCardAdapter(BUS_STOP_REPO.getNearbyCache());
     private final BusTimingCardAdapter favouriteStopsAdapter = new BusTimingCardAdapter(BUS_STOP_REPO.getFavouritesCache());
     private final RouteAdapter favouriteRoutesAdapter = new RouteAdapter();
-
     private Location userLocation;
     private ArrayList<String> query;
+
+    private Timer myTimer = new Timer();
+    private LateNotification lateNotif = new LateNotification();
+    private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
+    private final ArrayList<SpannableString> predictionsList = new ArrayList<>();
 
     private FirebaseAuth mAuth;
 
@@ -54,6 +67,16 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* Notifications */
+        TimerTask myTask = new TimerTask () {
+            @Override
+            public void run () {
+                lateNotif.CheckBusTimings(getApplicationContext());
+            }
+        };
+        myTimer.scheduleAtFixedRate(myTask , (60 * 1000), (60 * 1000)); // Runs every 1 min
+
 
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
 
