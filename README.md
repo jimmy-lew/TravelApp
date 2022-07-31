@@ -82,7 +82,10 @@ Contributions of each student:
     * Android
         * Implement Expandable Bus Timing Card
         * Implement Favourites
-        * Implement Autocomplete Suggestions
+        * Implement Autocomplete Suggestions (Google Place Autocomplete API)
+        * Implement Map Fragment & View (Google Maps API)
+        * Implement Late Detection Notification
+        * General bug fixes
     * Firebase
         * Implement RTDB
     
