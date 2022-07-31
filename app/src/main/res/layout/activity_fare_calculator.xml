@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -34,12 +36,12 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="28dp"
+                    android:backgroundTint="#00810F0F"
                     android:scaleType="fitCenter"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.074"
                     app:layout_constraintStart_toEndOf="@+id/CardView"
                     app:layout_constraintTop_toBottomOf="@+id/ActivityTitle"
-                    app:srcCompat="@drawable/nav_start" />
+                    app:srcCompat="@drawable/location" />
 
                 <Spinner
                     android:id="@+id/spinner"
@@ -483,7 +485,6 @@
         android:name="sg.edu.np.mad.travelapp.NavbarFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        tools:layout_editor_absoluteY="5dp" />
+        android:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

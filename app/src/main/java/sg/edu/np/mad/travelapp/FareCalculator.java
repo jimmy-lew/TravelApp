@@ -112,6 +112,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
 
         // Get Location button (Beside the "from" search)
         userLocationButton.setOnClickListener(view ->{
+            Toast.makeText(FareCalculator.this, "Getting your current location...", Toast.LENGTH_SHORT).show();
             GetCurrentLocation();
         });
 
@@ -164,10 +165,10 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
             Log.v(TAG, "Origin: " + origin.getLat() + "," + origin.getLng());
 
             // Update (31/7/22, 9:11PM) : API Support for Raw String Addresses for Destinations. >> removed need to geocode for destination
-//            SimpleLocation destination = new SimpleLocation();
-//            destination.setLat(FromToCoordinates.get(1).get(0));
-//            destination.setLng(FromToCoordinates.get(1).get(1));
-//            Log.v(TAG, "Destination: " + destination.getLat() + "," + destination.getLng());
+            // SimpleLocation destination = new SimpleLocation();
+            // destination.setLat(FromToCoordinates.get(1).get(0));
+            // destination.setLng(FromToCoordinates.get(1).get(1));
+            // Log.v(TAG, "Destination: " + destination.getLat() + "," + destination.getLng());
             String destination = ((AutoCompleteTextView)findViewById(R.id.DestinationTextBox)).getText().toString();
 
             // Call API to Get Routes
