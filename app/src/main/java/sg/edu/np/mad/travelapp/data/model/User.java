@@ -10,6 +10,7 @@ public class User {
 
     private String UserID;
     private ArrayList<String> FavouritesList;
+    private Analytics Analytics;
 
     // Constructor
     public User(){ }
@@ -32,7 +33,5 @@ public class User {
         return FavouritesList;
     }
 
-    public void setFavouritesList(ArrayList<String> favouritesList) {
-        this.FavouritesList = favouritesList;
-    }
+    public void setFavouritesList(ArrayList<String> favouritesList) { this.FavouritesList = favouritesList; }
 }
