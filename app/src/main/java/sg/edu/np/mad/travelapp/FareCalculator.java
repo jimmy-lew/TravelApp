@@ -1,4 +1,6 @@
 package sg.edu.np.mad.travelapp;
+// By: Addison Chua Jie Yi, S10222525B
+// FYI : Synchronous Calls causes errors > Network on Main thread thing
 
 import android.Manifest;
 import android.content.Context;
@@ -79,6 +81,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         setContentView(R.layout.activity_fare_calculator);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        // Initializing Display Elements
         Button computeButton = findViewById(R.id.ComputeButton);
         ImageButton userLocationButton = findViewById(R.id.UseLocationButton);
         AutoCompleteTextView originTextView = findViewById(R.id.OriginTextbox);
@@ -93,7 +96,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-
+        // Compute Button Click Event > Compute Fare
         computeButton.setOnClickListener(view -> {
             String origin = originTextView.getText().toString();
             String destination = destinationTextView.getText().toString();
@@ -135,11 +138,13 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
             for (RouteFare rf : rfList) {
                 if (rf.getFare() == null) return;
             }
+            // If API returns all the data then display the data.
             SetDisplay(rfList,1);
             SetDisplay(rfList,2);
         });
     }
 
+    // getFareList Function > Calls Geocode Function, then calls API to get routes based on Geocode Locations
     private void getFareList(final OnComplete<ArrayList<RouteFare>> onComplete) {
         //Async Function, Returns value of "ArrayList<RouteFare>" to callback method after getting data from API
         GeocodeLocation(FromToCoordinates ->{
@@ -153,7 +158,6 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                 }
             }
 
-            // Get Fare List (after receiving coordinates)
             SimpleLocation origin = new SimpleLocation();
             origin.setLat(FromToCoordinates.get(0).get(0));
             origin.setLng(FromToCoordinates.get(0).get(1));
@@ -195,6 +199,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
 
     }
 
+    // GeocodeLocation Function > Geocodes Addresses into Coordinates (Using Google API)
     private void GeocodeLocation(final OnComplete<List<List<Double>>> onComplete) {
         String origin = ((AutoCompleteTextView)findViewById(R.id.OriginTextbox)).getText().toString();
         String destination = ((AutoCompleteTextView)findViewById(R.id.DestinationTextBox)).getText().toString();
@@ -217,12 +222,14 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                     .enqueue(new Callback() {
                         @Override
                         public void onFailure(final Call call, IOException e) {
+                            // If API Request Fails, Show Toast Message
                             Log.v(TAG, "API Geocode Failed");
                             ToastGeocodeFailed.show();
                         }
 
                         @Override
                         public void onResponse(Call call, final Response response) throws IOException {
+                            // If API Response is successful, geocode location into coordinates
                             String res = response.body().string();
                             Log.v(TAG, "[API] Geocode Response: " + res);
                             try {
@@ -235,7 +242,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                                 coordinates.add(Longitude);
                                 FromToCoordsList.add(coordinates);
                                 Log.v(TAG, "[Geocode] Latitude: " + Latitude + " Longitude: " + Longitude);
-                                // Call Callback Function
+                                // Call Callback Function > "return" values after getting API response
                                 onComplete.execute(FromToCoordsList);
                             }
                             catch (Exception e) {
@@ -247,7 +254,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         }
     }
 
-
+    // GetFareType Function > Gets Spinner Value to be used as the "Fare Type" when calculating/calling the API
     public String GetFareType() {
         // [ToDo] Get Fare Type from User Settings (still waiting for ryan zzz)
         // (update | 31/7/22 5:31am): I will just do a dropdown.
@@ -256,6 +263,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         return text.toLowerCase();
     }
 
+    // GetCurrentLocation Function > Gets User Current (approximate) location
     private void GetCurrentLocation() {
         Log.v(TAG, "BOOL: " + String.valueOf(ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED));
         if (ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -285,17 +293,20 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         }
     }
 
+    // SetCurrentLocation Function > Sets User Current Location Into the Origin TextBox
     private void SetCurrentLocation(Location location){
         AutoCompleteTextView originTextView = findViewById(R.id.OriginTextbox);
         originTextView.setText(location.getLatitude() + ", " + location.getLongitude());
     }
 
+    // SetDisplay > Insert information into the display cards
     private void SetDisplay(ArrayList<RouteFare> routeFares, int option){
         Log.v(TAG, "Setting Display!");
         switch (option){
             case 1: // Display Cheapest
                 int index = 0;
                 Double cheapestFare = 0.0;
+                // -- Calculating & Comparing routes to find the Cheapest (based on Fare type)
                 RouteFare cheapestRoute = new RouteFare();
                 for (RouteFare routeFare : routeFares) {
                     if (index == 0) {
@@ -307,8 +318,9 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                         cheapestRoute = routeFare;
                     }
                     index++;
+                    Log.v(TAG,"[Cheapest] Fare: " + routeFare.getFare() + " | " + cheapestRoute.getRoute());
                 }
-                 // Putting Values into the Display Cards
+                // Displaying Information
                 TextView Cost = findViewById(R.id.CheapestCostText);
                 Cost.setText("$" + cheapestFare/100 + " SGD");
                 TextView Duration = findViewById(R.id.CheapestDurationText);
@@ -322,6 +334,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
             case 2: // Display Fastest
                 index = 0;
                 Double fastestDuration = 0.0;
+                // -- Calculating & Comparing routes to find the Fastest (least amount of time)
                 RouteFare fastestRoute = new RouteFare();
                 for (RouteFare rf : routeFares){
                     if (index == 0){
@@ -333,7 +346,9 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                         fastestRoute = rf;
                     }
                     index++;
+                    Log.v(TAG,"[FASTEST] Duration: " + rf.getTotalDuration() + " | " + fastestRoute.getTotalDuration());
                 }
+                // Displaying Information
                 Double fare = Double.parseDouble(fastestRoute.getFare())/100;
                 TextView fCost = findViewById(R.id.FastestCostText);
                 fCost.setText("$" + fare + " SGD");
@@ -347,7 +362,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         }
     }
 
-    @Override
+    @Override // Listener for Spinner, Shows Toast Message when an option is clicked
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String text = adapterView.getItemAtPosition(i).toString();
         Toast.makeText(adapterView.getContext(), "Selected " + text + " Fare Type", Toast.LENGTH_SHORT).show();
