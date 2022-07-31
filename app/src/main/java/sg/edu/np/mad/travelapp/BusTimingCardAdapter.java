@@ -29,7 +29,7 @@ import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdapter.ViewHolder> {
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool(); // Allows for sharing of view with nested recyclers
-    private ArrayList<BusStop> busStopList = new ArrayList<>();
+    private ArrayList<BusStop> busStopList;
     private User user;
     private final DatabaseReference REF = FirebaseDatabase.getInstance().getReference("users");
 
@@ -43,15 +43,11 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
         user = new User("1", new ArrayList<String>());
     }
 
-    public BusTimingCardAdapter(ArrayList<BusStop> busStopList, User user){
-        this.busStopList = busStopList;
-        this.user = user;
-    }
-
     public void setBusStopList(ArrayList<BusStop> busStopList) {
         this.busStopList = busStopList;
         this.notifyDataSetChanged();
     }
+
     public void setUser(User user) {
         this.user = user;
         this.notifyDataSetChanged();
@@ -60,32 +56,23 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.bus_timing_card,
-                parent,
-                false
-        );
-
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.bus_timing_card, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(position);
-    }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) { holder.onBind(position); }
 
     @Override
-    public int getItemCount() {
-        return busStopList.size();
-    }
+    public int getItemCount() { return busStopList.size(); }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView rootView;
 
         TextView stopNameTextView, stopIDTextView;
-        ImageView lateImageView, weatherImageView, favouriteImageView1, favouriteImageView2, refreshImageView;
+        ImageView lateImageView, weatherImageView, favouriteImageView2, refreshImageView;
         Group hiddenGroup;
 
         RecyclerView busRecycler;
@@ -98,7 +85,6 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
 
             lateImageView = itemView.findViewById(R.id.isLateImageView);
             weatherImageView = itemView.findViewById(R.id.isRainingImageView);
-            //favouriteImageView1 = itemView.findViewById(R.id.isFavouriteImageView);
             favouriteImageView2 = itemView.findViewById(R.id.favouriteImgView);
             refreshImageView = itemView.findViewById(R.id.busTimingRefresh);
 
@@ -141,10 +127,7 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
             /* Refresh bus timings */
             refreshImageView.setOnClickListener(view -> {
                 String query = busStop.getCode();
-                BusStopRepository.getInstance().getBusStopTimings(query, serviceList -> {
-                    busTimingRowAdapter.setServiceList(serviceList);
-                    busTimingRowAdapter.notifyDataSetChanged(); // TODO: Add data observer to refresh displayed information by Bus Item
-                });
+                BusStopRepository.getInstance().getBusStopTimings(query, busTimingRowAdapter::setServiceList);
             });
 
             /* Setup nested recycler */

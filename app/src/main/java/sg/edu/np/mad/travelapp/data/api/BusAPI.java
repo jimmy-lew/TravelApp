@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.Route;
 import sg.edu.np.mad.travelapp.data.model.Service;
 
 /**
@@ -25,4 +26,10 @@ public interface BusAPI {
 
     @GET("timings/name")
     Call<ArrayList<BusStop>> getBusStopsByName(@Query("stops") ArrayList<String> query);
+
+    @GET("route")
+    Call<ArrayList<Route>> getRoute(@Query("origin") String origin, @Query("destination") String destination);
+
+    @GET("route/name")
+    Call<ArrayList<Route>> getRouteByName(@Query("origin") String origin, @Query("destination") String destination);
 }
