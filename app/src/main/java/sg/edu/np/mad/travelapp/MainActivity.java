@@ -47,9 +47,6 @@ public class MainActivity extends BaseActivity {
     private Location userLocation;
     private ArrayList<String> query;
 
-    private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
-
-
     private FirebaseAuth mAuth;
 
     @SuppressLint({"MissingPermission", "NotifyDataSetChanged"})
@@ -106,90 +103,6 @@ public class MainActivity extends BaseActivity {
             SearchBusStop.putExtra("query", searchQuery);
             SearchBusStop.putExtra(LOCATION, userLocation);
             startActivity(SearchBusStop);
-        });
-    }
-
-    // TODO: Generalize
-    public String GetAPIKey(Context context, String keyName) {
-        try{
-            ApplicationInfo info = context.getApplicationContext()
-                    .getPackageManager()
-                    .getApplicationInfo(context.getApplicationContext().getPackageName(),
-                            PackageManager.GET_META_DATA);
-            String key = info.metaData.get(keyName).toString();
-            return key;
-        }
-        catch(Exception e){
-            return null;
-        }
-    }
-
-    public void InitializeGoogleAC(AutoCompleteTextView ACTV, Context AppContext, String APIKey){
-        Log.v("MainActivity", "Initializing Google Places API for " + ACTV.getId());
-        Log.v("MainActivity", "API Key: " + APIKey);
-        final ArrayList<SpannableString> predictionsList = new ArrayList<>();
-        /* --- Autocomplete Suggestions --- */
-        // Places.initialize(getApplicationContext(), GetAPIKey());
-        Places.initialize(AppContext, GetAPIKey(AppContext, "API_KEY"));
-        PlacesClient placesClient = Places.createClient(AppContext);
-        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
-        AutoCompleteTextView searchTextBox = ACTV;
-        ArrayAdapter<SpannableString> arrayAdapter = new ArrayAdapter<SpannableString>(AppContext.getApplicationContext(), android.R.layout.simple_list_item_1, predictionsList);
-        searchTextBox.setAdapter(arrayAdapter);
-
-        /* --- Search Debounce --- */
-        long delay = 500; // delay to request
-        long last_text_edit = 0;
-        Handler handler = new Handler();
-
-        /* Debouncer function to only send request to google api when user stops typing */
-        Runnable CheckInputFinish = new Runnable() {
-            public void run() {
-                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
-                    FindAutocompletePredictionsRequest predictRequest = FindAutocompletePredictionsRequest.builder()
-                            .setCountries("SG")
-                            .setSessionToken(token)
-                            .setQuery(searchTextBox.getText().toString())
-                            .build();
-
-                    placesClient.findAutocompletePredictions(predictRequest).addOnSuccessListener((FindAutocompletePredictionsResponse) -> {
-                        predictionsList.clear();
-                        for (AutocompletePrediction prediction : FindAutocompletePredictionsResponse.getAutocompletePredictions()) {
-                            SpannableString predictionString = prediction.getFullText(STYLE_BOLD);
-                            predictionsList.add(predictionString);
-                        }
-                        arrayAdapter.clear();
-                        arrayAdapter.addAll(predictionsList);
-                        arrayAdapter.notifyDataSetChanged();
-
-                    }).addOnFailureListener((exception) -> {
-                        if (exception instanceof ApiException) {
-                            ApiException apiException = (ApiException) exception;
-                        }
-                    });
-                }
-            }
-        };
-
-        // TODO: Implement observer pattern
-        searchTextBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(final CharSequence s, int start, int before, int count) {
-                //You need to remove this to run only once
-                handler.removeCallbacks(CheckInputFinish);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //avoid triggering event when text is empty
-                if (s.length() > 0) {
-                    long last_text_edit = System.currentTimeMillis();
-                    handler.postDelayed(CheckInputFinish, delay);
-                }
-            }
         });
     }
 }

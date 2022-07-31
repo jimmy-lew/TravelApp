@@ -91,6 +91,7 @@ public class NavbarFragment extends Fragment {
         calculatorIcon.setOnClickListener(fragView ->{
             if (!(getActivity() instanceof FareCalculator)) {
                 Intent ViewCalculator = new Intent(getActivity(), FareCalculator.class);
+                ViewCalculator.putExtra(LOCATION, userLocation);
                 startActivity(ViewCalculator);
             }
         });

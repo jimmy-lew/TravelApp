@@ -70,16 +70,20 @@ import sg.edu.np.mad.travelapp.ui.BaseActivity;
 
 public class FareCalculator extends BaseActivity implements AdapterView.OnItemSelectedListener{
     private static final String TAG = "FareCalculator";
-    private FusedLocationProviderClient fusedLocationClient;
     double total = 0;
-
-    MainActivity mainActivity = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fare_calculator);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        Location location = getIntent().getParcelableExtra(LOCATION);
+
+        if (location == null) {
+            getUserLocation(this::initializeNavbar);
+        } else {
+            initializeNavbar(location);
+        }
 
         // Initializing Display Elements
         Button computeButton = findViewById(R.id.ComputeButton);
@@ -113,13 +117,13 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         // Get Location button (Beside the "from" search)
         userLocationButton.setOnClickListener(view ->{
             Toast.makeText(FareCalculator.this, "Getting your current location...", Toast.LENGTH_SHORT).show();
-            GetCurrentLocation();
+            SetCurrentLocation(location);
         });
 
         /* --- Initializing AutoCompleteTextView w/ Google AutoComplete Suggestions --- */
-        String API_Key = mainActivity.GetAPIKey(this,"API_KEY");
-        mainActivity.InitializeGoogleAC(originTextView, this, API_Key);
-        mainActivity.InitializeGoogleAC(destinationTextView, this, API_Key);
+        String API_Key = GetAPIKey(this,"API_KEY");
+        InitializeGoogleAC(originTextView, this, API_Key);
+        InitializeGoogleAC(destinationTextView, this, API_Key);
     }
 
 
@@ -184,9 +188,6 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                         total = 0;
                         for (Step step : leg.getSteps()) {
                             if (step.getMode().equals("WALKING")) continue;
-//                        Log.v(TAG, "Distance: " + step.getDistance());
-//                        Log.v(TAG, "String: " + String.format("%s_%s", step.getDistance().split(" ")[0], step.getMode()));
-//                        Log.v(TAG, "Boolean:" + step.getMode().equals("WALKING"));
                             transitModeCost.add(String.format("%s_%s", step.getDistance().split(" ")[0], step.getMode()));
                         }
                     }
@@ -217,7 +218,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         for (String Location : toGeocode){
             OkHttpClient client = new OkHttpClient();
             String Country = "SG";
-            String URL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + Location + "&components=country:" + Country + "&key=" + mainActivity.GetAPIKey(this,"GEOCODE_API_KEY");
+            String URL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + Location + "&components=country:" + Country + "&key=" + GetAPIKey(this,"GEOCODE_API_KEY");
             Request request = new Request.Builder()
                     .url(URL)
                     .build();
@@ -265,36 +266,6 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         String text = mySpinner.getSelectedItem().toString();
         return text.toLowerCase();
-    }
-
-    // GetCurrentLocation Function > Gets User Current (approximate) location
-    private void GetCurrentLocation() {
-        Log.v(TAG, "BOOL: " + String.valueOf(ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED));
-        if (ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FareCalculator.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-            CurrentLocationRequest request = new CurrentLocationRequest.Builder()
-                    .setDurationMillis(Long.MAX_VALUE)
-                    .setGranularity(Granularity.GRANULARITY_FINE)
-                    .setMaxUpdateAgeMillis(0)
-                    .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                    .build();
-
-            fusedLocationClient.getCurrentLocation(request, null).addOnSuccessListener(this, location -> {
-                if (location != null){
-                    Log.v(TAG, "User Location: " + location.getLatitude() + "," + location.getLongitude());
-                    SetCurrentLocation(location);
-                }else{
-                    Log.v(TAG, "Location is Null");
-                    Toast.makeText(getApplicationContext(), "Unable to Get Location", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-        else{
-            Log.v(TAG, "Location Permissions Not Granted");
-            Toast.makeText(getApplicationContext(), "Location Permissions Not Granted, Please enable location permission in the system settings.", Toast.LENGTH_LONG).show();
-            // Request permission
-            ActivityCompat.requestPermissions(FareCalculator.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
     }
 
     // SetCurrentLocation Function > Sets User Current Location Into the Origin TextBox
