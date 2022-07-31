@@ -87,7 +87,7 @@
                     android:layout_marginBottom="32dp"
                     app:cardCornerRadius="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/calculatorView"
                     app:layout_constraintStart_toEndOf="@+id/homeOutCardView"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -104,6 +104,34 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@string/nearbyIcon"
                             app:srcCompat="@drawable/nearby" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/calculatorView"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="32dp"
+                    app:cardCornerRadius="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/nearbyOutCardView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/CalculatorViewInner"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center|center_horizontal|center_vertical"
+                        android:outlineProvider="none">
+
+                        <ImageView
+                            android:id="@+id/calculatorIcon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/calculatorIcon"
+                            app:srcCompat="@drawable/calculator" />
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>

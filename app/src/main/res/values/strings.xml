@@ -3,6 +3,7 @@
     <string name="favIcon">favIcon</string>
     <string name="homeIcon">homeIcon</string>
     <string name="nearbyIcon">nearbyIcon</string>
+    <string name ="calculatorIcon">calculatorIcon</string>
     <string name="title_activity_view_favourites">ViewFavourites</string>
     <string name="title_activity_profile">Profile</string>
     <!-- Strings used for fragments for navigation -->
@@ -15,6 +16,16 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <!--- Strings used for calculator spinner -->
+    <string-array name="fareType">
+        <item>Student</item>
+        <item>Adult</item>
+        <item>Senior</item>
+        <item>Workfare</item>
+        <item>Disability</item>
+    </string-array>
+    
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
