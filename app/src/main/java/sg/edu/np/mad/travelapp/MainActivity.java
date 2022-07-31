@@ -1,40 +1,18 @@
 package sg.edu.np.mad.travelapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.SpannableString;
-import android.text.TextWatcher;
-import android.text.style.CharacterStyle;
-import android.text.style.StyleSpan;
-import android.util.Log;
-import android.widget.ArrayAdapter;
+
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
-import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -42,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
@@ -55,12 +32,8 @@ public class MainActivity extends BaseActivity {
     private Location userLocation;
     private ArrayList<String> query;
 
-    private Timer myTimer = new Timer();
-    private LateNotification lateNotif = new LateNotification();
-    private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
-    private final ArrayList<SpannableString> predictionsList = new ArrayList<>();
-
-    private FirebaseAuth mAuth;
+    private final Timer myTimer = new Timer();
+    private final LateNotification lateNotif = new LateNotification();
 
     @SuppressLint({"MissingPermission", "NotifyDataSetChanged"})
     @Override
@@ -77,11 +50,18 @@ public class MainActivity extends BaseActivity {
         };
         myTimer.scheduleAtFixedRate(myTask , (60 * 1000), (60 * 1000)); // Runs every 1 min
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser == null) {
+            startActivity(new Intent(getApplicationContext(), SignUp.class));
+            return;
+        }
 
         ImageButton searchButton = findViewById(R.id.mainSearchButton);
 
         initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
         initializeRecycler(favouriteStopsAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
+        initializeRecycler(favouriteRoutesAdapter, findViewById(R.id.favRoutesRecyclerView), false);
 
         /* Gets user location and passes into callback to get list of nearby bus stops, their serices, their respective timings
         and update adapter's information to display on activity*/
@@ -92,16 +72,18 @@ public class MainActivity extends BaseActivity {
         });
 
         /* Listens to changes in user favourites and updates adapters accordingly */
-        REF.child("1").addValueEventListener(new ValueEventListener() {
+        REF.child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                nearbyAdapter.setUser(user);
-                favouriteStopsAdapter.setUser(user);
-
                 assert user != null;
 
+                nearbyAdapter.setUser(user);
+                favouriteStopsAdapter.setUser(user);
+                favouriteRoutesAdapter.setUser(user);
+
                 query = user.getFavouritesList();
+                favouriteRoutesAdapter.setRouteList(user.getFavouriteRoutes());
                 BusStopRepository.getInstance().getBusStopsByName(query, favouriteStopsAdapter::setBusStopList);
             }
 
@@ -122,10 +104,10 @@ public class MainActivity extends BaseActivity {
 
         searchButton.setOnClickListener(view -> {
             String searchQuery = searchTextBox.getText().toString();
-            Intent SearchBusStop = new Intent(getApplicationContext(), Search.class);
-            SearchBusStop.putExtra("query", searchQuery);
-            SearchBusStop.putExtra(LOCATION, userLocation);
-            startActivity(SearchBusStop);
+            Intent Search = new Intent(getApplicationContext(), Search.class);
+            Search.putExtra("query", searchQuery);
+            Search.putExtra(LOCATION, userLocation);
+            startActivity(Search);
         });
     }
 }

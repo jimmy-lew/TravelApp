@@ -3,6 +3,9 @@ package sg.edu.np.mad.travelapp;
 import android.location.Location;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 import sg.edu.np.mad.travelapp.ui.BaseActivity;
@@ -21,6 +24,8 @@ public class ViewBusStops extends BaseActivity {
 
         location = getIntent().getParcelableExtra(LOCATION);
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         initializeRecycler(adapter, findViewById(R.id.nearbyBusRecycler), false);
 
         /* ASYNC: Check if activity recieved a location, else get user location and display nearby bus stops */
@@ -36,7 +41,7 @@ public class ViewBusStops extends BaseActivity {
         }
 
         /* ASYNC: Retrieve user information once & update data accordingly */
-        REF.child("1").get().addOnCompleteListener(task -> {
+        REF.child(currentUser.getUid()).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) return;
             User user = task.getResult().getValue(User.class);
             adapter.setUser(user);

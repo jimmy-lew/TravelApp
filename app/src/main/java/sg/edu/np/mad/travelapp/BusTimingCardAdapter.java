@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.travelapp.data.model.BusStop;
+import sg.edu.np.mad.travelapp.data.model.Route;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.repository.BusStopRepository;
 
@@ -34,12 +35,12 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
 
     public BusTimingCardAdapter(){
         busStopList = new ArrayList<BusStop>();
-        user = new User("1", new ArrayList<String>());
+        user = new User("1", new ArrayList<String>(), new ArrayList<Route>());;
     }
 
     public BusTimingCardAdapter(ArrayList<BusStop> busStopList){
         this.busStopList = busStopList;
-        user = new User("1", new ArrayList<String>());
+        user = new User("1", new ArrayList<String>(), new ArrayList<Route>());;
     }
 
     public void setBusStopList(ArrayList<BusStop> busStopList) {
@@ -64,14 +65,17 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) { holder.onBind(position); }
 
     @Override
-    public int getItemCount() { return busStopList.size(); }
+    public int getItemCount() {
+        if (busStopList == null) return 0;
+        return busStopList.size();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView rootView;
 
         TextView stopNameTextView, stopIDTextView;
-        ImageView lateImageView, weatherImageView, favouriteImageView2, refreshImageView;
+        ImageView lateImageView, weatherImageView, favouriteImageView, favouriteImageView2, refreshImageView;
         Group hiddenGroup;
 
         RecyclerView busRecycler;
@@ -84,6 +88,7 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
 
             lateImageView = itemView.findViewById(R.id.isLateImageView);
             weatherImageView = itemView.findViewById(R.id.isRainingImageView);
+            favouriteImageView = itemView.findViewById(R.id.isFavouriteImageView);
             favouriteImageView2 = itemView.findViewById(R.id.favouriteImgView);
             refreshImageView = itemView.findViewById(R.id.busTimingRefresh);
 
@@ -96,20 +101,35 @@ public class BusTimingCardAdapter extends RecyclerView.Adapter<BusTimingCardAdap
             BusStop busStop = busStopList.get(position);
             BusTimingRowAdapter busTimingRowAdapter = new BusTimingRowAdapter(busStop.getServiceList());
             ArrayList<String> favouritesList = user.getFavouritesList();
-
-            boolean isFavourite = favouritesList.contains(busStop.getName());
+            final boolean[] isFavourite = {favouritesList != null && favouritesList.contains(busStop.getName())};
 
             stopNameTextView.setText(busStop.getName());
             stopIDTextView.setText(busStop.getCode());
 
             /* Toggle on/off favourite status */
-            favouriteImageView2.setImageResource(isFavourite ? R.drawable.favorite : R.drawable.favorite_inactive);
+            favouriteImageView.setImageResource(isFavourite[0] ? R.drawable.favorite : R.drawable.favorite_inactive);
+            favouriteImageView2.setImageResource(isFavourite[0] ? R.drawable.favorite : R.drawable.favorite_inactive);
 
             /* Toggle on/off favourite status and update RTDB */
             favouriteImageView2.setOnClickListener(view -> {
-                favouriteImageView2.setImageResource(isFavourite ? R.drawable.favorite_inactive : R.drawable.favorite);
-                if (isFavourite) favouritesList.remove(busStop.getName());
+                favouriteImageView.setImageResource(isFavourite[0] ? R.drawable.favorite_inactive : R.drawable.favorite);
+                favouriteImageView2.setImageResource(isFavourite[0] ? R.drawable.favorite_inactive : R.drawable.favorite);
+                if (isFavourite[0]) favouritesList.remove(busStop.getName());
                 else favouritesList.add(busStop.getName());
+
+                isFavourite[0] = !isFavourite[0];
+
+                user.setFavouritesList(favouritesList);
+                REF.child(user.getUserID()).setValue(user);
+            });
+
+            favouriteImageView.setOnClickListener(view -> {
+                favouriteImageView.setImageResource(isFavourite[0] ? R.drawable.favorite_inactive : R.drawable.favorite);
+                favouriteImageView2.setImageResource(isFavourite[0] ? R.drawable.favorite_inactive : R.drawable.favorite);
+                if (isFavourite[0]) favouritesList.remove(busStop.getName());
+                else favouritesList.add(busStop.getName());
+
+                isFavourite[0] = !isFavourite[0];
 
                 user.setFavouritesList(favouritesList);
                 REF.child(user.getUserID()).setValue(user);

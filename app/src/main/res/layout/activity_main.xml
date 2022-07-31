@@ -153,6 +153,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/FavStopsContraint"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
@@ -184,28 +185,36 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!--    <TextView-->
-                        <!--        android:id="@+id/textView2"-->
-                        <!--        android:layout_width="wrap_content"-->
-                        <!--        android:layout_height="wrap_content"-->
-                        <!--        android:layout_marginStart="32dp"-->
-                        <!--        android:layout_marginTop="87dp"-->
-                        <!--        android:fontFamily="@font/poppins_bold"-->
-                        <!--        android:text="Saved Routes"-->
-                        <!--        android:textColor="@color/black"-->
-                        <!--        android:textSize="24sp"-->
-                        <!--        android:textStyle="bold"-->
-                        <!--        app:layout_constraintStart_toStartOf="parent"-->
-                        <!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/FavStopsContraint">
 
-                        <!--    <androidx.recyclerview.widget.RecyclerView-->
-                        <!--        android:id="@+id/savedRoutesRecyclerView"-->
-                        <!--        android:layout_width="382dp"-->
-                        <!--        android:layout_height="108dp"-->
-                        <!--        android:layout_marginTop="7dp"-->
-                        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-                        <!--        app:layout_constraintStart_toStartOf="parent"-->
-                        <!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/poppins_bold"
+                                android:text="Favourite Routes"
+                                android:textColor="@color/black"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/favRoutesRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="8dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

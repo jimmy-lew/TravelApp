@@ -26,7 +26,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
 
-public class SignUp extends AppCompatActivity {
+import sg.edu.np.mad.travelapp.data.model.User;
+import sg.edu.np.mad.travelapp.ui.BaseActivity;
+
+public class SignUp extends BaseActivity {
 
     private static final String TAG = "Sign Up";
     // [START declare_auth]
@@ -111,8 +114,8 @@ public class SignUp extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent profileIntent = new Intent(SignUp.this, Profile.class);
-                            startActivity(profileIntent);
+                            REF.child(user.getUid()).setValue(new User(user.getUid()));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
