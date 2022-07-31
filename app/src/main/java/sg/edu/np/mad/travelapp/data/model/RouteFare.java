@@ -60,6 +60,7 @@ public class RouteFare {
             }
         }
         if (total != 0) {
+            total = Math.round(total * 100.0) / 100.0;  // Round to 2DP
             walkingDist = String.valueOf(total);
         }
         return walkingDist;

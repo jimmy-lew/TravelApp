@@ -81,10 +81,10 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
 
         Button computeButton = findViewById(R.id.ComputeButton);
         ImageButton userLocationButton = findViewById(R.id.UseLocationButton);
-        CardView cheapestCard = findViewById(R.id.DetailsCheapestCard);
-        CardView fastestCard = findViewById(R.id.DetailsFastestCard);
         AutoCompleteTextView originTextView = findViewById(R.id.OriginTextbox);
         AutoCompleteTextView destinationTextView = findViewById(R.id.DestinationTextBox);
+        CardView cheapestCard = findViewById(R.id.DetailsCheapestCard);
+        CardView fastestCard = findViewById(R.id.DetailsFastestCard);
 
         // Initialize Spinner (Dropdown);
         Spinner spinner = findViewById(R.id.spinner);
@@ -101,6 +101,8 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
             {
                 Toast.makeText(FareCalculator.this, "Please enter origin and destination", Toast.LENGTH_SHORT).show();
             } else {
+                cheapestCard.setVisibility(View.VISIBLE);
+                fastestCard.setVisibility(View.VISIBLE);
                 Compute(); // Run Compute Function
             }
         });
@@ -289,8 +291,9 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
     }
 
     private void SetDisplay(ArrayList<RouteFare> routeFares, int option){
+        Log.v(TAG, "Setting Display!");
         switch (option){
-            case 1:
+            case 1: // Display Cheapest
                 int index = 0;
                 Double cheapestFare = 0.0;
                 RouteFare cheapestRoute = new RouteFare();
@@ -316,7 +319,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                 NumSteps.setText(cheapestRoute.getNoSteps() + " Steps");
                 break;
 
-            case 2:
+            case 2: // Display Fastest
                 index = 0;
                 Double fastestDuration = 0.0;
                 RouteFare fastestRoute = new RouteFare();
@@ -337,7 +340,7 @@ public class FareCalculator extends BaseActivity implements AdapterView.OnItemSe
                 TextView fDuration = findViewById(R.id.FastestDurationText);
                 fDuration.setText(fastestRoute.getTotalDuration());
                 TextView fDistance = findViewById(R.id.FastestTotalDistanceText);
-                fDistance.setText(String.format(fastestRoute.getWalkingDistance(), 2f) + " KM");
+                fDistance.setText(fastestRoute.getWalkingDistance() + " KM");
                 TextView fNumSteps = findViewById(R.id.FastestStepText);
                 fNumSteps.setText(fastestRoute.getNoSteps() + " Steps");
                 break;
