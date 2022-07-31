@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity {
 
         // Initialize AutoCompleteTextView for Google API Places AutoComplete
         AutoCompleteTextView searchTextBox = findViewById(R.id.mainSearchTextbox);
-        InitializeGoogleAC(searchTextBox, getApplicationContext(), GetAPIKey(this));
+        InitializeGoogleAC(searchTextBox, getApplicationContext(), GetAPIKey(this, "API_KEY"));
 
         //Intent to Login Page
         ImageView profileIcon = findViewById(R.id.mainProfilePic);
@@ -110,13 +110,13 @@ public class MainActivity extends BaseActivity {
     }
 
     // TODO: Generalize
-    public String GetAPIKey(Context context) {
+    public String GetAPIKey(Context context, String keyName) {
         try{
             ApplicationInfo info = context.getApplicationContext()
                     .getPackageManager()
                     .getApplicationInfo(context.getApplicationContext().getPackageName(),
                             PackageManager.GET_META_DATA);
-            String key = info.metaData.get("API_KEY").toString();
+            String key = info.metaData.get(keyName).toString();
             return key;
         }
         catch(Exception e){
@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity {
         final ArrayList<SpannableString> predictionsList = new ArrayList<>();
         /* --- Autocomplete Suggestions --- */
         // Places.initialize(getApplicationContext(), GetAPIKey());
-        Places.initialize(AppContext, GetAPIKey(AppContext));
+        Places.initialize(AppContext, GetAPIKey(AppContext, "API_KEY"));
         PlacesClient placesClient = Places.createClient(AppContext);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
         AutoCompleteTextView searchTextBox = ACTV;
