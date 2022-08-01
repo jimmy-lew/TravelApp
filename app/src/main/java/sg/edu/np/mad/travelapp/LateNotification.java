@@ -57,16 +57,6 @@ public class LateNotification {
         // Acts as a way to "wait" for the API to store the nearby cache
         if (cache == null) return;
 
-        ArrayList<Service> serviceListNew = new ArrayList<>();
-        ArrayList<Bus> busListNew = new ArrayList<>();
-        ArrayList<BusStop> busStopListNew = new ArrayList<>();
-        Bus busNew = new Bus("10 mins", "SEA", "WAB","DD");
-        busListNew.add(busNew);
-        Service serviceNew = new Service("50", busListNew);
-        serviceListNew.add(serviceNew);
-        SimpleLocation simpleLocationNew = new SimpleLocation(1.404944, 103.909134);
-        BusStop busStopNew = new BusStop(simpleLocationNew, "Damai Stn Exit A", "65309", serviceListNew);
-        busStopListNew.add(busStopNew);
         //Creating the list of estimated times of the cached bus stops
         ArrayList<String> cacheTimeList = CreateTimeList(cache);
         // Adding each bus stop's codes from cache into codeList
@@ -81,8 +71,8 @@ public class LateNotification {
                 // Checking if the estimated time remained the same (same = late!)
                 if (time.equals(cacheTimeList.get(newTimeList.indexOf(time)))){
                     // Getting the serviceNo and the name of the late bus and bus stop
-                    String serviceNo = serviceNoList.get(newTimeList.indexOf(time));
-                    String busStopName = busStopNameList.get(newTimeList.indexOf(time));
+                    String serviceNo = serviceNoList.get(cacheTimeList.indexOf(time));
+                    String busStopName = busStopNameList.get(cacheTimeList.indexOf(time));
                     String content = String.format("Bus %s at %s may be late!", serviceNo, busStopName);
                     sendNotification(context, content);
                 }

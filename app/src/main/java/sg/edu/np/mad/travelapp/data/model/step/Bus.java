@@ -32,7 +32,6 @@ public class Bus extends Step {
             holder.rideCode.setText(getDetails().getLine().getName());
 
             holder.rideDuration.setText(duration);
-            holder.rideTime.setText(getDetails().getArrTime());
             holder.rideDestination.setText(getDetails().getTo());
             holder.rideOrigin.setText(getDetails().getFrom());
         }

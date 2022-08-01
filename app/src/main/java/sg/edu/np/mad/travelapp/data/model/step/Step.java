@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 import sg.edu.np.mad.travelapp.data.model.Details;
 
+
 public class Step implements Parcelable, IBindable
 {
     @SerializedName("distance")

@@ -79,6 +79,11 @@ public class SimpleLocation implements Parcelable
         return  0;
     }
 
+    /**
+     * Converts a {@link Location} to a {@link SimpleLocation} object
+     * @param location Location to convert
+     * @return {@link SimpleLocation} object
+     */
     public static SimpleLocation fromAndroidLocation(Location location){
         return new SimpleLocation(location.getLatitude(), location.getLongitude());
     }

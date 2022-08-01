@@ -13,11 +13,15 @@ import sg.edu.np.mad.travelapp.data.api.RetrofitClient;
 import sg.edu.np.mad.travelapp.data.model.Route;
 import sg.edu.np.mad.travelapp.data.model.SimpleLocation;
 
+/**
+ * Repository to retrieve {@link Route} information from API
+ */
 public class RouteRepository implements IRepository {
     private static RouteRepository _instance = null;
 
     private RouteRepository() {}
 
+    /* Singleton pattern to ensure only one instance of the client is created / exists */
     public static synchronized RouteRepository getInstance() {
         return _instance == null ? _instance = new RouteRepository() : _instance;
     }

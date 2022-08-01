@@ -42,7 +42,6 @@ public class Train extends Step{
             holder.rideCodeBg.setColor(ContextCompat.getColor(context, line.getColorCode()));
 
             holder.rideDuration.setText(duration);
-            holder.rideTime.setText(getDetails().getArrTime());
             holder.rideDestination.setText(getDetails().getTo());
             holder.rideOrigin.setText(getDetails().getFrom());
         }

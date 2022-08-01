@@ -20,7 +20,7 @@ import sg.edu.np.mad.travelapp.data.model.Service;
 public class BusStopRepository implements IRepository {
 
     private static BusStopRepository _instance = null;
-    public ArrayList<BusStop> nearbyCache = new ArrayList<>(); // TODO: implement caching
+    public ArrayList<BusStop> nearbyCache = new ArrayList<>();
     public ArrayList<BusStop> favouritesCache = new ArrayList<>();
 
     private BusStopRepository(){ }

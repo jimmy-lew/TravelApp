@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity {
 
         initializeRecycler(nearbyAdapter, findViewById(R.id.nearbyRecyclerView), true);
         initializeRecycler(favouriteStopsAdapter, findViewById(R.id.favouriteStopsRecyclerView), true);
-        initializeRecycler(favouriteRoutesAdapter, findViewById(R.id.favRoutesRecyclerView), false);
+        initializeRecycler(favouriteRoutesAdapter, findViewById(R.id.favRoutesRecyclerView), true);
 
         /* Gets user location and passes into callback to get list of nearby bus stops, their serices, their respective timings
         and update adapter's information to display on activity*/
@@ -82,9 +82,8 @@ public class MainActivity extends BaseActivity {
                 favouriteStopsAdapter.setUser(user);
                 favouriteRoutesAdapter.setUser(user);
 
-                query = user.getFavouritesList();
                 favouriteRoutesAdapter.setRouteList(user.getFavouriteRoutes());
-                BusStopRepository.getInstance().getBusStopsByName(query, favouriteStopsAdapter::setBusStopList);
+                BusStopRepository.getInstance().getBusStopsByName(user.getFavouritesList(), favouriteStopsAdapter::setBusStopList);
             }
 
             @Override

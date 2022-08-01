@@ -69,6 +69,10 @@ public class Route implements Parcelable
         return  0;
     }
 
+    /**
+     * Casts Step superclass into respective subclasses
+     * @return StepList populated with respective Step subclasses
+     */
     public ArrayList<Step> getStepList()
     {
         ArrayList<Step> stepList = new ArrayList<Step>();

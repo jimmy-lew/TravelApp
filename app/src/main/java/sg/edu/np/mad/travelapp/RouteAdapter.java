@@ -1,5 +1,6 @@
 package sg.edu.np.mad.travelapp;
 
+import android.annotation.SuppressLint;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import sg.edu.np.mad.travelapp.data.model.Route;
 import sg.edu.np.mad.travelapp.data.model.User;
 import sg.edu.np.mad.travelapp.data.model.step.Step;
 
+@SuppressLint("NotifyDataSetChanged")
 public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> {
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
@@ -46,11 +48,8 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.route_card,
-                parent,
-                false
-        );
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.route_card, parent, false);
         return new ViewHolder(view);
     }
 
@@ -93,12 +92,14 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
 
             favouriteButton.setImageResource(isFavourite[0] ? R.drawable.favorite : R.drawable.favorite_inactive);
 
+            // Toggle visibility of expanded step list
             rootView.setOnClickListener(view -> {
                 boolean isVisible = expandedStepRecycler.getVisibility() == View.VISIBLE;
                 TransitionManager.beginDelayedTransition(rootView, new AutoTransition());
                 expandedStepRecycler.setVisibility(isVisible ? View.GONE : View.VISIBLE);
             });
 
+            // Toggle favourite state and update database
             favouriteButton.setOnClickListener(view -> {
                 favouriteButton.setImageResource(isFavourite[0] ? R.drawable.favorite_inactive : R.drawable.favorite);
                 if (isFavourite[0]) favRoutes.remove(route);
@@ -112,10 +113,10 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
 
             FlexboxLayoutManager minifiedLayoutManager = new FlexboxLayoutManager(
                     minifiedStepRecycler.getContext(),
-                    FlexDirection.ROW,
-                    FlexWrap.WRAP
+                    FlexDirection.ROW, // Sets direction to row
+                    FlexWrap.WRAP // Enables wrapping of content
             );
-            minifiedLayoutManager.setJustifyContent(JustifyContent.FLEX_START);
+            minifiedLayoutManager.setJustifyContent(JustifyContent.FLEX_START); // Sets content alignment to start
 
             LinearLayoutManager expandedLayoutManager = new LinearLayoutManager(
                     expandedStepRecycler.getContext(),
@@ -125,10 +126,12 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> 
 
             expandedLayoutManager.setInitialPrefetchItemCount(stepList.size());
 
+            // Initialize expandedStepRecycler
             expandedStepRecycler.setLayoutManager(expandedLayoutManager);
             expandedStepRecycler.setAdapter(eAdapter);
             expandedStepRecycler.setRecycledViewPool(viewPool);
 
+            // Initialize minifiedStepRecycler
             minifiedStepRecycler.setLayoutManager(minifiedLayoutManager);
             minifiedStepRecycler.setAdapter(mAdapter);
             minifiedStepRecycler.setRecycledViewPool(viewPool);
