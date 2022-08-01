@@ -60,7 +60,7 @@ Contributions of each student:
     * App submission
   
 * Addison Chua Jie Yi - S10222525
-  >[![Wakatime](https://wakatime.com/badge/user/34d1de78-2bb7-440f-af5f-bf6a3a24305c/project/3779a0b1-97ec-4ec3-8184-59aa520e9517.svg)](https://wakatime.com/badge/user/34d1de78-2bb7-440f-af5f-bf6a3a24305c/project/3779a0b1-97ec-4ec3-8184-59aa520e9517)
+  >[![wakatime](https://wakatime.com/badge/user/34d1de78-2bb7-440f-af5f-bf6a3a24305c/project/8b763afc-c620-487e-92f7-1f9c945daeb3.svg)](https://wakatime.com/badge/user/34d1de78-2bb7-440f-af5f-bf6a3a24305c/project/8b763afc-c620-487e-92f7-1f9c945daeb3)
   * Design 
       * 3D Phone Models (For Banner & Playstore Screenshots)
       * Homepage (MainActivity.xml)
