@@ -101,6 +101,16 @@ Contributions of each student:
     
   
 * Ryan Lim Junquan - S10192609
+    * Firebase
+        * Authentication
+            * Register Password-Based Account
+            * Email and Password Sign-in
+    * Android
+        * Implement User Location
+        * Implement Weather API
+        * Implement Update User Password
+        * Implement Reminder Creation
+        * Implement Notification based on Reminder
 
     
 * Lucas Ho - S10227850
@@ -110,6 +120,7 @@ Contributions of each student:
         * Implement User Location
         * Implement Navigation Bar Fragment
         * Implement App Widget
+        * Implement Profile Page
 
 ## Acknowledgments
 
