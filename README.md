@@ -60,6 +60,8 @@ Contributions of each student:
         * Code documentation
         * Code upkeep & refactoring
     * Custom API
+        * [Repo](https://github.com/Jimmy-Lew/travelah-api)
+        * [API Link](https://travelah-api.onrender.com)
     * Firebase
         * Implement RTDB
     * App submission
