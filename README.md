@@ -47,10 +47,15 @@ Contributions of each student:
         * Design UI / UX
     * Android
         * Implement Bus Timing Card Triple Nested Recycler
+        * Implement Routes FlexboxLayout Double Nested Recycler
         * Implement Bus Timing API
-        * Implement Bus Search
+        * Implement Services API
+        * Implement Routes API
+        * Implement Bus Search [Depracated]
+        * Implement Route Search
         * Implement & Synchronize other misc features
         * Implement responsive layout
+        * Implement individualized favourites
         * General bug fixes
         * Code documentation
         * Code upkeep & refactoring
