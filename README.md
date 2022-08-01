@@ -42,6 +42,8 @@ Don't know whether you should walk or run? Check bus timings for stops across th
   
 Contributions of each student:
 
+* [Notion feature DB](https://notjim.notion.site/f0a2958149f34f05b46b6247d220801e?v=f11fb950357148049f0e5158bd37aed2)
+
 * Jimmy Lew Kwong Yi - S10219505
     * Design 
         * Design UI / UX
