@@ -71,6 +71,7 @@ Contributions of each student:
   * Design 
       * 3D Phone Models (For Banner & Playstore Screenshots)
       * Homepage (MainActivity.xml)
+      * Fare Calculator (activity_fare_calculator.xml)
   * Android
       * Implement Bus Timing API
       * Implement Bus Related Classes (Bus & Bus Stop)
