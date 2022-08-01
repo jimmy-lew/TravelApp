@@ -100,7 +100,7 @@ Contributions of each student:
         * Implement RTDB
     
   
-* Ryan Lim Junquan - S10192609
+* Lim Junquan Ryan - S10192609
     * Firebase
         * Authentication
             * Register Password-Based Account
